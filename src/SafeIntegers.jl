@@ -67,8 +67,43 @@ stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
 
+for USafe in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
+    for U in (:UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
+       if sizeof($USafe) >= sizeof(U)
+           Base.promote_rule($USafe, $U) = $USafe
+       else
+           Base.promote_rule($USafe, $U) = stype($U)
+       end
+    end
+    for I in (:Int8, :Int16, :Int32, :Int64, :Int128)
+       if sizeof($USafe) >= sizeof(I)
+           Base.promote_rule($USafe, $I) = $USafe
+       else
+           Base.promote_rule($USafe, $I) = unsigned(stype($I))
+       end
+    end
+end
+
+for ISafe in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
+    for U in (:UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
+       if sizeof($ISafe) >= sizeof(U)
+           Base.promote_rule($ISafe, $U) = $ISafe
+       else
+           Base.promote_rule($ISafe, $U) = signed(stype($U))
+       end
+    end
+    for I in (:Int8, :Int16, :Int32, :Int64, :Int128)
+       if sizeof($ISafe) >= sizeof(I)
+           Base.promote_rule($ISafe, $I) = $ISafe
+       else
+           Base.promote_rule($ISafe, $I) = stype($I)
+       end
+    end
+end
+
+                     , I in ( (UInt8, 
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} =
-    promote_type(T, itype(SI))
+    promote_type(T, SI))
 Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} =
     promote_type(T, SU)
 
