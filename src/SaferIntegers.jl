@@ -1,4 +1,4 @@
-# SaferIntegers := reinterpret(SafeIntegers, RoundingIntegers⦃Tim Holy⦄)
+# SafeIntegers := reinterpret(SafeIntegers, RoundingIntegers⦃Tim Holy⦄)
 
 module SaferIntegers
 
@@ -8,8 +8,9 @@ export SafeUnsigned, SafeSigned, SafeInteger,
        safeint, notsafe
 
 import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
-import Base.Checked: checked_abs, checked_neg, checked_add, checked_sub,
-    checked_mul, checked_div, checked_fld, checked_cld, checked_rem, checked_mod
+import Base.Checked: checked_abs, checked_neg, checked_add,
+    checked_sub, checked_mul, checked_div, checked_fld,
+	checked_cld, checked_rem, checked_mod
 
 abstract type SafeUnsigned <: Unsigned end
 abstract type SafeSigned   <: Signed   end
@@ -38,7 +39,6 @@ end
 itype(::Type{SafeInteger})  = Integer
 itype(::Type{SafeSigned})   = Signed
 itype(::Type{SafeUnsigned}) = Unsigned
-
 itype(::Type{SafeInt8})     = Int8
 itype(::Type{SafeUInt8})    = UInt8
 itype(::Type{SafeInt16})    = Int16
@@ -49,13 +49,10 @@ itype(::Type{SafeInt64})    = Int64
 itype(::Type{SafeUInt64})   = UInt64
 itype(::Type{SafeInt128})   = Int128
 itype(::Type{SafeUInt128})  = UInt128
+itype(x::SafeInteger) = itype(typeof(x))
 
-@inline itype(x::SI) where SI<:SafeInteger = itype(typeof(x))
-
-stype(::Type{Integer})  = SafeInteger
 stype(::Type{Signed})   = SafeSigned
 stype(::Type{Unsigned}) = SafeUnsigned
-
 stype(::Type{Int8})     = SafeInt8
 stype(::Type{UInt8})    = SafeUInt8
 stype(::Type{Int16})    = SafeInt16
@@ -66,9 +63,7 @@ stype(::Type{Int64})    = SafeInt64
 stype(::Type{UInt64})   = SafeUInt64
 stype(::Type{Int128})   = SafeInt128
 stype(::Type{UInt128})  = SafeUInt128
-
-@inline stype(x::SI) where SI <:SafeInteger = stype(typeof(x))
-
+stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
 
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
@@ -142,10 +137,9 @@ Base.convert(::Type{T}, x::Float16) where {T<:SafeInteger} = SafeInteger(convert
 Base.convert(::Type{Bool}, x::SafeInteger) = convert(Bool, Integer(x))
 
 # rem conversions
-@inline checked_rem(x::T, ::Type{T}) where {T<:SafeInteger} = T
-@inline checked_rem(x::Integer, ::Type{T}) where {T<:SafeInteger} = SafeInteger(rem(x, itype(T)))
-# ambs
-@inline checked_rem(x::BigInt, ::Type{T}) where {T<:SafeInteger} = error("no rounding BigInt available")
+@inline Base.rem(x::T, ::Type{T}) where {T<:SafeInteger} = T
+@inline Base.rem(x::Integer, ::Type{T}) where {T<:SafeInteger} = SafeInteger(rem(x, itype(T)))
+@inline Base.rem(x::BigInt, ::Type{T}) where {T<:SafeInteger} = error("no rounding BigInt available")
 
 Base.signbit(x::SafeSigned) = signbit(Integer(x))
 Base.sign(x::SafeSigned)    = sign(Integer(x))
@@ -170,16 +164,16 @@ Base.copysign(x::SafeSigned, y::SafeSigned) = SafeInteger(copysign(Integer(x), I
 (|)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) | Integer(y))
 (⊻)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) ⊻ Integer(y))
 
-(>> )(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) >> y)
+(>> )(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) >>  y)
 (>>>)(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) >>> y)
-(<< )(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) << y)
-(>> )(x::SafeInteger, y::Unsigned) = SafeInteger(Integer(x) >> y)
+(<< )(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) <<  y)
+(>> )(x::SafeInteger, y::Unsigned) = SafeInteger(Integer(x) >>  y)
 (>>>)(x::SafeInteger, y::Unsigned) = SafeInteger(Integer(x) >>> y)
-(<< )(x::SafeInteger, y::Unsigned) = SafeInteger(Integer(x) << y)
-# ambs
-(>> )(x::SafeInteger, y::Int) = SafeInteger(Integer(x) >> y)
+(<< )(x::SafeInteger, y::Unsigned) = SafeInteger(Integer(x) <<  y)
+
+(>> )(x::SafeInteger, y::Int) = SafeInteger(Integer(x) >>  y)
 (>>>)(x::SafeInteger, y::Int) = SafeInteger(Integer(x) >>> y)
-(<< )(x::SafeInteger, y::Int) = SafeInteger(Integer(x) << y)
+(<< )(x::SafeInteger, y::Int) = SafeInteger(Integer(x) <<  y)
 
 (-)(x::T) where {T<:SafeInteger} = SafeInteger(checked_neg(Integer(x)))
 (+)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(checked_add(Integer(x), Integer(y)))
@@ -222,4 +216,3 @@ Base.string(x::T) where T<:SafeInteger = string( Integer(x) )
 Base.show(io::IO, x::T) where T<:SafeInteger = print(io, string(x) )
 
 end # module SafeIntegers
-
