@@ -101,9 +101,8 @@ for ISafe in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
     end
 end
 
-                     , I in ( (UInt8, 
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} =
-    promote_type(T, SI))
+    promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} =
     promote_type(T, SU)
 
