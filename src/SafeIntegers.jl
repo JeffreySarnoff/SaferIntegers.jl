@@ -197,18 +197,10 @@ safe(x::T) where T<:Integer = reinterpret(stype(T), x)
 
 # showing
 
-const SafeOpen = "("
-const SafeClose = ")"
-const SafeSignedPrefix = "ISafe("
-const SafeUnsignedPrefix = "USafe("
-
-bitwidth(::Type{T}) where T = sizeof(T)+sizeof(T)+sizeof(T)
-
 Base.string(x::T) where {T<:SafeSigned} = string(unsafe(x))
-
-Base.string(x::T) where {T<:SafeUnsigned} =
-    string(SafeSignedPrefix, bitwidth(T), SafeOpen, unsafe(x), SafeClose)
+Base.string(x::T) where {T<:SafeUnsigned} = string(unsafe(x))
     
-Base.show(io::IO, x::T) where T<:SafeInteger = print(io, string(unsafe(x)))
+Base.show(io::IO, x::T) where T<:SafeUnsigned = print(io, string(x))
+Base.show(io::IO, x::T) where T<:SafeSigned = print(io, string(x))
 
 end # module SafeIntegers
