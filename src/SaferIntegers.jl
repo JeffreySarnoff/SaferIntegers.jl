@@ -35,8 +35,6 @@ else
     const SafeUInt = SafeUInt64
 end
 
-@inline itype(x::SI) where SI<:SafeInteger = itype(typeof(x))
-
 itype(::Type{SafeInteger})  = Integer
 itype(::Type{SafeSigned})   = Signed
 itype(::Type{SafeUnsigned}) = Unsigned
@@ -52,7 +50,7 @@ itype(::Type{SafeUInt64})   = UInt64
 itype(::Type{SafeInt128})   = Int128
 itype(::Type{SafeUInt128})  = UInt128
 
-@inline stype(x::SI) where SI <:SafeInteger = stype(typeof(x))
+@inline itype(x::SI) where SI<:SafeInteger = itype(typeof(x))
 
 stype(::Type{Integer})  = SafeInteger
 stype(::Type{Signed})   = SafeSigned
@@ -68,6 +66,9 @@ stype(::Type{Int64})    = SafeInt64
 stype(::Type{UInt64})   = SafeUInt64
 stype(::Type{Int128})   = SafeInt128
 stype(::Type{UInt128})  = SafeUInt128
+
+@inline stype(x::SI) where SI <:SafeInteger = stype(typeof(x))
+
 
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
