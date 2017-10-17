@@ -3,8 +3,8 @@
 module SafeIntegers
 
 export SafeUnsigned, SafeSigned, SafeInteger,
-       SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
-       SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
+       SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
+       SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
        safe, unsafe
 
 import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
@@ -68,7 +68,7 @@ stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
 # and to be soapy with non-integer-esque numbers (including BigInt).
 
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} =
-    promote_type(T, SI)
+    promote_type(T, itype(SI))
 Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} =
     promote_type(T, SU)
 #=
