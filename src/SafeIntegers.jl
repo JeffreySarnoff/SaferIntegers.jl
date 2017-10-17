@@ -71,7 +71,7 @@ Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} =
     promote_type(T, itype(SI))
 Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} =
     promote_type(T, SU)
-#=
+
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Real, SI<:SafeInteger} =
     promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Number, SI<:SafeInteger} =
@@ -79,7 +79,6 @@ Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Number, SI<:SafeInteger} =
 
 Base.promote_rule(::Type{Rational{T}}, ::Type{SI}) where {T<:Integer, SI<:SafeInteger} =
     promote_type(T, SI)
-=#
 
 # Resolve ambiguities
 Base.promote_rule(::Type{Bool}, ::Type{SI}) where {SI<:SafeInteger} =
@@ -147,7 +146,6 @@ Base.sign(x::SafeSigned)    = sign(Integer(x))
 Base.abs(x::SafeSigned)     = abs(Integer(x))
 Base.abs2(x::SafeSigned)    = abs2(Integer(x))
 
-#(==)(x::SafeInteger, y::SafeInteger) = Integer(x) == Integer(y)
 (< )(x::SafeInteger, y::SafeInteger) = Integer(x) <  Integer(y)
 (<=)(x::SafeInteger, y::SafeInteger) = Integer(x) <= Integer(y)
 
