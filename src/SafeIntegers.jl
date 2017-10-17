@@ -192,8 +192,8 @@ Base.typemax(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemax(itype(T)))
 Base.widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
 
 # foldable toolkit
-unsafe(x::T) where T<:SafeInteger = reinterpret(itype(T), x)
-safe(x::T) where T<:Integer = reinterpret(stype(T), x)
+unsafe(x::T) where T<:SafeInteger = reinterpret(itype(x), x)
+safe(x::T) where T<:Integer = reinterpret(stype(x), x)
 
 # showing
 
