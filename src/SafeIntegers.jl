@@ -178,4 +178,4 @@ Base.typemin(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemin(itype(T)))
 Base.typemax(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemax(itype(T)))
 Base.widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
 
-end SafeIntegers
+end # module SafeIntegers
