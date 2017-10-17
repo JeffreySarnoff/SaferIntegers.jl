@@ -1,6 +1,6 @@
 # SafeIntegers := reinterpret(SafeIntegers, RoundingIntegers⦃Tim Holy⦄)
 
-module SafeIntegers
+module SaferIntegers
 
 export SafeUnsigned, SafeSigned, SafeInteger,
        SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
