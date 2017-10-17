@@ -4,10 +4,6 @@
 
 ------------
 
-## I am messing with it -- wait until this is not a message (a couple of hours)
-
-------------
-
 #### Give them a whirl.
 
 Just put here (thank you Tim Holy -- this is the best of copy and paste).
