@@ -206,7 +206,7 @@ bitwidth(::Type{T}) where T = sizeof(T)+sizeof(T)+sizeof(T)
 
 Base.string(x::T) where {T<:SafeSigned} = string(unsafe(x))
 
-Base.string(x::T) where {T<:SafeUnsgned} =
+Base.string(x::T) where {T<:SafeUnsigned} =
     string(SafeSignedPrefix, bitwidth(T), SafeOpen, unsafe(x), SafeClose)
     
 Base.show(io::IO, x::T) where T<:SafeInteger = print(io, string(unsafe(x)))
