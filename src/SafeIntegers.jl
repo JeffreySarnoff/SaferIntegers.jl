@@ -61,8 +61,21 @@ stype(::Type{Int128})  = SafeInt128
 stype(::Type{UInt128}) = SafeUInt128
 stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
 
+# We want the *Safety* to be sticky with familiar integer-like numbers
+# and to be soapy with non-integer-esque numbers (including BigInt).
+
+Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} =
+    promote_type(T, SI)
+Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} =
+    promote_type(T, SU)
+Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Real, SI<:SafeInteger} =
+    promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Number, SI<:SafeInteger} =
     promote_type(T, itype(SI))
+
+Base.promote_rule(::Type{R} ::Type{SI}) where {R<:Rational{T}, T<:Integer, SI<:SafeInteger} =
+    Rational{ promote_type(stype(T), SI) }
+
 # Resolve ambiguities
 Base.promote_rule(::Type{Bool}, ::Type{SI}) where {SI<:SafeInteger} =
     promote_type(Bool, itype(SI))
@@ -72,8 +85,6 @@ Base.promote_rule(::Type{BigFloat}, ::Type{SI}) where {SI<:SafeInteger} =
     promote_type(BigFloat, itype(SI))
 Base.promote_rule(::Type{Complex{T}}, ::Type{SI}) where {T<:Real,SI<:SafeInteger} =
     promote_type(Complex{T}, itype(SI))
-Base.promote_rule(::Type{Rational{T}}, ::Type{SI}) where {T<:Integer,SI<:SafeInteger} =
-    promote_type(Rational{T}, itype(SI))
 Base.promote_rule(::Type{<:Irrational}, ::Type{SI}) where {SI<:SafeInteger} =
     promote_type(Float64, itype(SI))
 
