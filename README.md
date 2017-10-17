@@ -1,4 +1,4 @@
-, ## SaferIntegers
+## SaferIntegers
 
 ##### Jeffrey Sarnoff (2017-10-17T13:22Z in Manhattan, NY USA)
 
