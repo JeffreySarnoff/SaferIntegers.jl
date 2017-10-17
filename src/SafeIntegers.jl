@@ -190,4 +190,27 @@ Base.typemin(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemin(itype(T)))
 Base.typemax(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemax(itype(T)))
 Base.widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
 
+# showing
+
+const SafeOpen = "("
+const SafeClose = ")"
+const SafeSignedPrefix = "ISafe("
+const SafeUnsignedPrefix = "USafe("
+
+bitwidth(::Type{T}) where T = sizeof(T)+sizeof(T)+sizeof(T)
+
+function Base.string(x::T) where {T<:SafeSigned}
+    n = bitwidth(T)
+    str = string(SafeSignedPrefix, n, SafeOpen, Integer(x), SafeClose) 
+    return str
+end
+function Base.string(x::T) where {T<:SafeUnsigned}
+    n = bitwidth(T)
+    str = string(SafeUnsignedPrefix, n, SafeOpen, Integer(x), SafeClose) 
+    return str
+end
+
+show(io::IO, x::T) where T<:SafeUnsigned = print(io, string(x))
+show(io::IO, x::T) where T<:SafeSigned = print(io, string(x))
+
 end # module SafeIntegers
