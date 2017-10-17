@@ -67,40 +67,6 @@ stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
 
-for USafe in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
-    for U in (:UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
-       @eval if sizeof($USafe) >= sizeof($U)
-           Base.promote_rule($USafe, $U) = $USafe
-       else
-           Base.promote_rule($USafe, $U) = stype($U)
-       end
-    end
-    for I in (:Int8, :Int16, :Int32, :Int64, :Int128)
-       @eval if sizeof($USafe) >= sizeof($I)
-           Base.promote_rule($USafe, $I) = $USafe
-       else
-           Base.promote_rule($USafe, $I) = unsigned(stype($I))
-       end
-    end
-end
-
-for ISafe in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
-    for U in (:UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
-       @eval if sizeof($ISafe) >= sizeof($U)
-           Base.promote_rule($ISafe, $U) = $ISafe
-       else
-           Base.promote_rule($ISafe, $U) = signed(stype($U))
-       end
-    end
-    for I in (:Int8, :Int16, :Int32, :Int64, :Int128)
-       @eval if sizeof($ISafe) >= sizeof($I)
-           Base.promote_rule($ISafe, $I) = $ISafe
-       else
-           Base.promote_rule($ISafe, $I) = stype($I)
-       end
-    end
-end
-
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} =
     promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} =
@@ -220,18 +186,33 @@ Base.cld(x::T, y::T) where {T<:SafeInteger} = SafeInteger(checked_cld(Integer(x)
 Base.rem(x::T, y::T) where {T<:SafeInteger} = SafeInteger(checked_rem(Integer(x), Integer(y)))
 Base.mod(x::T, y::T) where {T<:SafeInteger} = SafeInteger(checked_mod(Integer(x), Integer(y)))
 
+(+)(x::T, y::U) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_add(Integer(x), Integer(y)))
+(-)(x::T, y::U) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_sub(Integer(x), Integer(y)))
+(*)(x::T, y::U) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_mul(Integer(x), Integer(y)))
+(+)(x::U, y::T) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_add(Integer(x), Integer(y)))
+(-)(x::U, y::T) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_sub(Integer(x), Integer(y)))
+(*)(x::U, y::T) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_mul(Integer(x), Integer(y)))
+
+Base.div(x::T, y::U) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_div(Integer(x), Integer(y)))
+Base.fld(x::T, y::U) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_fld(Integer(x), Integer(y)))
+Base.cld(x::T, y::U) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_cld(Integer(x), Integer(y)))
+Base.rem(x::T, y::U) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_rem(Integer(x), Integer(y)))
+Base.mod(x::T, y::U) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_mod(Integer(x), Integer(y)))
+
+Base.div(x::U, y::T) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_div(Integer(x), Integer(y)))
+Base.fld(x::U, y::T) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_fld(Integer(x), Integer(y)))
+Base.cld(x::U, y::T) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_cld(Integer(x), Integer(y)))
+Base.rem(x::U, y::T) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_rem(Integer(x), Integer(y)))
+Base.mod(x::U, y::T) where {T<:SafeInteger, U<:Integer} = SafeInteger(checked_mod(Integer(x), Integer(y)))
+
 # traits
 Base.typemin(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemin(itype(T)))
 Base.typemax(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemax(itype(T)))
 Base.widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
 
-# foldable toolkit
-notsafe(x::T) where T<:SafeInteger = reinterpret(itype(T), x)
-safeint(x::T) where T<:Integer = reinterpret(stype(T), x)
+# show
 
-# showing
-
-Base.string(x::T) where T<:SafeInteger = string( notsafe(x) )
+Base.string(x::T) where T<:SafeInteger = string( Integer(x) )
 Base.show(io::IO, x::T) where T<:SafeInteger = print(io, string(x) )
 
 end # module SafeIntegers
