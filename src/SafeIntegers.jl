@@ -190,6 +190,10 @@ Base.typemin(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemin(itype(T)))
 Base.typemax(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemax(itype(T)))
 Base.widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
 
+# foldable toolkit
+unsafe(x::T) where T<:SafeInteger = reinterpret(itype(T), x)
+safe(x::T) where T<:Integer = reinterpret(stype(T), x)
+
 # showing
 
 const SafeOpen = "("
@@ -201,12 +205,14 @@ bitwidth(::Type{T}) where T = sizeof(T)+sizeof(T)+sizeof(T)
 
 function Base.string(x::T) where {T<:SafeSigned}
     n = bitwidth(T)
-    str = string(SafeSignedPrefix, n, SafeOpen, Integer(x), SafeClose) 
+    v = unsafe(x)
+    str = string(SafeSignedPrefix, n, SafeOpen, v, SafeClose) 
     return str
 end
 function Base.string(x::T) where {T<:SafeUnsigned}
     n = bitwidth(T)
-    str = string(SafeUnsignedPrefix, n, SafeOpen, Integer(x), SafeClose) 
+    v = unsafe(x)
+    str = string(SafeUnsignedPrefix, n, SafeOpen, v, SafeClose) 
     return str
 end
 
