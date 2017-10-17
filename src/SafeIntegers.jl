@@ -6,7 +6,7 @@ export SafeUnsigned, SafeSigned, SafeInteger,
        SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
        SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128
 
-import Base: <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
+import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
 
 abstract type SafeUnsigned <: Unsigned end
 abstract type SafeSigned   <: Signed   end
