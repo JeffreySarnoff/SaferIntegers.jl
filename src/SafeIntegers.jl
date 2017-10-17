@@ -7,6 +7,8 @@ export SafeUnsigned, SafeSigned, SafeInteger,
        SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128
 
 import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
+import Base.Checked: checked_abs, checked_neg, checked_add, checked_sub,
+    checked_mul, checked_div, checked_fld, checked_cld, checked_rem, checked_mod
 
 abstract type SafeUnsigned <: Unsigned end
 abstract type SafeSigned   <: Signed   end
