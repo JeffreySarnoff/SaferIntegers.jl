@@ -73,8 +73,8 @@ Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Real, SI<:SafeInteger} =
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Number, SI<:SafeInteger} =
     promote_type(T, itype(SI))
 
-Base.promote_rule(::Type{R} ::Type{SI}) where {R<:Rational{T}, T<:Integer, SI<:SafeInteger} =
-    Rational{ promote_type(stype(T), SI) }
+Base.promote_rule(::Type{Rational{T}}, ::Type{SI}) where {T<:Integer, SI<:SafeInteger} =
+    promote_type(T, SI)
 
 # Resolve ambiguities
 Base.promote_rule(::Type{Bool}, ::Type{SI}) where {SI<:SafeInteger} =
