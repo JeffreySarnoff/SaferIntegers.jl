@@ -117,7 +117,7 @@ Base.convert(::Type{T}, x::Rational) where {T<:SafeInteger} = SafeInteger(conver
 Base.convert(::Type{Rational{T}}, x::SafeInteger) where {T<:Integer} = convert(Rational{T}, Integer(x))
 Base.convert(::Type{Rational}, x::SafeInteger) = convert(Rational{typeof(x)}, x)
 Base.convert(::Type{Float16}, x::SafeInteger) = convert(Float16, Integer(x))
-Base.convert(::Type{T}, x::Float16) = SafeInteger(convert(itype(T), x))
+Base.convert(::Type{T}, x::Float16) where {T<:SafeInteger} = SafeInteger(convert(itype(T), x))
 Base.convert(::Type{Bool}, x::SafeInteger) = convert(Bool, Integer(x))
 
 # rem conversions
