@@ -197,11 +197,6 @@ safeint(x::T) where T<:Integer = reinterpret(stype(T), x)
 
 # showing
 
-function Base.string(x::T) where T<:SafeInt
-    y = notsafe(x)
-    return string(y)
-end
-
-Base.show(io::IO, x::T) where T<:SafeInt = print(io, string(x))
+Base.string(x::T) where T<:SafeInteger = string( notsafe(x) )
 
 end # module SafeIntegers
