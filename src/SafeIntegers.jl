@@ -206,20 +206,11 @@ const SafeUnsignedPrefix = "USafe("
 
 bitwidth(::Type{T}) where T = sizeof(T)+sizeof(T)+sizeof(T)
 
-function Base.string(x::T) where {T<:SafeSigned}
-    n = bitwidth(T)
-    v = unsafe(x)
-    str = string(SafeSignedPrefix, n, SafeOpen, v, SafeClose) 
-    return str
-end
-function Base.string(x::T) where {T<:SafeUnsigned}
-    n = bitwidth(T)
-    v = unsafe(x)
-    str = string(SafeUnsignedPrefix, n, SafeOpen, v, SafeClose) 
-    return str
-end
+Base.string(x::T) where {T<:SafeSigned} = string(unsafe(x))
 
-show(io::IO, x::T) where T<:SafeUnsigned = print(io, string(x))
-show(io::IO, x::T) where T<:SafeSigned = print(io, string(x))
+Base.string(x::T) where {T<:SafeUnsgned} =
+    string(SafeSignedPrefix, bitwidth(T), SafeOpen, unsafe(x), SafeClose)
+    
+Base.show(io::IO, x::T) where T<:SafeInteger = print(io, string(unsafe(x)))
 
 end # module SafeIntegers
