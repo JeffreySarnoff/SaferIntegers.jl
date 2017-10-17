@@ -1,4 +1,4 @@
-# SafeIntegers := reinterpret(SafeIntegers, RoundingIntegers⦃Tim Holy⦄)
+# SaferIntegers := reinterpret(SafeIntegers, RoundingIntegers⦃Tim Holy⦄)
 
 module SaferIntegers
 
@@ -222,3 +222,4 @@ Base.string(x::T) where T<:SafeInteger = string( Integer(x) )
 Base.show(io::IO, x::T) where T<:SafeInteger = print(io, string(x) )
 
 end # module SafeIntegers
+
