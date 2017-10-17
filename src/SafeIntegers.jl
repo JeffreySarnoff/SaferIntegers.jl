@@ -5,7 +5,7 @@ module SafeIntegers
 export SafeUnsigned, SafeSigned, SafeInteger,
        SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
        SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
-       safe, unsafe
+       safeint, notsafe
 
 import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
 import Base.Checked: checked_abs, checked_neg, checked_add, checked_sub,
@@ -192,15 +192,16 @@ Base.typemax(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemax(itype(T)))
 Base.widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
 
 # foldable toolkit
-unsafe(x::T) where T<:SafeInteger = reinterpret(itype(x), x)
-safe(x::T) where T<:Integer = reinterpret(stype(x), x)
+notsafe(x::T) where T<:SafeInteger = reinterpret(itype(T), x)
+safeint(x::T) where T<:Integer = reinterpret(stype(T), x)
 
 # showing
 
-Base.string(x::T) where {T<:SafeSigned} = string(unsafe(x))
-Base.string(x::T) where {T<:SafeUnsigned} = string(unsafe(x))
-    
-Base.show(io::IO, x::T) where T<:SafeUnsigned = print(io, string(x))
-Base.show(io::IO, x::T) where T<:SafeSigned = print(io, string(x))
+function Base.string(x::T) where T<:SafeInt
+    y = notsafe(x)
+    return string(y)
+end
+
+Base.show(io::IO, x::T) where T<:SafeInt = print(io, string(x))
 
 end # module SafeIntegers
