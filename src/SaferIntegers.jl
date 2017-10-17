@@ -35,34 +35,39 @@ else
     const SafeUInt = SafeUInt64
 end
 
+@inline itype(x::SI) where SI<:SafeInteger = itype(typeof(x))
+
 itype(::Type{SafeInteger})  = Integer
 itype(::Type{SafeSigned})   = Signed
 itype(::Type{SafeUnsigned}) = Unsigned
-itype(::Type{SafeInt8})    = Int8
-itype(::Type{SafeUInt8})   = UInt8
-itype(::Type{SafeInt16})   = Int16
-itype(::Type{SafeUInt16})  = UInt16
-itype(::Type{SafeInt32})   = Int32
-itype(::Type{SafeUInt32})  = UInt32
-itype(::Type{SafeInt64})   = Int64
-itype(::Type{SafeUInt64})  = UInt64
-itype(::Type{SafeInt128})  = Int128
-itype(::Type{SafeUInt128}) = UInt128
-itype(x::SafeInteger) = itype(typeof(x))
 
+itype(::Type{SafeInt8})     = Int8
+itype(::Type{SafeUInt8})    = UInt8
+itype(::Type{SafeInt16})    = Int16
+itype(::Type{SafeUInt16})   = UInt16
+itype(::Type{SafeInt32})    = Int32
+itype(::Type{SafeUInt32})   = UInt32
+itype(::Type{SafeInt64})    = Int64
+itype(::Type{SafeUInt64})   = UInt64
+itype(::Type{SafeInt128})   = Int128
+itype(::Type{SafeUInt128})  = UInt128
+
+@inline stype(x::SI) where SI <:SafeInteger = stype(typeof(x))
+
+stype(::Type{Integer})  = SafeInteger
 stype(::Type{Signed})   = SafeSigned
 stype(::Type{Unsigned}) = SafeUnsigned
-stype(::Type{Int8})    = SafeInt8
-stype(::Type{UInt8})   = SafeUInt8
-stype(::Type{Int16})   = SafeInt16
-stype(::Type{UInt16})  = SafeUInt16
-stype(::Type{Int32})   = SafeInt32
-stype(::Type{UInt32})  = SafeUInt32
-stype(::Type{Int64})   = SafeInt64
-stype(::Type{UInt64})  = SafeUInt64
-stype(::Type{Int128})  = SafeInt128
-stype(::Type{UInt128}) = SafeUInt128
-stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
+
+stype(::Type{Int8})     = SafeInt8
+stype(::Type{UInt8})    = SafeUInt8
+stype(::Type{Int16})    = SafeInt16
+stype(::Type{UInt16})   = SafeUInt16
+stype(::Type{Int32})    = SafeInt32
+stype(::Type{UInt32})   = SafeUInt32
+stype(::Type{Int64})    = SafeInt64
+stype(::Type{UInt64})   = SafeUInt64
+stype(::Type{Int128})   = SafeInt128
+stype(::Type{UInt128})  = SafeUInt128
 
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
@@ -136,10 +141,10 @@ Base.convert(::Type{T}, x::Float16) where {T<:SafeInteger} = SafeInteger(convert
 Base.convert(::Type{Bool}, x::SafeInteger) = convert(Bool, Integer(x))
 
 # rem conversions
-@inline Base.rem(x::T, ::Type{T}) where {T<:SafeInteger} = T
-@inline Base.rem(x::Integer, ::Type{T}) where {T<:SafeInteger} = SafeInteger(rem(x, itype(T)))
+@inline checked_rem(x::T, ::Type{T}) where {T<:SafeInteger} = T
+@inline checked_rem(x::Integer, ::Type{T}) where {T<:SafeInteger} = SafeInteger(rem(x, itype(T)))
 # ambs
-@inline Base.rem(x::BigInt, ::Type{T}) where {T<:SafeInteger} = error("no rounding BigInt available")
+@inline checked_rem(x::BigInt, ::Type{T}) where {T<:SafeInteger} = error("no rounding BigInt available")
 
 Base.signbit(x::SafeSigned) = signbit(Integer(x))
 Base.sign(x::SafeSigned)    = sign(Integer(x))
