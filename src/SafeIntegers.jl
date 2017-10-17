@@ -74,9 +74,8 @@ Base.promote_rule(::Type{Complex{T}}, ::Type{SI}) where {T<:Real,SI<:SafeInteger
     promote_type(Complex{T}, itype(SI))
 Base.promote_rule(::Type{Rational{T}}, ::Type{SI}) where {T<:Integer,SI<:SafeInteger} =
     promote_type(Rational{T}, itype(SI))
-@compat Base.promote_rule(::Type{<:Irrational}, ::Type{SI}) where {SI<:SafeInteger} =
+Base.promote_rule(::Type{<:Irrational}, ::Type{SI}) where {SI<:SafeInteger} =
     promote_type(Float64, itype(SI))
-
 
 (::Type{Signed})(x::SafeSigned)     = reinterpret(itype(x), x)
 (::Type{Unsigned})(x::SafeUnsigned) = reinterpret(itype(x), x)
