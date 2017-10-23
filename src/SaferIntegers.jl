@@ -5,7 +5,7 @@ module SaferIntegers
 export SafeUnsigned, SafeSigned, SafeInteger,
        SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
        SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
-       safeint, notsafe
+       safeint, notsafe, is_safeint
 
 import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
 import Base.Checked: checked_abs, checked_neg, checked_add,
@@ -214,5 +214,14 @@ Base.widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
 
 Base.string(x::T) where T<:SafeInteger = string( Integer(x) )
 Base.show(io::IO, x::T) where T<:SafeInteger = print(io, string(x) )
+
+# predicate
+
+const SAFEINTS = Union{SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
+                       SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128}
+      
+is_safeint(::Type{T}) where T<:SAFEINTS = true
+is_safeint(::Type{T}) where T = false
+is_safeint(x::T) where T = is_safeint(T)
 
 end # module SafeIntegers
