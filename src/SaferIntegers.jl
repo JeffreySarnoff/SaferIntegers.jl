@@ -5,7 +5,7 @@ module SaferIntegers
 export SafeUnsigned, SafeSigned, SafeInteger,
        SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
        SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
-       safeint, notsafe, is_safeint
+       is_safeint
 
 import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
 import Base.Checked: checked_abs, checked_neg, checked_add,
