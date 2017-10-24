@@ -94,30 +94,26 @@ Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SU1 where S2<:Unsigned = sty
 Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SU1 where S2<:Signed   = stype(promote_type(itype(S1), itype(S2)))
 Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SS1 where S2<:Unsigned = stype(promote_type(itype(S1), itype(S2))) 
 
+Base.promote_rule(::Type{T}, ::Type{SI}) where T<:SafeSigned where SI<:SafeSigned = promote_type(T, SI)
+Base.promote_rule(::Type{T}, ::Type{SU}) where T<:SafeUnsigned where SU<:SafeUnsigned = promote_type(T, SU)
+Base.promote_rule(::Type{T}, ::Type{SI}) where T<:SafeUnsigned where SI<:SafeSigned = promote_type(T, SI)
+Base.promote_rule(::Type{T}, ::Type{SU}) where T<:SafeSigned where SU<:SafeUnsigned = promote_type(T, SU)
 Base.promote_rule(::Type{T}, ::Type{SI}) where T<:Signed where SI<:SafeSigned = promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SU}) where T<:Unsigned where SU<:SafeUnsigned = promote_type(T, SU)
 Base.promote_rule(::Type{T}, ::Type{SI}) where T<:Unsigned where SI<:SafeSigned = promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SU}) where T<:Signed where SU<:SafeUnsigned = promote_type(T, SU)
 
-Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Real, SI<:SafeInteger} =
-    promote_type(T, SI)
-Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Number, SI<:SafeInteger} =
-    promote_type(T, itype(SI))
+Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Real, SI<:SafeInteger} = promote_type(T, SI)
+Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Number, SI<:SafeInteger} = promote_type(T, itype(SI))
 
-Base.promote_rule(::Type{Rational{T}}, ::Type{SI}) where {T<:Integer, SI<:SafeInteger} =
-    promote_type(T, SI)
+Base.promote_rule(::Type{Rational{T}}, ::Type{SI}) where {T<:Integer, SI<:SafeInteger} = promote_type(T, SI)
 
 # Resolve ambiguities
-Base.promote_rule(::Type{Bool}, ::Type{SI}) where {SI<:SafeInteger} =
-    promote_type(Bool, itype(SI))
-Base.promote_rule(::Type{BigInt}, ::Type{SI}) where {SI<:SafeInteger} =
-    promote_type(BigInt, itype(SI))
-Base.promote_rule(::Type{BigFloat}, ::Type{SI}) where {SI<:SafeInteger} =
-    promote_type(BigFloat, itype(SI))
-Base.promote_rule(::Type{Complex{T}}, ::Type{SI}) where {T<:Real,SI<:SafeInteger} =
-    promote_type(Complex{T}, itype(SI))
-Base.promote_rule(::Type{<:Irrational}, ::Type{SI}) where {SI<:SafeInteger} =
-    promote_type(Float64, itype(SI))
+Base.promote_rule(::Type{Bool}, ::Type{SI}) where {SI<:SafeInteger} = promote_type(Bool, itype(SI))
+Base.promote_rule(::Type{BigInt}, ::Type{SI}) where {SI<:SafeInteger} = promote_type(BigInt, itype(SI))
+Base.promote_rule(::Type{BigFloat}, ::Type{SI}) where {SI<:SafeInteger} = promote_type(BigFloat, itype(SI))
+Base.promote_rule(::Type{Complex{T}}, ::Type{SI}) where {T<:Real,SI<:SafeInteger} = promote_type(Complex{T}, itype(SI))
+Base.promote_rule(::Type{<:Irrational}, ::Type{SI}) where {SI<:SafeInteger} = promote_type(Float64, itype(SI))
 
 (::Type{Signed})(x::SafeSigned)     = reinterpret(itype(x), x)
 (::Type{Unsigned})(x::SafeUnsigned) = reinterpret(itype(x), x)
