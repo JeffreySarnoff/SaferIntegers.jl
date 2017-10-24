@@ -31,3 +31,6 @@ end
 @test @overflow(SafeUInt8(0x7F) + SafeUInt8(0x81))
 @test @overflow(SafeUInt8(0x7F) - SafeUInt8(0x81))
 
+@test @exact(SafeInt32(typemax(SafeUInt16)), convert(SafeInt32, ~zero(SafeUInt16)))
+@test @inexact(convert(SafeInt32, ~zero(SafeUInt32)))
+
