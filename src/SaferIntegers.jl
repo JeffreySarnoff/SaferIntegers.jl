@@ -38,8 +38,7 @@ Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 
 for OP in (:(<), :(<=), :(==), :(!=), :(>), :(>=), :(&), :(|), :(⊻), :(>>>), :(>>), :(<<))
     for T1 in (:SafeUnsigned, :SafeSigned)
-	@eval $OP(x::T, y::T) where T<:$T1 = x $OP y	
-        for T2 in (:Unsigned, :Signed)
+        for T2 in (:SafeUnsigned, :SafeSigned, :Unsigned, :Signed)
 	    @eval $OP(x::$T1, y::$T2) = $T1($OP(promote(x, y)...))
 	    @eval $OP(x::$T2, y::$T1) = $T1($OP(promote(x, y)...))
         end
