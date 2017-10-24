@@ -34,3 +34,5 @@ end
 @test @exact(SafeInt32(typemax(SafeUInt16)), convert(SafeInt32, ~zero(SafeUInt16)))
 @test @inexact(convert(SafeInt32, ~zero(SafeUInt32)))
 
+@test SafeInt(12) == SafeUInt16(12)
+@test SafeInt(-1) != ~zero(SafeUInt)
