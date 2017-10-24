@@ -118,7 +118,7 @@ Base.bits(n::T) where T<: SafeInteger = bits(Integer(n))
 const SAFEINTS = Union{SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
                        SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128}
       
-is_safeint(::Type{T}) where T<:SAFEINTS = true
+is_safeint(::Type{T}) where T<:SAFEINTEGERS = true
 is_safeint(::Type{T}) where T = false
 is_safeint(x::T) where T = is_safeint(T)
 
