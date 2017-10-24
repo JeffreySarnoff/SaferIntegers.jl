@@ -36,27 +36,24 @@ Base.copysign(x::SafeSigned, y::SafeSigned) = SafeInteger(copysign(Integer(x), I
 Base.flipsign(x::SafeSigned, y::SafeUnsigned) = x
 Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 
-for OP in (:(<), :(<=), :(>), :(>=), :(&), :(|), :(⊻), :(>>>), :(>>), :(<<))
-    for T1 in (:SafeUnsigned, :SafeSigned)
-        for T2 in (:Unsigned, :Signed)
-	    @eval $OP(x::$T1, y::$T2) = $T1($OP(promote(x, y)...))
-	    @eval $OP(x::$T2, y::$T1) = $T1($OP(promote(x, y)...))
-        end
-    end
-end
-(==)(x::T, y::T) where T<:SafeInteger = Integer(x) == Integer(y)
-@inline (==)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (==)(promote(x, y)...)
-@inline (==)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (==)(promote(x, y)...)
 
-#=
-(< )(x::SafeInteger, y::SafeInteger) = Integer(x) <  Integer(y)
+(< )(x::T, y::T) where T<:SafeSigned = Integer(x) <  Integer(y)
+(< )(x::T, y::T) where T<:SafeUnsigned = Integer(x) <  Integer(y)
 @inline (< )(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (<)(promote(x, y)...)
-@inline (< )(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (<)(promote(x, y)...)
+@inline (< )(x::T2, y::T1) where T1<:SafeSigned where T2<:SafeUnsigned = (<)(promote(x, y)...)
+@inline (< )(x::T1, y::T2) where T1<:SafeSigned where T2<:Signed = (<)(promote(x, y)...)
+@inline (< )(x::T2, y::T1) where T1<:SafeSigned where T2<:Signed = (<)(promote(x, y)...)
+@inline (< )(x::T1, y::T2) where T1<:SafeUnsigned where T2<:Unsigned = (<)(promote(x, y)...)
+@inline (< )(x::T2, y::T1) where T1<:SafeUnsigned where T2<:Unsigned = (<)(promote(x, y)...)
+@inline (< )(x::T1, y::T2) where T1<:SafeSigned where T2<:Unsigned = (<)(promote(x, y)...)
+@inline (< )(x::T2, y::T1) where T1<:SafeSigned where T2<:Unsigned = (<)(promote(x, y)...)
+@inline (< )(x::T1, y::T2) where T1<:SafeUnsigned where T2<:Signed = (<)(promote(x, y)...)
+@inline (< )(x::T2, y::T1) where T1<:SafeUnsigned where T2<:Signed = (<)(promote(x, y)...)
 (<=)(x::SafeInteger, y::SafeInteger) = Integer(x) <= Integer(y)
 @inline (<=)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (<=)(promote(x, y)...)
 @inline (<=)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (<=)(promote(x, y)...)
-(==)(x::T, y::T) where T<:SafeInteger = Integer(x) == Integer(y)
-@inline (==)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (==)(promote(x, y)...)
+#(==)(x::T, y::T) where T<:SafeInteger = Integer(x) == Integer(y)
+#@inline (==)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (==)(promote(x, y)...)
 @inline (==)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (==)(promote(x, y)...)
 (!=)(x::T, y::T) where T<:SafeInteger = Integer(x) != Integer(y)
 @inline (!=)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (!=)(promote(x, y)...)
@@ -91,7 +88,7 @@ end
 (>> )(x::SafeInteger, y::Int) = SafeInteger(Integer(x) >>  y)
 (>>>)(x::SafeInteger, y::Int) = SafeInteger(Integer(x) >>> y)
 (<< )(x::SafeInteger, y::Int) = SafeInteger(Integer(x) <<  y)
-=#
+
 
 (-)(x::T) where {T<:SafeInteger} = SafeInteger(checked_neg(Integer(x)))
 (+)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(checked_add(Integer(x), Integer(y)))
