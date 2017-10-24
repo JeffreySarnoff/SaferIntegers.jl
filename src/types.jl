@@ -47,6 +47,9 @@ itype(::Type{SafeUInt32})   = UInt32
 itype(::Type{SafeUInt64})   = UInt64
 itype(::Type{SafeUInt128})  = UInt128
 
+itype(::Type{T}) where T<:Signed   = T
+itype(::Type{T}) where T<:Unsigned = T
+
 itype(x::T) where T<:Signed   = T
 itype(x::T) where T<:Unsigned = T
 itype(x::T) where T<:SafeSigned   = itype(T)
@@ -68,6 +71,9 @@ stype(::Type{UInt32})   = SafeUInt32
 stype(::Type{UInt64})   = SafeUInt64
 stype(::Type{UInt128})  = SafeUInt128
 
+stype(::Type{T}) where T<:Signed   = stype(T)
+stype(::Type{T}) where T<:Unsigned = stype(T)
+
 stype(x::T) where T<:SafeSigned   = T
 stype(x::T) where T<:SafeUnsigned = T
 stype(x::T) where T<:Signed   = stype(T)
@@ -75,6 +81,18 @@ stype(x::T) where T<:Unsigned = stype(T)
 
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
+
+const SS1 = SafeSigned; const SS2 = SafeSigned;
+const SU1 = SafeUnsigned; const SU2 = SafeUnsigned;
+
+Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SS1 where S2<:SS1 = stype(promote_type(itype(S1), itype(S2)))
+Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SU1 where S2<:SU1 = stype(promote_type(itype(S1), itype(S2))) 
+Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SS1 where S2<:SU1 = stype(promote_type(itype(S1), itype(S2)))
+Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SU1 where S2<:SS1 = stype(promote_type(itype(S1), itype(S2))) 
+Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SS1 where S2<:Signed   = stype(promote_type(itype(S1), itype(S2)))
+Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SU1 where S2<:Unsigned = stype(promote_type(itype(S1), itype(S2))) 
+Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SU1 where S2<:Signed   = stype(promote_type(itype(S1), itype(S2)))
+Base.promote_type(::Type{S1}, ::Type{S2}) where S1<:SS1 where S2<:Unsigned = stype(promote_type(itype(S1), itype(S2))) 
 
 Base.promote_rule(::Type{T}, ::Type{SI}) where T<:Signed where SI<:SafeSigned = promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SU}) where T<:Unsigned where SU<:SafeUnsigned = promote_type(T, SU)
