@@ -76,13 +76,14 @@ end
 @inline (>=)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (>=)(promote(x, y)...)
 @inline (>=)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (>=)(promote(x, y)...)
 =#
-(==)(x::T, y::T) where T<:SafeInteger = Integer(x) == Integer(y)
-@inline (==)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (==)(promote(x, y)...)
-@inline (==)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (==)(promote(x, y)...)
+#(==)(x::T, y::T) where T<:SafeInteger = Integer(x) == Integer(y)
+#@inline (==)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (==)(promote(x, y)...)
+#@inline (==)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (==)(promote(x, y)...)
 
 # A few operations preserve the type
 (~)(x::SafeInteger) = SafeInteger(~Integer(x))
 
+#=
 (&)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) & Integer(y))
 @inline (&)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (&)(promote(x, y)...)
 @inline (&)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (&)(promote(x, y)...)
@@ -92,6 +93,7 @@ end
 (⊻)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) ⊻ Integer(y))
 @inline (⊻)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (⊻)(promote(x, y)...)
 @inline (⊻)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (⊻)(promote(x, y)...)
+=#
 
 (>> )(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) >>  y)
 (>>>)(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) >>> y)
