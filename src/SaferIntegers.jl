@@ -36,7 +36,18 @@ Base.copysign(x::SafeSigned, y::SafeSigned) = SafeInteger(copysign(Integer(x), I
 Base.flipsign(x::SafeSigned, y::SafeUnsigned) = x
 Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 
-
+for (T1, T2) in ((:SafeSigned, :SafeSigned), (:SafeUnsigned, :SafeUnsigned),
+		 (:SafeSigned, :SafeUnsigned), (:SafeUnsigned, :SafeSigned),
+		 (:SafeSigned, :Signed), (:SafeUnsigned, :Unsigned),
+		 (:SafeSigned, :Unsigned), (:SafeUnsigned, :Signed),
+		 (:Signed, :SafeSigned), (:Unsigned, :SafeUnsigned),
+		 (:Signed, :SafeUnsigned), (:Unsigned, :SafeSigned))
+    for OP in (:(<), :(<=), :(>), :(>=), :(&), :(|), (⊻))
+        @eval $OP(x::A, y::B) where A<:$T1 where B<:$T2 = $OP(promote(x, y)...)
+    end
+end	
+		
+#=		
 (< )(x::T, y::T) where T<:SafeSigned = Integer(x) <  Integer(y)
 (< )(x::T, y::T) where T<:SafeUnsigned = Integer(x) <  Integer(y)
 @inline (< )(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (<)(promote(x, y)...)
@@ -64,6 +75,10 @@ Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 (>=)(x::SafeInteger, y::SafeInteger) = Integer(x) >= Integer(y)
 @inline (>=)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (>=)(promote(x, y)...)
 @inline (>=)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (>=)(promote(x, y)...)
+=#
+(==)(x::T, y::T) where T<:SafeInteger = Integer(x) == Integer(y)
+@inline (==)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (==)(promote(x, y)...)
+@inline (==)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (==)(promote(x, y)...)
 
 # A few operations preserve the type
 (~)(x::SafeInteger) = SafeInteger(~Integer(x))
