@@ -7,6 +7,10 @@ abstract type SafeSigned   <: Signed   end
 
 const SafeInteger = Union{SafeSigned, SafeUnsigned}
 
+const SAFESIGNED   = Union{SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128}
+const SAFEUNSIGNED = Union{SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
+const SAFEINTEGERS = Union{SAFESIGNED, SAFEUNSIGNED}
+
 primitive type SafeInt8    <: SafeSigned     8 end
 primitive type SafeInt16   <: SafeSigned    16 end
 primitive type SafeInt32   <: SafeSigned    32 end
