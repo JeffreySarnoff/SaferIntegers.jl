@@ -20,6 +20,11 @@ Base.sign(x::SafeSigned)    = sign(Integer(x))
 Base.abs(x::SafeSigned)     = abs(Integer(x))
 Base.abs2(x::SafeSigned)    = abs2(Integer(x))
 
+Base.signbit(x::SafeUnsigned) = false
+Base.sign(x::T) where T<:SafeUnsigned = one(T)
+Base.abs(x::SafeUnsigned)     = x
+Base.abs2(x::SafeUnsigned)    = x*x
+
 (< )(x::SafeInteger, y::SafeInteger) = Integer(x) <  Integer(y)
 (<=)(x::SafeInteger, y::SafeInteger) = Integer(x) <= Integer(y)
 
@@ -30,6 +35,8 @@ Base.ndigits0z(x::SafeInteger)      = Base.ndigits0z(Integer(x))
 
 Base.flipsign(x::SafeSigned, y::SafeSigned) = SafeInteger(flipsign(Integer(x), Integer(y)))
 Base.copysign(x::SafeSigned, y::SafeSigned) = SafeInteger(copysign(Integer(x), Integer(y)))
+Base.flipsign(x::SafeSigned, y::SafeUnsigned) = x
+Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 
 # A few operations preserve the type
 (~)(x::SafeInteger) = SafeInteger(~Integer(x))
