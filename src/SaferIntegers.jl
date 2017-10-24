@@ -36,17 +36,30 @@ Base.copysign(x::SafeSigned, y::SafeSigned) = SafeInteger(copysign(Integer(x), I
 Base.flipsign(x::SafeSigned, y::SafeUnsigned) = x
 Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 
-for (T1, T2) in ((:SafeSigned, :SafeSigned), (:SafeUnsigned, :SafeUnsigned),
-		 (:SafeSigned, :SafeUnsigned), (:SafeUnsigned, :SafeSigned),
-		 (:SafeSigned, :Signed), (:SafeUnsigned, :Unsigned),
-		 (:SafeSigned, :Unsigned), (:SafeUnsigned, :Signed),
-		 (:Signed, :SafeSigned), (:Unsigned, :SafeUnsigned),
-		 (:Signed, :SafeUnsigned), (:Unsigned, :SafeSigned))
-    for OP in (:(<), :(<=), :(>), :(>=), :(&), :(|), :(⊻))
-        @eval $OP(x::A, y::B) where A<:$T1 where B<:$T2 = $OP(promote(x, y)...)
+for OP in (:(<), :(<=), :(>), :(>=))
+    @eval begin
+        $OP(x::T, y::T) where T<:SafeInteger = $OP(Integer(x), Integer(y))
+        $OP(x::S, y::U) where S<:SafeSigned where U<:SafeUnsigned = $OP(Integer(x), Integer(y))
+        $OP(x::U, y::S) where S<:SafeSigned where U<:SafeUnsigned = $OP(Integer(x), Integer(y))
+        $OP(x::S, y::U) where S<:SafeSigned where U<:Unsigned = $OP(Integer(x), y)
+        $OP(x::U, y::S) where S<:SafeSigned where U<:Unsigned = $OP(x, Integer(y))
+        $OP(x::S, y::U) where S<:Signed where U<:SafeUnsigned = $OP(x, Integer(y))
+        $OP(x::U, y::S) where S<:Signed where U<:SafeUnsigned = $OP(Integer(x), y)
     end
 end	
-		
+
+for OP in (:(&), :(|), :(⊻))
+    @eval begin
+        $OP(x::T, y::T) where T<:SafeInteger = stype($OP(Integer(x), Integer(y)))
+        $OP(x::S, y::U) where S<:SafeSigned where U<:SafeUnsigned = stype($OP(Integer(x), Integer(y)))
+        $OP(x::U, y::S) where S<:SafeSigned where U<:SafeUnsigned = stype($OP(Integer(x), Integer(y)))
+        $OP(x::S, y::U) where S<:SafeSigned where U<:Unsigned = stype($OP(Integer(x), y))
+        $OP(x::U, y::S) where S<:SafeSigned where U<:Unsigned = stype($OP(x, Integer(y)))
+        $OP(x::S, y::U) where S<:Signed where U<:SafeUnsigned = stype($OP(x, Integer(y)))
+        $OP(x::U, y::S) where S<:Signed where U<:SafeUnsigned = stype($OP(Integer(x), y))
+    end
+end	
+
 #=		
 (< )(x::T, y::T) where T<:SafeSigned = Integer(x) <  Integer(y)
 (< )(x::T, y::T) where T<:SafeUnsigned = Integer(x) <  Integer(y)
