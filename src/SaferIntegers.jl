@@ -36,14 +36,17 @@ Base.copysign(x::SafeSigned, y::SafeSigned) = SafeInteger(copysign(Integer(x), I
 Base.flipsign(x::SafeSigned, y::SafeUnsigned) = x
 Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 
-for OP in (:(<), :(<=), :(==), :(!=), :(>), :(>=), :(&), :(|), :(⊻), :(>>>), :(>>), :(<<))
+for OP in (:(<), :(<=), :(>), :(>=), :(&), :(|), :(⊻), :(>>>), :(>>), :(<<))
     for T1 in (:SafeUnsigned, :SafeSigned)
-        for T2 in (:SafeSigned, :Unsigned, :Signed)
+        for T2 in (:Unsigned, :Signed)
 	    @eval $OP(x::$T1, y::$T2) = $T1($OP(promote(x, y)...))
 	    @eval $OP(x::$T2, y::$T1) = $T1($OP(promote(x, y)...))
         end
     end
 end
+(==)(x::T, y::T) where T<:SafeInteger = Integer(x) == Integer(y)
+@inline (==)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (==)(promote(x, y)...)
+@inline (==)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (==)(promote(x, y)...)
 
 #=
 (< )(x::SafeInteger, y::SafeInteger) = Integer(x) <  Integer(y)
