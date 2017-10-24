@@ -39,6 +39,11 @@ Base.copysign(x::SafeSigned, y::SafeSigned) = SafeInteger(copysign(Integer(x), I
 Base.flipsign(x::SafeSigned, y::SafeUnsigned) = x
 Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 
+# typed equality testing
+(==)(x::T, y::T) where T<:SafeInteger = Integer(x) == Integer(y)
+@inline (==)(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeUnsigned = (==)(promote(x, y)...)
+@inline (==)(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeSigned = (==)(promote(x, y)...)
+
 # A few operations preserve the type
 (~)(x::SafeInteger) = SafeInteger(~Integer(x))
 
