@@ -38,3 +38,8 @@ Integer(x::SafeInteger) returns an Integer of the same bitwidth and either Signe
 
 widen(x::SafeInteger) returns a SafeInteger of greater bitwidth and either Signed or Unsigned as x    
 - widen(SafeInt128), widen(SafeUInt128) generate domain errors
+
+## Additionally
+
+`is_safeint(::Type{T})::Bool`, `is_safeint(x)::Bool`
+
