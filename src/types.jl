@@ -76,9 +76,9 @@ stype(x::T) where T<:Unsigned = stype(T)
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
 
-Base.promote_rule(::Type{T}, ::Type{SI}) where T<:Signed where SI<:SafeSigned} = promote_type(T, SI)
+Base.promote_rule(::Type{T}, ::Type{SI}) where T<:Signed where SI<:SafeSigned = promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SU}) where T<:Unsigned where SU<:SafeUnsigned = promote_type(T, SU)
-Base.promote_rule(::Type{T}, ::Type{SI}) where T<:Unsigned where SI<:SafeSigned} = promote_type(T, SI)
+Base.promote_rule(::Type{T}, ::Type{SI}) where T<:Unsigned where SI<:SafeSigned = promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SU}) where T<:Signed where SU<:SafeUnsigned = promote_type(T, SU)
 
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Real, SI<:SafeInteger} =
