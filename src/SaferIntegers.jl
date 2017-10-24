@@ -38,7 +38,8 @@ Base.copysign(x::SafeSigned, y::SafeUnsigned) = signbit(x) ? -x : x
 
 for OP in (:(<), :(<=), :(>), :(>=))
     @eval begin
-        $OP(x::T, y::T) where T<:SafeInteger = $OP(Integer(x), Integer(y))
+        $OP(x::T, y::T) where T<:SafeSigned = $OP(Integer(x), Integer(y))
+        $OP(x::T, y::T) where T<:SafeUnsigned = $OP(Integer(x), Integer(y))
         $OP(x::S, y::U) where S<:SafeSigned where U<:SafeUnsigned = $OP(Integer(x), Integer(y))
         $OP(x::U, y::S) where S<:SafeSigned where U<:SafeUnsigned = $OP(Integer(x), Integer(y))
         $OP(x::S1, y::S2) where S1<:SafeSigned where S2<:Signed = $OP(Integer(x), y)
@@ -54,7 +55,8 @@ end
 
 for OP in (:(&), :(|), :(⊻))
     @eval begin
-        $OP(x::T, y::T) where T<:SafeInteger = stype($OP(Integer(x), Integer(y)))
+        $OP(x::T, y::T) where T<:SafeSigned = stype($OP(Integer(x), Integer(y)))
+        $OP(x::T, y::T) where T<:SafeUnsigned = stype($OP(Integer(x), Integer(y)))
         $OP(x::S, y::U) where S<:SafeSigned where U<:SafeUnsigned = stype($OP(Integer(x), Integer(y)))
         $OP(x::U, y::S) where S<:SafeSigned where U<:SafeUnsigned = stype($OP(Integer(x), Integer(y)))
         $OP(x::S1, y::S2) where S1<:SafeSigned where S2<:Signed = stype($OP(Integer(x), y))
