@@ -6,12 +6,7 @@
 
 #### Give them a whirl.
 
-Just put here (thank you Tim Holy -- this is the best of copy and paste).
-
-Seeking suggestions and some things to put in runtests.  Wholly untested.
-
-- These functions check for overflow/underflow automatically:
-
+- These functions check for overflow/underflow automatically:    
 -- abs, (neg), (-), (+), (*), div, fld, cld, rem, mod 
 
 ## Exported Types
@@ -43,3 +38,6 @@ widen(x::SafeInteger) returns a SafeInteger of greater bitwidth and either Signe
 
 `is_safeint(::Type{T})::Bool`, `is_safeint(x)::Bool`
 
+### credits
+
+This work derives from JuliaMath/RoundingIntegers.jl
