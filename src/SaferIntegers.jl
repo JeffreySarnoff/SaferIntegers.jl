@@ -42,7 +42,7 @@ for (T1, T2) in ((:SafeSigned, :SafeSigned), (:SafeUnsigned, :SafeUnsigned),
 		 (:SafeSigned, :Unsigned), (:SafeUnsigned, :Signed),
 		 (:Signed, :SafeSigned), (:Unsigned, :SafeUnsigned),
 		 (:Signed, :SafeUnsigned), (:Unsigned, :SafeSigned))
-    for OP in (:(<), :(<=), :(>), :(>=), :(&), :(|), (⊻))
+    for OP in (:(<), :(<=), :(>), :(>=), :(&), :(|), :(⊻))
         @eval $OP(x::A, y::B) where A<:$T1 where B<:$T2 = $OP(promote(x, y)...)
     end
 end	
