@@ -1,4 +1,5 @@
 # SafeIntegers := reinterpret(SafeIntegers, RoundingIntegers⦃Tim Holy⦄)
+__precompile__()
 
 module SaferIntegers
 
