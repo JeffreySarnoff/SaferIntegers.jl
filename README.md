@@ -1,5 +1,11 @@
 ## SaferIntegers
 
+[![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl)
+
+#### Copyright &copy;2017 by Jeffrey Sarnoff.  All rights reserved (prior to the release).
+----------
+
+
 ##### Jeffrey Sarnoff (2017-10-17T13:22Z in Manhattan, NY USA)
 
 ------------
