@@ -1,7 +1,6 @@
 ## SaferIntegers
 
-##### Jeffrey Sarnoff (2017-10-17T13:22Z in Manhattan, NY USA)
-
+##### Jeffrey Sarnoff (2017-10-17T13:22Z {40N47, 73W58})
 ------------
 
 #### Give them a whirl.
