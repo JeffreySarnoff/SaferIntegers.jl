@@ -1,11 +1,11 @@
 ## SaferIntegers
 
-Many calculations proceed without incident.    
-Some calcuations proceed, avoiding incidents.
+Many calculations proceed without unsafe action
+Some calcuations proceed avoiding unsafe acts.
 
-Most calculations proceed, often without incident.    
-Some calculations proceed unless they encounter an incident and do not proceed.
-
+Most calculations proceed safely much of the time.    
+Some calculations proceed until there is an unsafe act.
+Some calculations proceed unless there is an unsafe act.
 
 ^  prefer these ^
 
