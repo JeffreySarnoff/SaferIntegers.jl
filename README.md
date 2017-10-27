@@ -3,8 +3,9 @@
 ##### Jeffrey Sarnoff (2017-10-17T13:22Z {40N47, 73W58})
 
 #### Give them a whirl.
-Get the packge: `Pkg.add("SaferIntegers")`
-Use the package: `using SaferIntegers`
+
+> Get the package: `Pkg.add("SaferIntegers")`     
+> Use the package:  `using SaferIntegers`     
 
 
 ```julia
