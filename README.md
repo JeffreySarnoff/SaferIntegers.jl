@@ -1,9 +1,14 @@
 ## SaferIntegers
 
 ##### Jeffrey Sarnoff (2017-10-17T13:22Z {40N47, 73W58})
-------------
 
 #### Give them a whirl.
+Get the packge: `Pkg.add("SaferIntegers")`
+Use the package: `using SaferIntegers`
+
+
+```julia
+Pkg.add("SaferIntegers")
 
 - These functions check for overflow/underflow automatically:    
 -- abs, (neg), (-), (+), (*), div, fld, cld, rem, mod 
