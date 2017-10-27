@@ -38,11 +38,11 @@ end
 @test SafeInt(12) == SafeUInt16(12)
 @test SafeInt(-1) != ~zero(SafeUInt)
 
-@test @isexact(SafeUInt16(0xFEEE >>> 2), (SafeUInt16(0x7FFF)+SafeUInt16(0x807F)) >>> 2)
+@test @isexact(SafeUInt16(0xFEEE >>> 2), (SafeUInt16(0x7FFF)+SafeUInt16(0x7FFF)) >>> 2)
 @test @isoverflow(SafeUInt16(0x7FFF) >>> SafeUInt16(0x0081))
 
-@test @isexact(SafeUInt16(0xFEEE >> 2), (SafeUInt16(0x7F)+SafeUInt16(0x7F)) >> 2)
-@test @isoverflow(SafeUInt16(0x7F) >> SafeUInt16(0x81))
+@test @isexact(SafeUInt16(0x7FAE >> 2), (SafeUInt16(0x7F00)+SafeUInt16(0x00AE)) >> 2)
+@test @isoverflow(SafeUInt16(0x7F00) >> SafeUInt16(0x81))
 
 @test @isexact(SafeUInt8(0xFE << 2), (SafeUInt8(0x7F)+SafeUInt8(0x7F)) << 2)
 @test @isoverflow(SafeUInt8(0x7F) << SafeUInt8(0x81))
