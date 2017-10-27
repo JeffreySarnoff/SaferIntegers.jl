@@ -1,5 +1,8 @@
 ## SaferIntegers
 
+less stress ⇢ better rest ⇢ social ease 
+                           ⇢ good outcomes
+
 Many calculations proceed without unsafe action
 Some calcuations proceed avoiding unsafe acts.
 
