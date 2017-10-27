@@ -1,12 +1,18 @@
 ## SaferIntegers
-"""
-While calculations proceed without incident, SafeInts operate as Ints.
+
+Most calculations most often proceed without incident.    
+Some calucations often proceed with an incident.   
+
+Most calculations proceed without incident, 
+and when used SafeInts operate as Ints.
 Should a calculation encouter an overflow or underflow, 
     we are alerted and the calculation does proceed without reinitializaiton
+
+
 The Int64 and Int32 types can fail at simple arithmetic       
 and blithely continue carrying the incorrectness forward.   
 The validity of values obtained cannot be ascertained.
-"""
+
 
 ##### Jeffrey Sarnoff (2017-10-17T13:22Z {40N47, 73W58})
 
