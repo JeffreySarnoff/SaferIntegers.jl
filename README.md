@@ -1,7 +1,7 @@
 ## SaferIntegers
 
-Most calculations most often proceed without incident.    
-Some calucations often proceed with an incident.   
+Most calculations proceed, often without incident.    
+Some calucations proceed with an incident.   
 
 Most calculations proceed without incident, 
 and when used SafeInts operate as Ints.
