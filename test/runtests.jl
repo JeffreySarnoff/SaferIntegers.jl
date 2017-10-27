@@ -16,13 +16,14 @@ macro catcher(x)
     end
   end  
 end
-macro inexact(x)
+
+macro isinexact(x)
     :(InexactError() == @catcher($x))
 end
-macro overflow(x)
+macro isoverflow(x)
     :(OverflowError() == @catcher($x))
 end
-macro exact(expected, expression)
+macro isexact(expected, expression)
     :($expected == @catcher($expression))
 end
 
@@ -36,3 +37,7 @@ end
 
 @test SafeInt(12) == SafeUInt16(12)
 @test SafeInt(-1) != ~zero(SafeUInt)
+
+@test @exact(SafeUInt8(0xFE >> 2), (SafeUInt8(0x7F)+SafeUInt8(0x7F)) >> 2)
+@test @overflow(SafeUInt8(0x7F) >> SafeUInt8(0x81))
+
