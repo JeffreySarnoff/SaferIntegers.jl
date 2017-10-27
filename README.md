@@ -1,7 +1,20 @@
 ## SaferIntegers
 
+To use safer integers within your computations, where you have been using    
+explict digit sequences put them inside the safe integer constructors,    
+`SafeInt(11)` or `SafeUInt(0x015A)` and similarly for the bitsize-named versions    
+`SafeInt8`, `SafeInt16` .. `SafeInt128` and `SafeUInt8` .. `SafeUInt128`   
+
+Where you had used`Int` or `UInt` now use `SafeInt` or `SafeUInt` and similarly
+with the bitsize-named versions.    
+
+SafeInt and SafeUInt give you these arithmetic operators:    
++, -, *, div, rem, fld, mod    
+which have become overflow and underflow aware.
+
+overflow aware integer calculations that just work    
 less stress ⇢ better rest ⇢ social ease 
-                           ⇢ good outcomes
+                           ⇢ new friends ⇢ less stress
 
 Many calculations proceed without unsafe action
 Some calcuations proceed avoiding unsafe acts.
