@@ -39,5 +39,5 @@ end
 @test SafeInt(-1) != ~zero(SafeUInt)
 
 @test @isexact(SafeUInt8(0xFE >> 2), (SafeUInt8(0x7F)+SafeUInt8(0x7F)) >> 2)
-@test @overflow(SafeUInt8(0x7F) >> SafeUInt8(0x81))
+@test @isoverflow(SafeUInt8(0x7F) >> SafeUInt8(0x81))
 
