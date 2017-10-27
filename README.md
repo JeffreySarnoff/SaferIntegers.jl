@@ -1,5 +1,10 @@
 ## SaferIntegers
 
+Really!    
+The Int64 and Int32 types can fail at simple arithmetic       
+and blithely continue carrying the incorrectness forward.   
+The validity of values obtained cannot be ascertained.
+
 ##### Jeffrey Sarnoff (2017-10-17T13:22Z {40N47, 73W58})
 
 #### Give them a whirl.
