@@ -1,5 +1,8 @@
 ## SaferIntegers
 
+#### Section SafeInt(1): A Safer Way 
+
+
 To use safer integers within your computations, where you have been using    
 explict digit sequences put them inside the safe integer constructors,    
 `SafeInt(11)` or `SafeUInt(0x015A)` and similarly for the bitsize-named versions    
