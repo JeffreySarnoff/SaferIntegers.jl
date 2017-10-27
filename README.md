@@ -12,7 +12,7 @@ SafeInt and SafeUInt give you these arithmetic operators:
 +, -, *, div, rem, fld, mod    
 which have become overflow and underflow aware.
 
-overflow aware integer calculations that just work    
+overflow aware integer calculations that just work::  virtuous causation   
 less stress ⇢ better rest ⇢ social ease 
                            ⇢ new friends ⇢ less stress
 
