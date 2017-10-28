@@ -1,8 +1,5 @@
 import Base: (>>>), (>>), (<<)
 
-bitsof(::Type{T}) where T<:UNSAFEINTEGERS = sizeof(T)<<3
-bitsof(::Type{T}) where T<:SAFEINTEGERS = sizeof(itype(T))<<3
-
 unsafe_logicalshift_right(x::T, y::T) where T<:UNSAFEINTEGERS = x>>y
 unsafe_logicalshift_left(x::T, y::T) where T<:UNSAFEINTEGERS = x<<y
 unsafe_arithshift_right(x::T, y::T) where T<:UNSAFEINTEGERS = x>>>y
