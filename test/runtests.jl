@@ -56,17 +56,17 @@ end
 for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128,
           :SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
     @eval begin
-        @test @overflow( one($T) >>> (3*sizeof($T)+one($T)) )
-        @test @overflow( one($T) >>  (3*sizeof($T)+one($T)) )
-        @test @overflow( one($T) <<  (3*sizeof($T)+one($T)) )
+        @test @overflow( one($T) >>> (8*sizeof($T)+one($T)) )
+        @test @overflow( one($T) >>  (8*sizeof($T)+one($T)) )
+        @test @overflow( one($T) <<  (8*sizeof($T)+one($T)) )
     end
 end
 
 for T in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
     @eval begin
-        @test @overflow( one($T) >>> (3*sizeof($T)+one($T))- one($T) )
-        @test @overflow( one($T) >>> (3*sizeof($T)+one($T))+ one($T) )
-        @test @overflow( one($T) >>> (3*sizeof($T)+one($T))* two($T) )
+        @test @overflow( one($T) >>> (8*sizeof($T)+one($T))- one($T) )
+        @test @overflow( one($T) >>> (8*sizeof($T)+one($T))+ one($T) )
+        @test @overflow( one($T) >>> (8*sizeof($T)+one($T))* two($T) )
         end  
 end
 
