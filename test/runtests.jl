@@ -36,3 +36,9 @@ end
 
 @test SafeInt(12) == SafeUInt16(12)
 @test SafeInt(-1) != ~zero(SafeUInt)
+
+for T in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
+    @eval begin
+        @test @overflow(typemin($T) - one($T))
+        @test @overflow(typemax($T) + one($T))
+        @test @overflow(typemax($T) * two($T))
