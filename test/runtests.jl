@@ -42,3 +42,5 @@ for T in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
         @test @overflow(typemin($T) - one($T))
         @test @overflow(typemax($T) + one($T))
         @test @overflow(typemax($T) * two($T))
+    end
+end
