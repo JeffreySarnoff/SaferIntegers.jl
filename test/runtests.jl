@@ -67,6 +67,6 @@ for T in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
         @test @overflow( one($T) >>> (8*sizeof($T)+one($T))- one($T) )
         @test @overflow( one($T) >>> (8*sizeof($T)+one($T))+ one($T) )
         @test @overflow( one($T) >>> (8*sizeof($T)+one($T))* two($T) )
-        end  
+    end  
 end
 
