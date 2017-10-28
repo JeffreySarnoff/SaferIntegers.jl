@@ -31,4 +31,12 @@ Base.ndigits0z(x::SafeInteger)      = Base.ndigits0z(Integer(x))
 
 Base.:(~)(x::SafeInteger) = SafeInteger(~Integer(x))
 Base.:(-)(x::SafeInteger) = SafeInteger(-Integer(x))
+function Base.:(-)(x::T) where T<:SafeSigned
+    x === typemin(T) && throw(OverflowError())
+    return SafeInteger(-Integer(x))
+end
+function Base.:(-)(x::T) where T<:SafeUnsigned
+    x === typemin(T) && throw(OverflowError())
+    return SafeInteger(-Integer(x))
+end
 
