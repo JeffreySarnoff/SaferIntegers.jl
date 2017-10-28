@@ -13,6 +13,12 @@ two(::Type{T}) where T<:SAFEINTEGERS = reinterpret(T, one(itype(T))<<one(Int32))
 negone(::Type{T}) where T<:SAFESIGNED = reinterpret(T, -one(itype(T)))
 @inline negone(x::T) where T<:SAFESIGNED = negone(T)
 
+three(::Type{T}) where T = one(T)+one(T)+one(T)
+Base.sizeof(x::T) where T<:SafeSigned   = reinterpret(T, sizeof(itype(T)))
+Base.sizeof(x::T) where T<:SafeUnsigned = reinterpret(T, sizeof(itype(T)))
+
+bitsof(x::T) where T<:SafeSigned   = reinterpret(T, sizeof(itype(T)) << three(itype(T)))
+bitsof(x::T) where T<:SafeUnsigned = reinterpret(T, sizeof(itype(T)) << three(itype(T)))
 
 Base.signbit(x::SafeSigned) = signbit(Integer(x))
 Base.sign(x::SafeSigned)    = sign(Integer(x))
