@@ -91,12 +91,16 @@ for (S,T) in zip(SAFE_SIGNEDS, UNSAFE_SIGNEDS)
     @eval begin
         @inline itype(::Type{$S}) = $T
         @inline stype(::Type{$T}) = $S
+        @inline itype(::Type{$T}) = $T
+        @inline stype(::Type{$S}) = $S
     end
 end
 for (S,T) in zip(SAFE_UNSIGNEDS, UNSAFE_UNSIGNEDS)
     @eval begin
         @inline itype(::Type{$S}) = $T
         @inline stype(::Type{$T}) = $S
+        @inline itype(::Type{$T}) = $T
+        @inline stype(::Type{$S}) = $S
     end
 end
 
