@@ -34,7 +34,7 @@ for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
    end
 end
 
-for OP in (:(&), :(|), :(⊻), :flipsign, :copysign, (>>>), (>>), (<<))
+for OP in (:(&), :(|), :(⊻), :flipsign, :copysign, :(>>>), :(>>), :(<<))
     @eval begin
 
        @inline function $OP(x::T, y::T) where T<:SafeInteger
