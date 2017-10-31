@@ -13,13 +13,8 @@ for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:SafeInteger
-            I1 = itype(T1)
-            I2 = itype(T2)
-            I = Base.promote_type(I1, I2)
-            r1 = reinterpret(I1, x)%I
-            r2 = reinterpret(I2, y)%I
-            result = $OP(r1, r2)
-            return result
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
@@ -48,36 +43,18 @@ for OP in (:(&), :(|), :(⊻), :flipsign, :copysign)
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:SafeInteger
-            T = promote_type(T1, T2)
-            I = itype(T)
-            I1 = itype(T1)
-            I2 = itype(T2)
-            r1 = reinterpret(I1, x)%I
-            r2 = reinterpret(I2, y)%I
-            result = $OP(r1, r2)
-            return reinterpret(T, result)
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
         end
 
-        @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
-            T = promote_type(T1, T2)
-            I = itype(T)
-            I1 = itype(T1)
-            I2 = itype(T2)
-            r1 = reinterpret(I1, x)%I
-            r2 = reinterpret(I2, y)%I
-            result = $OP(r1, r2)
-            return reinterpret(T, result)
+       @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
         end
 
         @inline function $OP(x::T2, y::T1) where T1<:SafeInteger where T2<:Integer
-            T = promote_type(T1, T2)
-            I = itype(T)
-            I2 = itype(T1)
-            I1 = itype(T2)
-            r1 = reinterpret(I1, x)%I
-            r2 = reinterpret(I2, y)%I
-            result = $OP(r1, r2)
-            return reinterpret(T, result)
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
         end
 
    end
