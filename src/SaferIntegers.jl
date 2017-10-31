@@ -42,6 +42,7 @@ const SAFE_INTEGERS    = (:SafeInt8, :SafeUInt8, :SafeInt16, :SafeUInt16, :SafeI
 include("convert.jl")
 include("promote.jl")
 include("int_ops.jl")
+include("binary_ops.jl")
 include("arith_ops.jl")
 include("string_io.jl")
 
