@@ -59,7 +59,7 @@ Otherwise, they should be unsurprising.
 
 `sign`, `signbit`, `abs`, `abs2`, `count_ones`, `leading_zeros`, `trailing_zeros`, `ndigits0z`,
 `isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`, `>>>`, `>>`, `<<`, `+`, `-`, `*`
-`div`, `fld`, `cld`, `rem`, `mod`, `typemin`, `typemax`, `widen` 
+`div`, `fld`, `cld`, `rem`, `mod`, `zero`, `one`, `typemin`, `typemax`, `widen` 
 
 ### credits
 
