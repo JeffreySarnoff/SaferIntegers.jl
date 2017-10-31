@@ -17,6 +17,9 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeSigned
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        #= 
             T = promote_type(T1, T2)
             I = itype(T)
             I1 = itype(T1)
@@ -25,6 +28,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             r2 = reinterpret(I2, y)%I
             result = $CHK(r1, r2)
             return reinterpret(T, result)
+        =#
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeUnsigned
@@ -36,6 +40,16 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             r2 = reinterpret(I2, y)%I
             result = $CHK(r1, r2)
             return reinterpret(T, result)
+        end
+    
+         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+
+        @inline function $OP(x::T1, y::T2) where T1<:Integer where T2<:SafeInteger
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
         end
     end
 end
