@@ -14,7 +14,12 @@ for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:SafeInteger
             xx, yy = promote(x, y)
-            return $OP(xx, yy)
+            T = typeof(xx)
+            I = itype(T)
+            r1 = reinterpret(I, xx)
+            r2 = reinterpret(I, yy)
+            result = $OP(r1, r2)
+            return result
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
