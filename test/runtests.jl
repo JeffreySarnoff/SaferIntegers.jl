@@ -48,6 +48,9 @@ end
 @test SafeInt32(7) & SafeInt32(2) === SafeInt32(7&2)
 @test SafeInt16(7) | SafeInt16(2) === SafeInt16(7|2)
 @test xor(SafeInt64(7), Int64(2)) === SafeInt64(xor(7,2))
+@test SafeInt32(7) >>> SafeInt32(2) === SafeInt32(7 >>> 2)
+@test SafeInt32(7) >> SafeInt32(2) === SafeInt32(7 >> 2)
+@test SafeInt32(7) << SafeInt32(2) === SafeInt32(7 << 2)
 
 @test SafeInt16(7) + SafeInt32(2) === SafeInt32(7+2)
 @test SafeInt8(7) - SafeInt64(2) === SafeInt64(7-2)
