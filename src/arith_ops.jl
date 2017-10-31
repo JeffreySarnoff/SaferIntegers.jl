@@ -27,9 +27,9 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeUnsigned
-            T = promote_type(T1, T2)
-            I = itype(T)
             xx, yy = promote(x, y)
+            T = typeof(xx)
+            I = itype(T)
             r1 = reinterpret(I, xx)
             r2 = reinterpret(I, yy)
             result = $CHK(r1, r2)
