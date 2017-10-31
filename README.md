@@ -33,12 +33,8 @@ should a calculation encouter an overflow or underflow,
 > Get the package: `Pkg.add("SaferIntegers")`     
 > Use the package:  `using SaferIntegers`     
 
-
-```julia
-Pkg.add("SaferIntegers")
-
 - These functions check for overflow/underflow automatically:    
--- abs, (neg), (-), (+), (*), div, fld, cld, rem, mod 
+-- abs, (neg), (-), (+), (\*), div, fld, cld, rem, mod 
 
 ## Exported Types
 
