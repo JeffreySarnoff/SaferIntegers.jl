@@ -55,9 +55,11 @@ Otherwise, they should be unsurprising.
 `SafeUnsigned(x::Unsigned)` returns a safe unsigned integer of the same bitwidth as x    
 `SafeInteger(x::Integer)` returns a safe Integer of the same bitwidth and either Signed or Unsigned as is x
 
-## Additionally
+## Supports
 
-most other ops that work with Int types
+`sign`, `signbit`, `abs`, `abs2`, `count_ones`, `leading_zeros`, `trailing_zeros`, `ndigits0z`,
+`isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`, `>>>`, `>>`, `<<`, `+`, `-`, `*`
+`div`, `fld`, `cld`, `rem`, `mod`, `typemin`, `typemax`, `widen` 
 
 ### credits
 
