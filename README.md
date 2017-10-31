@@ -1,6 +1,10 @@
 ## SaferIntegers
 
-#### Section SafeInt(1): A Safer Way 
+##### Jeffrey Sarnoff (2017-10-31T13:10Z {40N47, 73W58})
+
+-----
+
+#### A Safer Way 
 
 
 To use safer integers within your computations, where you have been using    
@@ -15,37 +19,14 @@ SafeInt and SafeUInt give you these arithmetic operators:
 +, -, *, div, rem, fld, mod    
 which have become overflow and underflow aware.
 
-overflow aware integer calculations that just work::  virtuous causation   
-less stress ⇢ better rest ⇢ social ease 
-                           ⇢ new friends ⇢ less stress
-
-Many calculations proceed without unsafe action
-Some calcuations proceed avoiding unsafe acts.
-
-Most calculations proceed safely much of the time.    
-Some calculations proceed until there is an unsafe act.
-Some calculations proceed unless there is an unsafe act.
-
-^  prefer these ^
-
-Some calcuations proceed 
-Some calculations proceed, encountering an incident.
-
-Some calculations proceed,
-after an incident that   
+The Int and UInt types can fail at simple arithmetic        
+and will continue carrying the incorrectness forward.    
+The validity of values obtained is difficult to ascertain.
 
 Most calculations proceed without incident, 
-and when used SafeInts operate as Ints.
-Should a calculation encouter an overflow or underflow, 
-    we are alerted and the calculation does proceed without reinitializaiton
-
-
-The Int64 and Int32 types can fail at simple arithmetic       
-and blithely continue carrying the incorrectness forward.   
-The validity of values obtained cannot be ascertained.
-
-
-##### Jeffrey Sarnoff (2017-10-17T13:22Z {40N47, 73W58})
+and when used SafeInts operate as Ints
+should a calculation encouter an overflow or underflow, 
+    we are alerted and the calculation does not proceed.
 
 #### Give them a whirl.
 
@@ -86,7 +67,7 @@ widen(x::SafeInteger) returns a SafeInteger of greater bitwidth and either Signe
 
 ## Additionally
 
-`is_safeint(::Type{T})::Bool`, `is_safeint(x)::Bool`
+most other ops that work with Int types
 
 ### credits
 
