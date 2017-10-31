@@ -44,6 +44,18 @@ import Base: convert
 @inline convert(::Type{UInt64},  x::SafeInt64)  = reinterpret(UInt64, convert(Int64, x))
 @inline convert(::Type{UInt128}, x::SafeInt128) = reinterpret(UInt128, convert(Int128, x))
 
+@inline convert(::Type{SafeInt8}, x::I)   where I<:Union{SafeInt16, SafeInt32, SafeInt64, SafeInt128} = convert(SafeInt8, convert(Int8, x))
+@inline convert(::Type{SafeInt16}, x::I)  where I<:Union{SafeInt8, SafeInt32, SafeInt64, SafeInt128}  = convert(SafeInt16, convert(Int16, x))
+@inline convert(::Type{SafeInt32}, x::I)  where I<:Union{SafeInt8, SafeInt16, SafeInt64, SafeInt128}  = convert(SafeInt32, convert(Int32, x))
+@inline convert(::Type{SafeInt64}, x::I)  where I<:Union{SafeInt8, SafeInt16, SafeInt32, SafeInt128}  = convert(SafeInt64, convert(Int64, x))
+@inline convert(::Type{SafeInt128}, x::I) where I<:Union{SafeInt8, SafeInt16, SafeInt32, SafeInt64}   = convert(SafeInt128, convert(Int128, x))
+
+@inline convert(::Type{SafeUInt8}, x::I)   where I<:Union{SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128} = convert(SafeUInt8, convert(UInt8, x))
+@inline convert(::Type{SafeUInt16}, x::I)  where I<:Union{SafeUInt8, SafeUInt32, SafeUInt64, SafeUInt128}  = convert(SafeUInt16, convert(UInt16, x))
+@inline convert(::Type{SafeUInt32}, x::I)  where I<:Union{SafeUInt8, SafeUInt16, SafeUInt64, SafeUInt128}  = convert(SafeUInt32, convert(UInt32, x))
+@inline convert(::Type{SafeUInt64}, x::I)  where I<:Union{SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt128}  = convert(SafeUInt64, convert(UInt64, x))
+@inline convert(::Type{SafeUInt128}, x::I) where I<:Union{SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64}   = convert(SafeUInt128, convert(UInt128, x))
+
 @inline convert(::Type{SafeInt8}, x::I)   where I<:Union{Int16, Int32, Int64, Int128} = convert(SafeInt8, convert(Int8, x))
 @inline convert(::Type{SafeInt16}, x::I)  where I<:Union{Int8, Int32, Int64, Int128}  = convert(SafeInt16, convert(Int16, x))
 @inline convert(::Type{SafeInt32}, x::I)  where I<:Union{Int8, Int16, Int64, Int128}  = convert(SafeInt32, convert(Int32, x))
