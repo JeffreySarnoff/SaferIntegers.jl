@@ -5,68 +5,50 @@ else
     using Test
 end
 
-macro catcher(x)
-  quote 
-    begin
-        try
-            $x
-        catch e
-            e
-        end
-    end
-  end  
+
+macro no_error(x)
+    :(@test (try $x; true; catch e; false; end))
 end
-macro inexact(x)
-    :(InexactError() == @catcher($x))
-end
-macro overflow(x)
-    :(OverflowError() == @catcher($x))
-end
-macro exact(expected, expression)
-    :($expected == @catcher($expression))
+macro is_error(x)
+    :(@test (try $x; false; catch e; true; end))
 end
 
-@test @inexact(SafeInt8(0x80))
-@test @exact(SafeUInt8(0xFE), SafeUInt8(0x7F)+SafeUInt8(0x7F))
-@test @overflow(SafeUInt8(0x7F) + SafeUInt8(0x81))
-@test @overflow(SafeUInt8(0x7F) - SafeUInt8(0x81))
-
-@test @exact(SafeInt32(typemax(SafeUInt16)), convert(SafeInt32, ~zero(SafeUInt16)))
-@test @inexact(convert(SafeInt32, ~zero(SafeUInt32)))
-
-@test SafeInt(12) == SafeUInt16(12)
-@test SafeInt(-1) != ~zero(SafeUInt)
-
-for T in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
-    @eval begin
-        @test @overflow(typemin($T) - one($T))
-        @test @overflow(typemax($T) + one($T))
-        @test @overflow(typemax($T) * two($T))
-    end
+for (S,T) in ((:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), 
+              (:SafeInt64, :Int64), (:SafeInt128, :Int128))
+   @eval begin
+        @test one($S) === $S(one($T))
+        @test one($T) === $T(one($S))
+        @no_error( $S(typemin($T)) )
+        @is_error( $S(typemax($T)) + one($T) )
+        @is_error( $S(typemin($T)) - one($T) )
+        @is_error( $S(typemax($T)) + one($S) )
+        @is_error( $S(typemin($T)) - one($S) )
+   end         
+end
+for (S,T) in ((:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), 
+              (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128))
+   @eval begin
+        @test one($S) === $S(one($T))        
+        @test one($T) === $T(one($S))
+        @no_error( $S(typemax($T)) )
+        @is_error( $S(typemax($T)) + one($T) )
+        @is_error( zero($S) - one($T) )
+        @is_error( $S(typemax($T)) + one($S) )
+        @is_error( zero($S) - one($S) )
+        @test $S(5) === $S($T(5))
+        @test $T(5) === $T($S(5))
+   end         
 end
 
-for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
-    @eval begin
-        @test @overflow(-typemin($T))
-        @test @overflow(-typemin($T))
-        @test @overflow(-typemin($T))
-    end
-end
+@test SafeInt16(7) >  SafeInt32(2)
+@test SafeInt8(7)  >= SafeInt64(2) 
+@test SafeInt16(2) <  SafeInt32(7)
+@test SafeInt8(2)  <= SafeInt64(7) 
 
-for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128,
-          :SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
-    @eval begin
-        @test @overflow( one($T) >>> (T(8)*sizeof($T)+one($T)) )
-        @test @overflow( one($T) >>  (T(8)*sizeof($T)+one($T)) )
-        @test @overflow( one($T) <<  (T(8)*sizeof($T)+one($T)) )
-    end
-end
+@test SafeInt32(7) & SafeInt32(2) === SafeInt32(7&2)
+@test SafeInt16(7) | SafeInt16(2) === SafeInt16(7|2)
+@test xor(SafeInt64(7), Int64(2)) === SafeInt64(xor(7,2))
 
-for T in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
-    @eval begin
-        @test @overflow( one($T) >>> (T(8)*sizeof($T)+one($T))- one($T) )
-        @test @overflow( one($T) >>> (T(8)*sizeof($T)+one($T))+ one($T) )
-        @test @overflow( one($T) >>> (T(8)*sizeof($T)+one($T))* two($T) )
-    end  
-end
-
+@test SafeInt16(7) + SafeInt32(2) === SafeInt32(7+2)
+@test SafeInt8(7) - SafeInt64(2) === SafeInt64(7-2)
+@test SafeInt32(7) * Int16(2) === SafeInt32(7*2)
