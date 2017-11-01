@@ -38,30 +38,30 @@ end
 itype(::Type{SafeInteger})  = Integer
 itype(::Type{SafeSigned})   = Signed
 itype(::Type{SafeUnsigned}) = Unsigned
-itype(::Type{SafeInt8})    = Int8
-itype(::Type{SafeUInt8})   = UInt8
-itype(::Type{SafeInt16})   = Int16
-itype(::Type{SafeUInt16})  = UInt16
-itype(::Type{SafeInt32})   = Int32
-itype(::Type{SafeUInt32})  = UInt32
-itype(::Type{SafeInt64})   = Int64
-itype(::Type{SafeUInt64})  = UInt64
-itype(::Type{SafeInt128})  = Int128
-itype(::Type{SafeUInt128}) = UInt128
-itype(x::SafeInteger) = itype(typeof(x))
+itype(::Type{SafeInt8})     = Int8
+itype(::Type{SafeUInt8})    = UInt8
+itype(::Type{SafeInt16})    = Int16
+itype(::Type{SafeUInt16})   = UInt16
+itype(::Type{SafeInt32})    = Int32
+itype(::Type{SafeUInt32})   = UInt32
+itype(::Type{SafeInt64})    = Int64
+itype(::Type{SafeUInt64})   = UInt64
+itype(::Type{SafeInt128})   = Int128
+itype(::Type{SafeUInt128})  = UInt128
+itype(x::SafeInteger)       = itype(typeof(x))
 
 stype(::Type{Signed})   = SafeSigned
 stype(::Type{Unsigned}) = SafeUnsigned
-stype(::Type{Int8})    = SafeInt8
-stype(::Type{UInt8})   = SafeUInt8
-stype(::Type{Int16})   = SafeInt16
-stype(::Type{UInt16})  = SafeUInt16
-stype(::Type{Int32})   = SafeInt32
-stype(::Type{UInt32})  = SafeUInt32
-stype(::Type{Int64})   = SafeInt64
-stype(::Type{UInt64})  = SafeUInt64
-stype(::Type{Int128})  = SafeInt128
-stype(::Type{UInt128}) = SafeUInt128
+stype(::Type{Int8})     = SafeInt8
+stype(::Type{UInt8})    = SafeUInt8
+stype(::Type{Int16})    = SafeInt16
+stype(::Type{UInt16})   = SafeUInt16
+stype(::Type{Int32})    = SafeInt32
+stype(::Type{UInt32})   = SafeUInt32
+stype(::Type{Int64})    = SafeInt64
+stype(::Type{UInt64})   = SafeUInt64
+stype(::Type{Int128})   = SafeInt128
+stype(::Type{UInt128})  = SafeUInt128
 stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
 
 # We want the *Safety* to be sticky with familiar integer-like numbers
@@ -101,30 +101,20 @@ for ISafe in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
     end
 end
 
-Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} =
-    promote_type(T, SI)
-Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} =
-    promote_type(T, SU)
+Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} = promote_type(T, SI)
+Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} = promote_type(T, SU)
 
-Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Real, SI<:SafeInteger} =
-    promote_type(T, SI)
-Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Number, SI<:SafeInteger} =
-    promote_type(T, itype(SI))
+Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Real, SI<:SafeInteger} = promote_type(T, SI)
+Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Number, SI<:SafeInteger} = promote_type(T, itype(SI))
 
-Base.promote_rule(::Type{Rational{T}}, ::Type{SI}) where {T<:Integer, SI<:SafeInteger} =
-    promote_type(T, SI)
+Base.promote_rule(::Type{Rational{T}}, ::Type{SI}) where {T<:Integer, SI<:SafeInteger} = promote_type(T, SI)
 
 # Resolve ambiguities
-Base.promote_rule(::Type{Bool}, ::Type{SI}) where {SI<:SafeInteger} =
-    promote_type(Bool, itype(SI))
-Base.promote_rule(::Type{BigInt}, ::Type{SI}) where {SI<:SafeInteger} =
-    promote_type(BigInt, itype(SI))
-Base.promote_rule(::Type{BigFloat}, ::Type{SI}) where {SI<:SafeInteger} =
-    promote_type(BigFloat, itype(SI))
-Base.promote_rule(::Type{Complex{T}}, ::Type{SI}) where {T<:Real,SI<:SafeInteger} =
-    promote_type(Complex{T}, itype(SI))
-Base.promote_rule(::Type{<:Irrational}, ::Type{SI}) where {SI<:SafeInteger} =
-    promote_type(Float64, itype(SI))
+Base.promote_rule(::Type{Bool}, ::Type{SI}) where {SI<:SafeInteger} = promote_type(Bool, itype(SI))
+Base.promote_rule(::Type{BigInt}, ::Type{SI}) where {SI<:SafeInteger} = promote_type(BigInt, itype(SI))
+Base.promote_rule(::Type{BigFloat}, ::Type{SI}) where {SI<:SafeInteger} = promote_type(BigFloat, itype(SI))
+Base.promote_rule(::Type{Complex{T}}, ::Type{SI}) where {T<:Real,SI<:SafeInteger} = promote_type(Complex{T}, itype(SI))
+Base.promote_rule(::Type{<:Irrational}, ::Type{SI}) where {SI<:SafeInteger} = promote_type(Float64, itype(SI))
 
 (::Type{Signed})(x::SafeSigned)     = reinterpret(itype(x), x)
 (::Type{Unsigned})(x::SafeUnsigned) = reinterpret(itype(x), x)
@@ -142,16 +132,11 @@ Base.signed(x::SafeSigned)   = SafeInteger(signed(Integer(x)))
 # @inline Base.convert{T<:SafeSigned}(::Type{T}, x::T) = x
 # @inline Base.convert{T<:SafeUnsigned}(::Type{T}, x::T) = x
 @inline Base.convert(::Type{T}, x::T) where {T<:SafeInteger} = x
-@inline Base.convert(::Type{T}, x::Integer) where {T<:SafeInteger} =
-    SafeInteger(convert(itype(T), x))
-@inline Base.convert(::Type{T}, x::AbstractFloat) where {T<:SafeInteger} =
-    SafeInteger(round(itype(T), x))
-@inline Base.convert(::Type{T}, x::Number) where {T<:SafeInteger} =
-    convert(T, convert(itype(T), x))
-@inline Base.convert(::Type{T}, x::SafeInteger) where {T<:SafeInteger} =
-    SafeInteger(convert(itype(T), Integer(x)))
-@inline Base.convert(::Type{T}, x::SafeInteger) where {T<:Number} =
-    convert(T, Integer(x))
+@inline Base.convert(::Type{T}, x::Integer) where {T<:SafeInteger} = SafeInteger(convert(itype(T), x))
+@inline Base.convert(::Type{T}, x::AbstractFloat) where {T<:SafeInteger} = SafeInteger(round(itype(T), x))
+@inline Base.convert(::Type{T}, x::Number) where {T<:SafeInteger} = convert(T, convert(itype(T), x))
+@inline Base.convert(::Type{T}, x::SafeInteger) where {T<:SafeInteger} = SafeInteger(convert(itype(T), Integer(x)))
+@inline Base.convert(::Type{T}, x::SafeInteger) where {T<:Number} = convert(T, Integer(x))
 
 # Resolve ambiguities
 Base.convert(::Type{Integer}, x::SafeInteger) = Integer(x)
