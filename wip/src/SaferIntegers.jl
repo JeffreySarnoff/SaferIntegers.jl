@@ -67,6 +67,30 @@ stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
 
+for S1 in  (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
+    for S2 in  (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
+        sizeof(S2) <= sizeof(S1) && continue
+        @eval Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S2
+    end
+end
+for S1 in  (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
+    for S2 in  (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
+        sizeof(S2) <= sizeof(S1) && continue
+        @eval Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S2
+    end
+end
+for S1 in  (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
+    for S2 in  (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
+        if sizeof($S1) == sizeof($S2) 
+            @eval Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S1
+        elseif sizeof($S1) > sizeof($S2)
+            @eval Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S2
+        end
+    end
+end
+
+
+#=
 for USafe in (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
     for U in (:UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
        @eval if sizeof($USafe) >= sizeof($U)
@@ -100,6 +124,8 @@ for ISafe in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
        end
     end
 end
+
+=#
 
 Base.promote_rule(::Type{T}, ::Type{SI}) where {T<:Signed, SI<:SafeSigned} = promote_type(T, SI)
 Base.promote_rule(::Type{T}, ::Type{SU}) where {T<:Unsigned, SU<:SafeUnsigned} = promote_type(T, SU)
