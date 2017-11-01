@@ -81,11 +81,13 @@ for S1 in  (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
 end
 for S1 in  (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
     for S2 in  (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
-        if sizeof($S1) == sizeof($S2) 
-            @eval Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S1
-        elseif sizeof($S1) > sizeof($S2)
-            @eval Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S2
-        end
+        @eval begin        
+            if sizeof($S1) == sizeof($S2) 
+                Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S1
+            elseif sizeof($S1) > sizeof($S2)
+                Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S2
+            end
+        end               
     end
 end
 
