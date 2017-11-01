@@ -183,6 +183,10 @@ Base.copysign(x::SafeSigned, y::SafeSigned) = SafeInteger(copysign(Integer(x), I
 (|)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) | Integer(y))
 (⊻)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) ⊻ Integer(y))
 
+(>>>)(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) >>> Integer(y))
+(>> )(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) >>  Integer(y))
+(<< )(x::T, y::T) where {T<:SafeInteger} = SafeInteger(Integer(x) <<  Integer(y))
+
 (>> )(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) >> y)
 (>>>)(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) >>> y)
 (<< )(x::SafeInteger, y::Signed)   = SafeInteger(Integer(x) << y)
