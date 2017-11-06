@@ -7,7 +7,12 @@ export SafeUnsigned, SafeSigned, SafeInteger,
        SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
        safeint, notsafe
 
-import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
+import Base: ==, <, <=, +, -, *, /, ~, &, |, ⊻, <<, >>, >>>,
+             isequal, isless, flipsign, copysign,
+             zero, one, signbit, sign, abs, abs2,
+             leading_zeros, leading_ones, trailing_zeros, trailing_ones, ndigits0z,
+             div, fld, cld, rem, mod, divrem, fldmod
+
 import Base.Checked: checked_abs, checked_neg, checked_add, checked_sub,
     checked_mul, checked_div, checked_fld, checked_cld, checked_rem, checked_mod
 
