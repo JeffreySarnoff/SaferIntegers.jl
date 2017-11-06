@@ -92,8 +92,8 @@ for (S,T) in ((:SafeInt128, :Int128), (:SafeInt64, :Int64),
      @inline convert(::Type{$S}, x::$T) = reinterpret($S, x)
      @inline convert(::Type{$T}, x::$S) = reinterpret($T, x)
      @inline $S(x::$S) = x
-     @inline $S(x::$T) = styped(x)
-     @inline $T(x::$S) = ityped(x)
+     @inline $S(x::$T) = convert($S, x)
+     @inline $T(x::$S) = convert($S, x)
      if sizeof($T) !== sizeof(Int)
          if $T<:Signed
              @inline convert(Int, x::$S) = convert(Int, ityped(x))
