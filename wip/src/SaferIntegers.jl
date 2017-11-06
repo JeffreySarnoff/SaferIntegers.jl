@@ -8,7 +8,7 @@ export SafeUnsigned, SafeSigned, SafeInteger,
        safeint, notsafe
 
 import Base: ==, <, <=, +, -, *, /, ~, &, |, ⊻, <<, >>, >>>,
-             isequal, isless, flipsign, copysign,
+             cmp, isequal, isless, flipsign, copysign,
              zero, one, signbit, sign, abs, abs2,
              leading_zeros, leading_ones, trailing_zeros, trailing_ones, ndigits0z,
              div, fld, cld, rem, mod, divrem, fldmod
