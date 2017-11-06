@@ -7,7 +7,8 @@ export SafeUnsigned, SafeSigned, SafeInteger,
        SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
        safeint, notsafe
 
-import Base: ==, <, <=, +, -, *, /, ~, &, |, ⊻, <<, >>, >>>,
+import Base: convert, promote_rule,
+             ==, <, <=, +, -, *, /, ~, &, |, ⊻, <<, >>, >>>,
              cmp, isequal, isless, flipsign, copysign,
              zero, one, signbit, sign, abs, abs2,
              leading_zeros, leading_ones, trailing_zeros, trailing_ones, ndigits0z,
@@ -16,7 +17,7 @@ import Base: ==, <, <=, +, -, *, /, ~, &, |, ⊻, <<, >>, >>>,
 import Base.Checked: checked_abs, checked_neg, checked_add, checked_sub,
     checked_mul, checked_div, checked_fld, checked_cld, checked_rem, checked_mod
 
-const UnsafeInteger = Unon{Signed, Unsigned}
+const UnsafeInteger = Union{Signed, Unsigned}
 
 abstract type SafeUnsigned <: Unsigned end
 abstract type SafeSigned   <: Signed   end
@@ -76,10 +77,42 @@ stype(x::U) where U<:UnsafeInteger = stype(typeof(x))
 stype(x::S) where S<:SafeInteger = S
 stype(::Type{S}) where S<:SafeInteger = S
 
-@inlnine ityped(x::S) where S<:SafeInteger   = reintepret(itype(S), x)
-@inlnine styped(x::U) where U<:UnsafeInteger = reintepret(stype(U), x)
-@inlnine ityped(x::U) where U<:UnsafeInteger = x
-@inlnine styped(x::S) where S<:SafeInteger   = x
+@inline ityped(x::S) where S<:SafeInteger   = reinterpret(itype(S), x)
+@inline styped(x::U) where U<:UnsafeInteger = reinterpret(stype(U), x)
+@inline ityped(x::U) where U<:UnsafeInteger = x
+@inline styped(x::S) where S<:SafeInteger   = x
+
+for (S,T) in ((:SafeInt128, :Int128), (:SafeInt64, :Int64),
+              (:SafeInt32, :Int32),   (:SafeInt16, :Int16),
+              (:SafeInt8, :Int8),     (:SafeUInt128, :UInt128),
+              (:SafeUInt64, :UInt64), (:SafeUInt32, :UInt32),
+              (:SafeUInt16, :UInt16), (:SafeUInt8, :UInt8))
+  @eval begin
+     @inline convert(::Type{$S}, x::$S) = x
+     @inline convert(::Type{$S}, x::$T) = reinterpret($S, x)
+     @inline convert(::Type{$T}, x::$S) = reinterpret($T, x)
+     @inline $S(x::$S) = x
+     @inline $S(x::$T) = styped(x)
+     @inline $T(x::$S) = ityped(x)
+     if sizeof($T) !== sizeof(Int)
+         if $T<:Signed
+             @inline convert(Int, x::$S) = convert(Int, ityped(x))
+             @inline convert(SafeInt, x::$T) = reinterpret(SafeInt, convert(Int, x))          
+             @inline convert(SafeInt, x::$S) = reinterpret(SafeInt, convert(Int, ityped(x)))
+             @inline Int(x::$S) = convert(Int, x)
+             @inline SafeInt(x::$T) = convert(SafeInt, x)
+             @inline SafeInt(x::$S) = convert(SafeInt, x)
+         else
+             @inline convert(UInt, x::$S) = convert(UInt, ityped(x))
+             @inline convert(SafeUInt, x::$T) = reinterpret(SafeUInt, convert(UInt, x))
+             @inline convert(SafeUInt, x::$S) = reinterpret(SafeUInt, convert(UInt, ityped(x)))
+             @inline Int(x::$S) = convert(UInt, x)
+             @inline SafeInt(x::$T) = convert(SafeUInt, x)
+             @inline SafeInt(x::$S) = convert(SafeUInt, x)
+         end
+     end
+  end
+end
 
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
@@ -104,7 +137,7 @@ for S1 in  (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
             elseif sizeof($S1) > sizeof($S2)
                 Base.promote_rule(::Type{$S1}, ::Type{$S2}) = $S2
             end
-        end               
+        end
     end
 end
 
