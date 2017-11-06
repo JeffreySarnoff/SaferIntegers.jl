@@ -11,6 +11,8 @@ import Base: ==, <, <=, +, -, *, ~, &, |, ⊻, <<, >>, >>>
 import Base.Checked: checked_abs, checked_neg, checked_add, checked_sub,
     checked_mul, checked_div, checked_fld, checked_cld, checked_rem, checked_mod
 
+const UnsafeInteger = Unon{Signed, Unsigned}
+
 abstract type SafeUnsigned <: Unsigned end
 abstract type SafeSigned   <: Signed   end
 
@@ -48,8 +50,11 @@ itype(::Type{SafeInt64})    = Int64
 itype(::Type{SafeUInt64})   = UInt64
 itype(::Type{SafeInt128})   = Int128
 itype(::Type{SafeUInt128})  = UInt128
-itype(x::SafeInteger)       = itype(typeof(x))
+itype(x::S) where S<: SafeInteger = itype(typeof(x))
+itype(x::U) where U<:UnsafeInteger = U
+itype(::Type{U}) where U<:UnsafeInteger = U
 
+stype(::Type{UnsafeInteger}) = SafeInteger
 stype(::Type{Signed})   = SafeSigned
 stype(::Type{Unsigned}) = SafeUnsigned
 stype(::Type{Int8})     = SafeInt8
@@ -62,7 +67,14 @@ stype(::Type{Int64})    = SafeInt64
 stype(::Type{UInt64})   = SafeUInt64
 stype(::Type{Int128})   = SafeInt128
 stype(::Type{UInt128})  = SafeUInt128
-stype(x::Union{Signed,Unsigned}) = stype(typeof(x))
+stype(x::U) where U<:UnsafeInteger = stype(typeof(x))
+stype(x::S) where S<:SafeInteger = S
+stype(::Type{S}) where S<:SafeInteger = S
+
+@inlnine ityped(x::S) where S<:SafeInteger   = reintepret(itype(S), x)
+@inlnine styped(x::U) where U<:UnsafeInteger = reintepret(stype(U), x)
+@inlnine ityped(x::U) where U<:UnsafeInteger = x
+@inlnine styped(x::S) where S<:SafeInteger   = x
 
 # We want the *Safety* to be sticky with familiar integer-like numbers
 # and to be soapy with non-integer-esque numbers (including BigInt).
