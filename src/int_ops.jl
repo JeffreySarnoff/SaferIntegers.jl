@@ -1,6 +1,6 @@
-import Base: zero, one, sizeof, typemax, typemin, widen
-             signbit, sign, (~), (-), count_ones, leading_zeros, trailing_zeros, leading_ones, trailing_ones,
-             ndigits0z
+import Base: zero, one, sizeof, typemax, typemin, widen,
+             signbit, sign, (~), (-), count_ones, ndigits0z,
+             leading_zeros, trailing_zeros, leading_ones, trailing_ones
 
 zero(::Type{T}) where T<:SafeInteger = reinterpret(T, zero(itype(T)))
 one(::Type{T})  where T<:SafeInteger = reinterpret(T, one(itype(T)))
@@ -50,6 +50,6 @@ for OP in (:(~), :leading_zeros, :trailing_zeros, :leading_ones, :trailing_ones)
 end
 
 # traits
-Base.typemin(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemin(itype(T)))
-Base.typemax(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemax(itype(T)))
-Base.widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
+typemin(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemin(itype(T)))
+typemax(::Type{T}) where {T<:SafeInteger} = SafeInteger(typemax(itype(T)))
+widen(::Type{T}) where {T<:SafeInteger} = stype(widen(itype(T)))
