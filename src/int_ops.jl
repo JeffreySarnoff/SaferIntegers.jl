@@ -21,7 +21,7 @@ ndigits0z(n::T1, b::T2) where T1<:SafeInteger where T2<:Integer = ndigits0z(ityp
 
 function abs(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError())
-  return styped(abs(ityped(x))
+  return styped(abs(ityped(x)))
 end  
 abs(x::T) where T<:SafeUnsigned = x
 
