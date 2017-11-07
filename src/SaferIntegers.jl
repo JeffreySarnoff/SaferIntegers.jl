@@ -33,7 +33,6 @@ else
 end
 
 const UnsafeInteger = Union{Signed, Unsigned}
-const SafeInteger   = Union{SafeSigned, SafeUnsigned}
 
 const UNSAFE_SIGNEDS   = (:Int8, :Int16, :Int32, :Int64, :Int128)
 const SAFE_SIGNEDS     = (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
