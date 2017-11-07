@@ -51,15 +51,13 @@ for (I,U,SI,SU) in IUSafeIU
    @eval begin
      if (sizeof($I) != sizeof($I2))
          @inline convert(::Type{$SI}, x::$SI2) = reinterpret($SI, convert($I, reinterpret($I2, x)))
-         @inline convert(::Type{$UI}, x::$UI2) = reinterpret($UI, convert($I, reinterpret($I2, x)))
-         @inline convert(::Type{$SI}, x::$UI2) = reinterpret($SI, convert($I, reinterpret($U2, x)))
-         @inline convert(::Type{$UI}, x::$SI2) = reinterpret($UI, convert($U, reinterpret($I2, x)))
+         @inline convert(::Type{$SU}, x::$SU2) = reinterpret($SU, convert($I, reinterpret($I2, x)))
+         @inline convert(::Type{$SI}, x::$SU2) = reinterpret($SI, convert($I, reinterpret($U2, x)))
+         @inline convert(::Type{$SU}, x::$SI2) = reinterpret($SU, convert($U, reinterpret($I2, x)))
          @inline $SI(x::$SI2) = convert($SI, x)
-         @inline $UI(x::$UI2) = convert($UI, x)
-         @inline $SI(x::$UI2) = convert($SI, x)
-         @inline $UI(x::$SI2) = convert($UI, x)
-
-
+         @inline $UI(x::$SU2) = convert($SU, x)
+         @inline $SI(x::$SU2) = convert($SI, x)
+         @inline $UI(x::$SI2) = convert($SU, x)
 
          @inline convert(::Type{$I},  x::$SI2) = convert($I, reinterpret($I2, x))
          @inline convert(::Type{$U},  x::$SU2) = convert($U, reinterpret($U2, x))
