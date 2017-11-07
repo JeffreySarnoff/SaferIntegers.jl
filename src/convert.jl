@@ -55,9 +55,9 @@ for (I,U,SI,SU) in IUSafeIU
          @inline convert(::Type{$SI}, x::$SU2) = reinterpret($SI, convert($I, reinterpret($U2, x)))
          @inline convert(::Type{$SU}, x::$SI2) = reinterpret($SU, convert($U, reinterpret($I2, x)))
          @inline $SI(x::$SI2) = convert($SI, x)
-         @inline $UI(x::$SU2) = convert($SU, x)
+         @inline $S(x::$SU2) = convert($SU, x)
          @inline $SI(x::$SU2) = convert($SI, x)
-         @inline $UI(x::$SI2) = convert($SU, x)
+         @inline $SU(x::$SI2) = convert($SU, x)
 
          @inline convert(::Type{$I},  x::$SI2) = convert($I, reinterpret($I2, x))
          @inline convert(::Type{$U},  x::$SU2) = convert($U, reinterpret($U2, x))
