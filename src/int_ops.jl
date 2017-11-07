@@ -4,8 +4,8 @@ import Base: zero, one, sizeof, typemax, typemin, widen,
 
 zero(::Type{T}) where T<:SafeInteger = reinterpret(T, zero(itype(T)))
 one(::Type{T})  where T<:SafeInteger = reinterpret(T, one(itype(T)))
-sizeof(::Type{T}) where T<:SafeInteger    = stype(sizeof(itype(T)))
-bitsof(::Type{T}) where T<:SafeInteger   = stype(sizeof(itype(T)) << 3)
+sizeof(::Type{T}) where T<:SafeInteger  = stype(sizeof(itype(T)))
+bitsof(::Type{T}) where T<:SafeInteger  = stype(sizeof(itype(T)) << 3)
 @inline zero(x::T) where T<:SafeInteger = zero(T)
 @inline one(x::T)  where T<:SafeInteger = one(T)
 @inline sizeof(x::T) where T<:SafeInteger = sizeof(T)
