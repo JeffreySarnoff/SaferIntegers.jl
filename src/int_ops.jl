@@ -1,6 +1,5 @@
-import Base: zero, one, sizeof,
-             signbit, 
-             (~), (-), count_ones, leading_zeros, trailing_zeros, leading_ones, trailing_ones,
+import Base: zero, one, sizeof, typemax, typemin, widen
+             signbit, sign, (~), (-), count_ones, leading_zeros, trailing_zeros, leading_ones, trailing_ones,
              ndigits0z
 
 zero(::Type{T}) where T<:SafeInteger = reinterpret(T, zero(itype(T)))
