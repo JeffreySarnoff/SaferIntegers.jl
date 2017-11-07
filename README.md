@@ -19,6 +19,7 @@ Integer overflow occurs when an integer type is increased beyond its maximum val
    typemax(UInt) + one(UInt) == typemin(UInt)
    typemin(UInt) - one(UInt) == typemax(UInt)
    ```
+There are security implications for integer overflow in certain situations.
    
 #### Use
 
