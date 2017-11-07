@@ -152,30 +152,6 @@ import Base: convert
 @inline convert(::Type{SafeUInt64}, x::U)  where U<:Union{UInt8, UInt16, UInt32, UInt128}  = convert(SafeUInt64, convert(UInt64, x))
 @inline convert(::Type{SafeUInt128}, x::U) where U<:Union{UInt8, UInt16, UInt32, UInt64}   = convert(SafeUInt128, convert(UInt128, x))
 
-itype(::Type{SafeSigned})   = Signed
-itype(::Type{SafeUnsigned}) = Unsigned
-itype(::Type{SafeInteger})  = Integer
-stype(::Type{Signed})   = SafeSigned
-stype(::Type{Unsigned}) = SafeUnsigned
-stype(::Type{Integer})  = SafeInteger
-
-for (S,T) in zip(SAFE_SIGNEDS, UNSAFE_SIGNEDS)
-    @eval begin
-        @inline itype(::Type{$S}) = $T
-        @inline stype(::Type{$T}) = $S
-        @inline itype(::Type{$T}) = $T
-        @inline stype(::Type{$S}) = $S
-    end
-end
-for (S,T) in zip(SAFE_UNSIGNEDS, UNSAFE_UNSIGNEDS)
-    @eval begin
-        @inline itype(::Type{$S}) = $T
-        @inline stype(::Type{$T}) = $S
-        @inline itype(::Type{$T}) = $T
-        @inline stype(::Type{$S}) = $S
-    end
-end
-
 @inline convert(::Type{Int8}, x::I)   where I<:Union{SafeInt16, SafeInt32, SafeInt64, SafeInt128} = convert(Int8, convert(Int8, convert(itype(I), x)))
 @inline convert(::Type{Int16}, x::I)  where I<:Union{SafeInt8, SafeInt32, SafeInt64, SafeInt128}  = convert(Int16, convert(Int16, convert(itype(I), x)))
 @inline convert(::Type{Int32}, x::I)  where I<:Union{SafeInt8, SafeInt16, SafeInt64, SafeInt128}  = convert(Int32, convert(Int32, convert(itype(I), x)))
