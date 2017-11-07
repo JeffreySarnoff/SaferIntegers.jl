@@ -1,6 +1,5 @@
 import Base: convert
 
-#=
 convert(::Type{S1}, x::S2) where S1<:SafeSigned where S2<:SafeSigned = stype(convert(itype(S1), ityped(x)))
 convert(::Type{S1}, x::S2) where S1<:SafeUnsigned where S2<:SafeUnsigned = stype(convert(itype(S1), ityped(x)))
 convert(::Type{S1}, x::S2) where S1<:SafeSigned where S2<:SafeUnsigned = stype(convert(itype(S1), ityped(x)))
@@ -22,6 +21,11 @@ const IUSafeIU =
 
 for (I,U,SI,SU) in IUSafeIU
   @eval begin
+     @inline convert(::Type{$SI}, x::$SI) = x
+     @inline convert(::Type{$SU}, x::$SU) = x
+     @inline $SI(x::$SI) = x
+     @inline $SU(x::$SU) = x
+
      @inline convert(::Type{$I}, x::$SI) = reinterpret($I, x)
      @inline convert(::Type{$U}, x::$SU) = reinterpret($U, x)
      @inline convert(::Type{$SI}, x::$I) = reinterpret($SI, x)
@@ -45,7 +49,18 @@ end
 for (I,U,SI,SU) in IUSafeIU
   for (I2,U2,SI2,SU2) in IUSafeIU
    @eval begin
-     if (sizeof($I) != sizeof($I2)) 
+     if (sizeof($I) != sizeof($I2))
+         @inline convert(::Type{$SI}, x::$SI2) = reinterpret($SI, convert($I, reinterpret($I2, x)))
+         @inline convert(::Type{$UI}, x::$UI2) = reinterpret($UI, convert($I, reinterpret($I2, x)))
+         @inline convert(::Type{$SI}, x::$UI2) = reinterpret($SI, convert($I, reinterpret($U2, x)))
+         @inline convert(::Type{$UI}, x::$SI2) = reinterpret($UI, convert($U, reinterpret($I2, x)))
+         @inline $SI(x::$SI2) = convert($SI, x)
+         @inline $UI(x::$UI2) = convert($UI, x)
+         @inline $SI(x::$UI2) = convert($SI, x)
+         @inline $UI(x::$SI2) = convert($UI, x)
+
+
+
          @inline convert(::Type{$I},  x::$SI2) = convert($I, reinterpret($I2, x))
          @inline convert(::Type{$U},  x::$SU2) = convert($U, reinterpret($U2, x))
          @inline convert(::Type{$SI}, x::$I2)  = reinterpret($SI, convert($I, x))
@@ -68,7 +83,7 @@ for (I,U,SI,SU) in IUSafeIU
   end
 end
 
-=#
+#=
 
 import Base: convert
 
@@ -185,3 +200,4 @@ convert(::Type{SafeUnsigned}, x::Unsigned) = convert(stype(typeof(x)), x)
 
 convert(::Type{Integer}, x::SafeInteger) = convert(itype(typeof(x)), x)
 convert(::Type{SafeInteger}, x::Integer) = convert(stype(typeof(x)), x)
+=#
