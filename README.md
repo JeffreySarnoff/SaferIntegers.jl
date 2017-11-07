@@ -58,7 +58,8 @@ Otherwise, they should be unsurprising.
 
 ## Supports
 
-`sign`, `signbit`, `abs`, `abs2`, `count_ones`, `leading_zeros`, `trailing_zeros`, `ndigits0z`,
+`sign`, `signbit`, `abs`, `abs2`, `count_ones`, `leading_zeros`, `trailing_zeros`,
+`leading_ones`, `trailing_ones`, `ndigits0z`,
 `isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`, `>>>`, `>>`, `<<`, `+`, `-`, `*`, `\`,
 `div`, `fld`, `cld`, `rem`, `mod`, `zero`, `one`, `typemin`, `typemax`, `widen` 
 
