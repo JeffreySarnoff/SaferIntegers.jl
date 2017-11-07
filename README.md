@@ -1,6 +1,6 @@
 ## SaferIntegers
 
-##### Jeffrey Sarnoff (2017-10-31T13:10Z {40N47, 73W58})
+##### Jeffrey Sarnoff (2017-11-07T02:39Z {40N47, 73W58})
 
 -----
 
@@ -34,7 +34,8 @@ should a calculation encouter an overflow or underflow,
 > Use the package:  `using SaferIntegers`     
 
 - These functions check for overflow/underflow automatically:    
--- abs, (neg), (-), (+), (\*), div, fld, cld, rem, mod 
+-- abs, (neg), (-), (+), (\*), div, fld, cld, rem, mod
+-- so does (/), before converting to Float64
 
 ## Exported Types and Constructors / Converters
 
@@ -57,8 +58,9 @@ Otherwise, they should be unsurprising.
 
 ## Supports
 
-`sign`, `signbit`, `abs`, `abs2`, `count_ones`, `leading_zeros`, `trailing_zeros`, `ndigits0z`,
-`isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`, `>>>`, `>>`, `<<`, `+`, `-`, `*`
+`sign`, `signbit`, `abs`, `abs2`, `count_ones`, `leading_zeros`, `trailing_zeros`,
+`leading_ones`, `trailing_ones`, `ndigits0z`,
+`isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`, `>>>`, `>>`, `<<`, `+`, `-`, `*`, `\`,
 `div`, `fld`, `cld`, `rem`, `mod`, `zero`, `one`, `typemin`, `typemax`, `widen` 
 
 ### credits

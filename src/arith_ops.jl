@@ -1,4 +1,4 @@
-import Base: (+), (-), (*), div, fld, cld, rem, mod
+import Base: (+), (-), (*), (/), div, fld, cld, rem, mod
 import Base.Checked: checked_add, checked_sub, checked_mul,
                      checked_div, checked_fld, checked_cld,
                      checked_rem, checked_mod
@@ -46,4 +46,24 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return $OP(xx, yy)
         end
     end
+end
+
+function (/)(x::S, y::S) where S<:SafeInteger
+   d = checked_div(x, y) 
+   return (/)(itype(x), itype(y))
+end
+function (/)(x::S1, y::S2) where S1<:SafeInteger where S2<:SafeInteger
+   xx, yy = promote(x, y)
+   d = checked_div(xx, yy) 
+   return (/)(itype(xx), itype(yy))
+end
+function (/)(x::S1, y::S2) where S1<:SafeInteger where S2<:Integer
+   xx, yy = promote(x, y)
+   d = checked_div(xx, yy) 
+   return (/)(itype(xx), itype(yy))
+end
+function (/)(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
+   xx, yy = promote(x, y)
+   d = checked_div(xx, yy) 
+   return (/)(itype(xx), itype(yy))
 end

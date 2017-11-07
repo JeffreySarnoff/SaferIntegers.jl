@@ -55,3 +55,13 @@ end
 @test SafeInt16(7) + SafeInt32(2) === SafeInt32(7+2)
 @test SafeInt8(7) - SafeInt64(2) === SafeInt64(7-2)
 @test SafeInt32(7) * Int16(2) === SafeInt32(7*2)
+
+@test SafeInt16(Int8(2)) === SafeInt16(2)
+@test Int16(SafeInt8(2)) === Int16(2)
+@test SafeUInt64(UInt8(2)) === SafeUInt64(2)
+@test UInt16(SafeUInt64(2)) === UInt16(2)
+@test SafeInt16(UInt32(2)) === SafeInt16(2)
+@test UInt32(SafeInt8(2)) === UInt32(2)
+@test SafeUInt128(Int8(2)) === SafeUInt128(2)
+@test Int16(SafeUInt128(2)) === Int16(2)
+
