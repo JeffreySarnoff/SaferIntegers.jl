@@ -1,5 +1,23 @@
 import Base: promote_rule, promote_type
 
+
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned T<:SafeSigned =
+    stype(promote_type(itype(S), itype(T)))
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned T<:SafeUnsigned =
+    stype(promote_type(itype(S), itype(T)))
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned T<:SafeUnsigned =
+    stype(promote_type(itype(S), itype(T)))
+
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned T<:Signed =
+    stype(promote_type(itype(S), itype(T)))
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned T<:Unsigned =
+    stype(promote_type(itype(S), itype(T)))
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned T<:Unsigned =
+    stype(promote_type(itype(S), itype(T)))
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned T<:Signed =
+    stype(promote_type(itype(S), itype(T)))
+
+#=
 promote_rule(::Type{SafeInt8}, ::Type{SafeInt16})   = SafeInt16
 promote_rule(::Type{SafeInt8}, ::Type{SafeInt32})   = SafeInt32
 promote_rule(::Type{SafeInt8}, ::Type{SafeInt64})   = SafeInt64
@@ -126,3 +144,4 @@ promote_rule(::Type{UInt128}, ::Type{SafeInt32})  = SafeInt128
 promote_rule(::Type{UInt128}, ::Type{SafeInt64})  = SafeInt128
 promote_rule(::Type{UInt128}, ::Type{SafeInt128}) = SafeInt128
 
+=#
