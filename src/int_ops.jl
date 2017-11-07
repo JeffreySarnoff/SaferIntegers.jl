@@ -16,6 +16,10 @@ bitsof(::Type{T}) where T<:SafeInteger   = stype(sizeof(itype(T)) << 3)
 @inline signbit(x::T) where T<:SafeUnsigned = false
 @inline sign(x::T) where T<:SafeInteger = styped(sign(ityped(x)))
 
+ndigits0z(n::T) where T<:SafeInteger = ndigits0z(itype(x)) # do not reconvert
+ndigits0z(n::T1, b::T2) where T1<:SafeInteger where T2<:SafeInteger = ndigits0z(itype(x), itype(b)) # do not reconvert
+ndigits0z(n::T1, b::T2) where T1<:SafeInteger where T2<:Integer = ndigits0z(itype(x), b) # do not reconvert
+
 function abs(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError())
   return styped(abs(ityped(x))
