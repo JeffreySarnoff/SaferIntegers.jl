@@ -1,6 +1,10 @@
 import Base: convert
 
-#=
+convert(::Type{S1}, x::S2) where S1<:SafeSigned where S2<:SafeSigned = stype(convert(itype(S1), ityped(x)))
+convert(::Type{S1}, x::S2) where S1<:SafeUnsigned where S2<:SafeUnsigned = stype(convert(itype(S1), ityped(x)))
+convert(::Type{S1}, x::S2) where S1<:SafeSigned where S2<:SafeUnsigned = stype(convert(itype(S1), ityped(x)))
+convert(::Type{S1}, x::S2) where S1<:SafeUnsigned where S2<:SafeSigned = stype(convert(itype(S1), ityped(x)))
+
 convert(::Type{Signed}, x::SafeSigned) = convert(itype(typeof(x)), x)
 convert(::Type{SafeSigned}, x::Signed) = convert(stype(typeof(x)), x)
 
@@ -9,7 +13,6 @@ convert(::Type{SafeUnsigned}, x::Unsigned) = convert(stype(typeof(x)), x)
 
 convert(::Type{Integer}, x::SafeInteger) = convert(itype(typeof(x)), x)
 convert(::Type{SafeInteger}, x::Integer) = convert(stype(typeof(x)), x)
-=#
 
 const IUSafeIU =
     [(:Int8, :UInt8, :SafeInt8, :SafeUInt8), (:Int16, :UInt16, :SafeInt16, :SafeUInt16),
