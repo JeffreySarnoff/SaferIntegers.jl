@@ -37,7 +37,7 @@ end
 
 @inline function -(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError())
-  return styped(-(ityped(x))
+  return styped(-(ityped(x)))
 end  
 @inline (-)(x::T) where T<:SafeUnsigned = stype(-itype(x))
 
