@@ -34,13 +34,6 @@ end
 
 const UnsafeInteger = Union{Signed, Unsigned}
 
-const UNSAFE_SIGNEDS   = (:Int8, :Int16, :Int32, :Int64, :Int128)
-const SAFE_SIGNEDS     = (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128)
-const UNSAFE_UNSIGNEDS = (:UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
-const SAFE_UNSIGNEDS   = (:SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
-const UNSAFE_INTEGERS  = (:Int8, :UInt8, :Int16, :UInt16, :Int32, :UInt32, :Int64, :UInt64, :Int128, :UInt128)
-const SAFE_INTEGERS    = (:SafeInt8, :SafeUInt8, :SafeInt16, :SafeUInt16, :SafeInt32,:SafeUInt32, :SafeInt64, :SafeUInt64, :SafeInt128, :SafeUInt128)
-
 include("itypestype.jl")
 include("convert.jl")
 include("promote.jl")
