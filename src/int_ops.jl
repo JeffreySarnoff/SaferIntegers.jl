@@ -22,6 +22,8 @@ Base.abs2(x::SafeUnsigned)    = x*x
 Base.count_ones(x::SafeInteger)     = count_ones(Integer(x))
 Base.leading_zeros(x::SafeInteger)  = leading_zeros(Integer(x))
 Base.trailing_zeros(x::SafeInteger) = trailing_zeros(Integer(x))
+Base.leading_ones(x::SafeInteger)   = leading_ones(Integer(x))
+Base.trailing_ones(x::SafeInteger)  = trailing_ones(Integer(x))
 Base.ndigits0z(x::SafeInteger)      = Base.ndigits0z(Integer(x))
 
 Base.:(~)(x::SafeInteger) = SafeInteger(~Integer(x))
