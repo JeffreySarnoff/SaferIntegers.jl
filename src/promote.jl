@@ -17,6 +17,21 @@ promote_type(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:Unsigned =
 promote_type(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Signed =
     stype(promote_type(itype(S), itype(T)))
 
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:SafeSigned =
+    promote_type(S, T)
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:SafeUnsigned =
+    promote_type(S, T)
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:SafeUnsigned =
+    promote_type(S, T)
+
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:Signed =
+    promote_type(S, T)
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Unsigned =
+    promote_type(S, T)
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:Unsigned =
+    promote_type(S, T)
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Signed =
+    promote_type(S, T)
 #=
 promote_rule(::Type{SafeInt8}, ::Type{SafeInt16})   = SafeInt16
 promote_rule(::Type{SafeInt8}, ::Type{SafeInt32})   = SafeInt32
