@@ -1,40 +1,49 @@
-Base.zero(::Type{T}) where T<:SafeInteger = reinterpret(T, zero(itype(T)))
-Base.one(::Type{T})  where T<:SafeInteger = reinterpret(T, one(itype(T)))
-@inline Base.zero(x::T) where T<:SafeInteger = zero(T)
-@inline Base.one(x::T)  where T<:SafeInteger = one(T)
+import Base: zero, one, sizeof,
+             signbit, 
+             (~), (-), count_ones, leading_zeros, trailing_zeros, leading_ones, trailing_ones,
+             ndigits0z
 
-Base.sizeof(x::T) where T<:SafeSigned   = SafeSigned(sizeof(itype(T)))
-Base.sizeof(x::T) where T<:SafeUnsigned = SafeUnsigned(sizeof(itype(T)))
+zero(::Type{T}) where T<:SafeInteger = reinterpret(T, zero(itype(T)))
+one(::Type{T})  where T<:SafeInteger = reinterpret(T, one(itype(T)))
+sizeof(::Type{T}) where T<:SafeInteger    = stype(sizeof(itype(T)))
+bitsof(::Type{T}) where T<:SafeInteger   = stype(sizeof(itype(T)) << 3)
+@inline zero(x::T) where T<:SafeInteger = zero(T)
+@inline one(x::T)  where T<:SafeInteger = one(T)
+@inline sizeof(x::T) where T<:SafeInteger = sizeof(T)
+@inline bitsof(x::T) where T<:SafeInteger = bitsof(T)
 
-bitsof(x::T) where T<:SafeSigned   = SafeSigned(sizeof(itype(T)) << 3)
-bitsof(x::T) where T<:SafeUnsigned = SafeUnsigned(sizeof(itype(T)) << 3)
+@inline signbit(x::T) where T<:SafeSigned = signbit(ityped(x))
+@inline signbit(x::T) where T<:SafeUnsigned = false
+@inline sign(x::T) where T<:SafeInteger = styped(sign(ityped(x)))
 
-Base.signbit(x::SafeSigned) = signbit(Integer(x))
-Base.sign(x::SafeSigned)    = sign(Integer(x))
-Base.abs(x::SafeSigned)     = abs(Integer(x))
-Base.abs2(x::SafeSigned)    = abs2(Integer(x))
+function abs(x::T) where T<:SafeSigned
+  x === typemin(x) && throw(OverflowError())
+  return styped(abs(ityped(x))
+end  
+abs(x::T) where T<:SafeUnsigned = x
 
-Base.signbit(x::SafeUnsigned) = false
-Base.sign(x::T) where T<:SafeUnsigned = one(T)
-Base.abs(x::SafeUnsigned)     = x
-Base.abs2(x::SafeUnsigned)    = x*x
-
-Base.count_ones(x::SafeInteger)     = count_ones(Integer(x))
-Base.leading_zeros(x::SafeInteger)  = leading_zeros(Integer(x))
-Base.trailing_zeros(x::SafeInteger) = trailing_zeros(Integer(x))
-Base.leading_ones(x::SafeInteger)   = leading_ones(Integer(x))
-Base.trailing_ones(x::SafeInteger)  = trailing_ones(Integer(x))
-Base.ndigits0z(x::SafeInteger)      = Base.ndigits0z(Integer(x))
-
-Base.:(~)(x::SafeInteger) = SafeInteger(~Integer(x))
-Base.:(-)(x::SafeInteger) = SafeInteger(-Integer(x))
-function Base.:(-)(x::T) where T<:SafeSigned
-    x === typemin(T) && throw(OverflowError())
-    return SafeInteger(-Integer(x))
+function abs2(x::T) where T<:SafeSigned
+  x === typemin(x) && throw(OverflowError())
+  y = Base.Checked.checked_mul(x, x)      
+  return y
 end
-function Base.:(-)(x::T) where T<:SafeUnsigned
-    x === typemin(T) && throw(OverflowError())
-    return SafeInteger(-Integer(x))
+function abs2(x::T) where T<:SafeUnsigned
+  y = Base.Checked.checked_mul(x, x)      
+  return y
+end
+
+@inline function -(x::T) where T<:SafeSigned
+  x === typemin(x) && throw(OverflowError())
+  return styped(-(ityped(x))
+end  
+@inline (-)(x::T) where T<:SafeUnsigned = stype(-itype(x))
+
+@inline count_ones(x::T) where T<:SafeInteger = styped(count_ones(ityped(x)))
+    
+for OP in (:(~), :leading_zeros, :trailing_zeros, :leading_ones, :trailing_ones)
+    @eval begin
+        @inline $OP(x::T) where T<:SafeInteger = stype($OP(itype(x)))
+    end
 end
 
 # traits
