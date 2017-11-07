@@ -1,20 +1,20 @@
 import Base: promote_rule, promote_type
 
 
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned T<:SafeSigned =
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:SafeSigned =
     stype(promote_type(itype(S), itype(T)))
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned T<:SafeUnsigned =
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:SafeUnsigned =
     stype(promote_type(itype(S), itype(T)))
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned T<:SafeUnsigned =
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:SafeUnsigned =
     stype(promote_type(itype(S), itype(T)))
 
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned T<:Signed =
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:Signed =
     stype(promote_type(itype(S), itype(T)))
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned T<:Unsigned =
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Unsigned =
     stype(promote_type(itype(S), itype(T)))
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned T<:Unsigned =
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned where T<:Unsigned =
     stype(promote_type(itype(S), itype(T)))
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned T<:Signed =
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Signed =
     stype(promote_type(itype(S), itype(T)))
 
 #=
