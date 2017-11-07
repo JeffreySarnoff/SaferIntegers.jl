@@ -1,0 +1,39 @@
+
+itype(::Type{SafeInteger})  = Integer
+itype(::Type{SafeSigned})   = Signed
+itype(::Type{SafeUnsigned}) = Unsigned
+itype(::Type{SafeInt8})     = Int8
+itype(::Type{SafeUInt8})    = UInt8
+itype(::Type{SafeInt16})    = Int16
+itype(::Type{SafeUInt16})   = UInt16
+itype(::Type{SafeInt32})    = Int32
+itype(::Type{SafeUInt32})   = UInt32
+itype(::Type{SafeInt64})    = Int64
+itype(::Type{SafeUInt64})   = UInt64
+itype(::Type{SafeInt128})   = Int128
+itype(::Type{SafeUInt128})  = UInt128
+itype(x::S) where S<: SafeInteger = itype(typeof(x))
+itype(x::U) where U<:UnsafeInteger = U
+itype(::Type{U}) where U<:UnsafeInteger = U
+
+stype(::Type{UnsafeInteger}) = SafeInteger
+stype(::Type{Signed})   = SafeSigned
+stype(::Type{Unsigned}) = SafeUnsigned
+stype(::Type{Int8})     = SafeInt8
+stype(::Type{UInt8})    = SafeUInt8
+stype(::Type{Int16})    = SafeInt16
+stype(::Type{UInt16})   = SafeUInt16
+stype(::Type{Int32})    = SafeInt32
+stype(::Type{UInt32})   = SafeUInt32
+stype(::Type{Int64})    = SafeInt64
+stype(::Type{UInt64})   = SafeUInt64
+stype(::Type{Int128})   = SafeInt128
+stype(::Type{UInt128})  = SafeUInt128
+stype(x::U) where U<:UnsafeInteger = stype(typeof(x))
+stype(x::S) where S<:SafeInteger = S
+stype(::Type{S}) where S<:SafeInteger = S
+
+@inline ityped(x::S) where S<:SafeInteger   = reinterpret(itype(S), x)
+@inline styped(x::U) where U<:UnsafeInteger = reinterpret(stype(U), x)
+@inline ityped(x::U) where U<:UnsafeInteger = x
+@inline styped(x::S) where S<:SafeInteger   = x
