@@ -12,7 +12,7 @@ itype(::Type{SafeInt64})    = Int64
 itype(::Type{SafeUInt64})   = UInt64
 itype(::Type{SafeInt128})   = Int128
 itype(::Type{SafeUInt128})  = UInt128
-itype(x::S) where S<: SafeInteger = itype(typeof(x))
+itype(x::S) where S<:SafeInteger = itype(typeof(x))
 itype(x::U) where U<:UnsafeInteger = U
 itype(::Type{U}) where U<:UnsafeInteger = U
 
