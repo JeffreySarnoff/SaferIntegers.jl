@@ -1,6 +1,48 @@
 ## SaferIntegers
 
-##### Jeffrey Sarnoff (2017-11-07T02:39Z {40N47, 73W58})
+##### Jeffrey Sarnoff on (2017-11-07T02:39Z and 2017-12-12T08:33Z) at (40N47, 73W58)
+
+-----
+
+### Why Does This Package Exist?
+
+- Your work may require that integer calculations be secure, well-behaved or unsurprising.
+
+- Your clients may expect your package/app/product calculates with care and correctness.
+
+- Your software may become part of a system on which the health or assets of others depends.
+
+- Your prefer to publish research results that are free of error, and you work with integers.
+
+### What Does This Package Offer?
+
+- **SaferIntegers** lets you work more cleanly and always alerts otherwise silent problems.
+
+- This package is designed for easy use and written to be performant in many sorts of use.
+
+- Using **SaferIntegers** can preclude some known ways that insecure systems are breached.
+
+----
+
+### How Does One Use This?
+
+Here are two ways.  More detail is given later.
+
+```julia
+using SaferIntegers
+using CSV
+
+data = rand(Ijoinpath(JULIA_HOME, "data", "timeseries", "test.csv")
+datavec = CSV.read(datafile)
+
+
+very breif
+
+You Use 
+### My Perspectve
+
+My intent is that it be useful to you.
+
 
 -----
 
@@ -9,7 +51,7 @@
 Using the default Int or UInt types allows overflow and underflow errors to occur silently, without notice. These incorrect values propagate and such errors are difficult to recognize after the fact.
 
 This package exports safer versions: SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128 and similarly for UInts. The safer versions check for overflow/underflow in arithmetic functions. The processing will stop with a message in the event that either exception is encountered.
-
+)
 #### Background
 
 Integer overflow occurs when an integer type is increased beyond its maximum value. Integer underflow occurs when an integer type is decreased below its minimum value.  Signed and Unsigned values are subject to overflow and underflow.  With Julia, you can see the rollover using Int or UInt types:
