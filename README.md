@@ -31,27 +31,25 @@ Here is one way.  More detail is given later.
 ```julia
 
 julia> using SaferIntegers, KahanSummation; sum_kbn = KahanSummation.sum_kbn;
-
 julia> srand(1618);
 
-julia> ints = [rand(Int64) for i in 1:10_000]; ints_sum = sum_kbn(ints);
+julia> ints = [rand(Int64) for i in 1:10_000];
+julia> bigints = map(BigInt, ints);
+julia> safeints = map(SafeInt64, ints);
 
-julia> bigints = map(BigInt, ints); bigints_sum = sum_kbn(bigints);
-
+julia> ints_sum, bigints_sum = sum_kbn(ints), sum_kbn(bigints);
 julia> round(Int, (ints_sum - bigints_sum) / ints_sum)
 48
 
-julia> ints_sum, bigints_sum
-(-1919459364217458416, 90314261004330299664)
-
 julia> try
-         sum_kbn(safeints)
+           sum_kbn(safeints)
        catch
-         warn(string("\n\t", "Integer Overflow", "\n"))
+           print("\n\n\t");
+           throw(OverflowError("invalid arithmetic result"))
        end
        
-        WARNING: Integer Overflow
-        
+       ERROR: OverflowError: invalid arithmetic result
+         
 ```
 
 ### My Perspectve
