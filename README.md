@@ -52,9 +52,6 @@ julia> try
          
 ```
 
-### My Perspectve
-
-My intent is that it be useful to you.
 
 
 -----
