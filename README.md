@@ -26,19 +26,34 @@
 
 ### How Does One Use This?
 
-Here are two ways.  More detail is given later.
+Here is one way.  More detail is given later.
 
 ```julia
-using SaferIntegers
-using CSV
 
-data = rand(Ijoinpath(JULIA_HOME, "data", "timeseries", "test.csv")
-datavec = CSV.read(datafile)
+julia> using SaferIntegers, KahanSummation; sum_kbn = KahanSummation.sum_kbn;
 
+julia> srand(1618);
 
-very breif
+julia> ints = [rand(Int64) for i in 1:10_000]; ints_sum = sum_kbn(ints);
 
-You Use 
+julia> bigints = map(BigInt, ints); bigints_sum = sum_kbn(bigints);
+
+julia> round(Int, (ints_sum - bigints_sum) / ints_sum)
+48
+
+julia> ints_sum, bigints_sum
+(-1919459364217458416, 90314261004330299664)
+
+julia> try
+         sum_kbn(safeints)
+       catch
+         warn(string("\n\t", "Integer Overflow", "\n"))
+       end
+       
+        WARNING: Integer Overflow
+        
+```
+
 ### My Perspectve
 
 My intent is that it be useful to you.
