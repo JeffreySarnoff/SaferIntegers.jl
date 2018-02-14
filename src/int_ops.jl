@@ -2,8 +2,8 @@ import Base: zero, one, sizeof, typemax, typemin, widen,
              signbit, sign, (~), (-), count_ones, ndigits0z,
              leading_zeros, trailing_zeros, leading_ones, trailing_ones
 
-zero(::Type{T}) where T<:SafeInteger = reinterpret(T, zero(integer(T)))
-one(::Type{T})  where T<:SafeInteger = reinterpret(T, one(integer(T)))
+zero(::Type{T}) where T<:SafeInteger = safeint(zero(integer(T)))
+one(::Type{T})  where T<:SafeInteger = safeint(one(integer(T)))
 sizeof(::Type{T}) where T<:SafeInteger  = safeint(sizeof(integer(T)))
 bitsof(::Type{T}) where T<:SafeInteger  = safeint(sizeof(integer(T)) << 3)
 @inline zero(x::T) where T<:SafeInteger = zero(T)
