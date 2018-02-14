@@ -1,4 +1,9 @@
-Int
+safeint(::Type{Bool}) = Bool
+integer(::Type{Bool}) = Bool
+safeint(x::Bool) = x
+integer(x::Bool) = x
+
+
 for (S,I) in (
     (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128),
     (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
