@@ -30,16 +30,7 @@ for (SS,SU, IS, IU) in (
      $SS(x::T) where T<:Unsigned = safeint(integer($SS)(integer($SU)(x)))
      $SU(x::T) where T<:Signed   = safeint(integer($SU)(integer($SS)(x)))
 
-     $IS(x::T) where T<:SafeSigned   = integer(safeint($IS)(x))
-     $IU(x::T) where T<:SafeUnsigned = integer(safeint($IS)(x))
-     $IS(x::T) where T<:SafeUnsigned = integer(safeint($IS)(safeint($IU)(x)))
-     $IU(x::T) where T<:SafeSigned   = integer(safeint($IU)(safeint($IS)(x)))
-
-     $SS(x::T) where T<:SafeSigned   = ($SS)(x)
-     $SU(x::T) where T<:SafeUnsigned = ($SU)(x)
-     $SS(x::T) where T<:SafeUnsigned = ($SS)(($SU)(x))
-     $SU(x::T) where T<:SafeSigned   = ($SU)(($SS)(x))
+     $IS(x::T) where T<:SafeSigned   = $IS(integer(x))
+     $IU(x::T) where T<:SafeUnsigned = $IU(integer(x))
   end
 end
-
-
