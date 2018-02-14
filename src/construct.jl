@@ -1,3 +1,4 @@
+
 for (S,I) in (
     (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128),
     (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
@@ -36,16 +37,9 @@ for (SS,SU, IS, IU) in (
 
      $SS(x::T) where T<:SafeSigned   = ($SS)(x)
      $SU(x::T) where T<:SafeUnsigned = ($SU)(x)
-     $SS(x::T) where T<:SafeUnsigned = ($SS)(($SU)(x)))
-     $SU(x::T) where T<:SafeSigned   = ($SU)(($SS)(x)))
-   #=     
-     $IS(x::T) where T<:Signed   = ($IS)(x)
-     $IU(x::T) where T<:Unsigned = ($IU)(x)
-     $IS(x::T) where T<:Unsigned = ($IS)(($IU)(x)))
-     $IU(x::T) where T<:Signed   = ($IU)(($IS)(x)))
-=#
+     $SS(x::T) where T<:SafeUnsigned = ($SS)(($SU)(x))
+     $SU(x::T) where T<:SafeSigned   = ($SU)(($SS)(x))
   end
 end
-
 
 
