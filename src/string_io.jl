@@ -1,5 +1,13 @@
-Base.string(x::T) where T<:SafeInteger = string( Integer(x) )
-Base.show(io::IO, x::T) where T<:SafeInteger = print(io, string(x) )
+import Base: string, show, hex, bits
 
-Base.hex(n::T, pad::Int=1) where T<:SafeInteger = hex(Integer(n), pad)
-Base.bits(n::T) where T<: SafeInteger = bits(Integer(n))
+function string(x::T) where T<:SafeInteger
+    str = string( integer(x) )
+    return str
+end
+
+show(io::IO, x::T) where T<:SafeInteger = print(io, string(x))
+show(x::T) where T<:SafeInteger = print(Base.STDOUT, string(x))
+
+hex(n::T, pad::Int=1) where T<:SafeInteger = hex(integer(n), pad)
+
+bits(n::T) where T<: SafeInteger = bits(integer(n))
