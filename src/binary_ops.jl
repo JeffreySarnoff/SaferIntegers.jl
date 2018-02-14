@@ -7,7 +7,7 @@ for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
        @inline function $OP(x::T, y::T) where T<:SafeInteger
            ix = integer(x)
            iy = integer(y)
-           result = $CHK(ix, iy)
+           result = $OP(ix, iy)
            return safeint(result)
        end
 
@@ -34,7 +34,7 @@ for OP in (:(&), :(|), :(⊻), :flipsign, :copysign, :(>>>), :(>>), :(<<))
        @inline function $OP(x::T, y::T) where T<:SafeInteger
            ix = integer(x)
            iy = integer(y)
-           result = $CHK(ix, iy)
+           result = $OP(ix, iy)
            return safeint(result)
        end
 
