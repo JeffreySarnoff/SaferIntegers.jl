@@ -6,6 +6,9 @@ export SafeInteger, SafeSigned, SafeUnsigned,
        SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
        SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128
 
+export UInt8, UInt16, UInt32, UInt64, UInt128,
+       Int8, Int16, Int32, Int64, Int128
+
 import Core: UInt8, UInt16, UInt32, UInt64, UInt128,
              Int8, Int16, Int32, Int64, Int128
 
