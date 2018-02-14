@@ -1,4 +1,4 @@
-
+Int
 for (S,I) in (
     (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128),
     (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
@@ -16,6 +16,24 @@ for (S,I) in (
     @inline integer(x::$I) = x
   end
 end
+
+SafeInt128(x::T) where T<:Union{SafeInt8,SafeInt16,SafeInt32,SafeInt64} =
+    safeint(Int128(integer(x)))
+SafeInt64(x::T) where T<:Union{SafeInt8,SafeInt16,SafeInt32} =
+    safeint(Int64(integer(x)))
+SafeInt32(x::T) where T<:Union{SafeInt8,SafeInt16} =
+    safeint(Int32(integer(x)))
+SafeInt16(x::T) where T<:SafeInt8 =
+    safeint(Int16(integer(x)))
+
+SafeUInt128(x::T) where T<:Union{SafeUInt8,SafeUInt16,SafeUInt32,SafeUInt64} =
+    safeint(UInt128(integer(x)))
+SafeUInt64(x::T) where T<:Union{SafeUInt8,SafeUInt16,SafeUInt32} =
+    safeint(UInt64(integer(x)))
+SafeUInt32(x::T) where T<:Union{SafeUInt8,SafeUInt16} =
+    safeint(UInt32(integer(x)))
+SafeUInt16(x::T) where T<:SafeUInt8 =
+    safeint(UInt16(integer(x)))
 
 
 for (SS,SU, IS, IU) in (
