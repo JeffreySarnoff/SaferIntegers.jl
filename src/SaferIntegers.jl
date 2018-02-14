@@ -34,9 +34,6 @@ end
 const UnsafeInteger = Union{Signed, Unsigned}
 
 include("construct.jl")
-
-include("itypestype.jl")
-
 include("promote.jl")
 include("int_ops.jl")
 include("binary_ops.jl")
