@@ -1,5 +1,5 @@
 import Base: (<), (<=), (==), (!=), (>=), (>), (&), (|), (⊻), isequal, isless,
-             flipsign, copysign, (>>>), (>>), (<<)
+             (>>>), (>>), (<<)
 
 for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
     @eval begin
@@ -28,7 +28,7 @@ for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
    end
 end
 
-for OP in (:(&), :(|), :(⊻), :flipsign, :copysign)
+for OP in (:(&), :(|), :(⊻))
     @eval begin
 
        @inline function $OP(x::T, y::T) where T<:SafeInteger
