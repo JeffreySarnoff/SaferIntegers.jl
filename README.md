@@ -1,7 +1,7 @@
 ## SaferIntegers
 
-##### Jeffrey Sarnoff (2017-11-07T02:39Z {40N47, 73W58})
-
+##### Jeffrey Sarnoff &copy; 2017-2018.    
+##### This software is available under the MIT License, as a design and as realized.
 -----
 
 #### A Safer Way 
