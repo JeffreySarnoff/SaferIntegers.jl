@@ -61,7 +61,7 @@ for OP in (:(>>>), :(>>), :(<<))
     @eval begin
 
        @inline function $OP(x::T, y::T) where T<:SafeInteger
-            I = itype(T)
+            I = integer(T)
             r1 = reinterpret(I, x)
             r2 = reinterpret(I, y)
             result = $OP(r1, r2)
@@ -69,21 +69,21 @@ for OP in (:(>>>), :(>>), :(<<))
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:SafeInteger
-            I1 = itype(T1)
-            I2 = itype(T2)
+            I1 = integer(T1)
+            I2 = integer(T2)
             xx = reinterpret(I1, x)
             yy = reinterpret(I2, y)
             return reinterpret(T1, $OP(xx, yy))
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
-            I1 = itype(T1)
+            I1 = integer(T1)
             xx = reinterpret(I1, x)
             return reinterpret(T1, $OP(xx, y))
         end
 
        @inline function $OP(x::T1, y::T2) where T1<:Integer where T2<:SafeInteger
-            I2 = itype(T2)
+            I2 = integer(T2)
             yy = reinterpret(I2, y)
             xx = $OP(x, yy)
             return reinterpret(stype(T1), xx)
@@ -91,4 +91,3 @@ for OP in (:(>>>), :(>>), :(<<))
 
    end
 end
-
