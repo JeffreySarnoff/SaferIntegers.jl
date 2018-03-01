@@ -6,7 +6,8 @@ function string(x::T) where T<:SafeSigned
 end
 
 function string(x::T) where T<:SafeUnsigned
-    str = string( integer(x) )
+    uint = integer(x)
+    str = string("0x", hex(uint, sizeof(uint)*2))
     return str
 end
 
