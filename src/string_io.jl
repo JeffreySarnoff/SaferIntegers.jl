@@ -1,6 +1,11 @@
 import Base: string, show, hex, bits
 
-function string(x::T) where T<:SafeInteger
+function string(x::T) where T<:SafeSigned
+    str = string( integer(x) )
+    return str
+end
+
+function string(x::T) where T<:SafeUnsigned
     str = string( integer(x) )
     return str
 end
