@@ -6,7 +6,11 @@ export SafeInteger, SafeSigned, SafeUnsigned,
        SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
        SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128
 
-import Base: convert
+export UInt8, UInt16, UInt32, UInt64, UInt128,
+       Int8, Int16, Int32, Int64, Int128
+
+import Core: UInt8, UInt16, UInt32, UInt64, UInt128,
+             Int8, Int16, Int32, Int64, Int128
 
 abstract type SafeInteger  <: Integer end
 abstract type SafeUnsigned <: SafeInteger end
@@ -34,8 +38,7 @@ end
 
 const UnsafeInteger = Union{Signed, Unsigned}
 
-include("itypestype.jl")
-include("convert.jl")
+include("construct.jl")
 include("promote.jl")
 include("int_ops.jl")
 include("binary_ops.jl")
