@@ -49,11 +49,21 @@ for (SS,SU, IS, IU) in (
     (:SafeInt128, :SafeUInt128, :Int128, :UInt128) )
    @eval begin
      $SS(x::T) where T<:Signed   = safeint(integer($SS)(x))
-     $SU(x::T) where T<:Unsigned = safeint(integer($SS)(x))
      $SS(x::T) where T<:Unsigned = safeint(integer($SS)(integer($SU)(x)))
-     $SU(x::T) where T<:Signed   = safeint(integer($SU)(integer($SS)(x)))
+     $SS(x::T) where T<:SafeSigned   = safeint(integer($SS)(x))
+     $SS(x::T) where T<:SafeUnsigned = safeint(integer($SS)(integer($SU)(x)))
+     $SU(x::T) where T<:Signed   = safeint(integer($SU)(x))
+     $SU(x::T) where T<:Unsigned = safeint(integer($SU)(integer($SS)(x)))
+     $SU(x::T) where T<:SafeSigned   = safeint(integer($SU)(x))
+     $SU(x::T) where T<:SafeUnsigned = safeint(integer($SU)(integer($SS)(x)))
 
+     $IS(x::T) where T<:Signed   = $IS(integer(x))
+     $IS(x::T) where T<:Unsigned  = $IS(integer(x))
      $IS(x::T) where T<:SafeSigned   = $IS(integer(x))
+     $IS(x::T) where T<:SafeUnsigned  = $IS(integer(x))
+     $IU(x::T) where T<:Unsigned = $IU(integer(x))
+     $IU(x::T) where T<:Signed = $IU(integer(x))
      $IU(x::T) where T<:SafeUnsigned = $IU(integer(x))
+     $IU(x::T) where T<:SafeSigned = $IU(integer(x))
   end
 end
