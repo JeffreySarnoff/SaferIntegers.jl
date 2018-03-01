@@ -81,7 +81,7 @@ julia> try
 ```
 
 
-#### Use
+## A Basic Guide
 
 To use safer integers within your computations, where you have been using    
 explict digit sequences put them inside the safe integer constructors,    
