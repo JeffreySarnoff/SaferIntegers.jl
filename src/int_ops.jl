@@ -1,23 +1,33 @@
 import Base: zero, one, sizeof, typemax, typemin, widen,
              signbit, sign, (~), (-), count_ones, ndigits0z,
-             leading_zeros, trailing_zeros, leading_ones, trailing_ones
+             leading_zeros, trailing_zeros, leading_ones, trailing_ones,
+             copysign, flipsign
 
-zero(::Type{T}) where T<:SafeInteger = safeint(zero(integer(T)))
-one(::Type{T})  where T<:SafeInteger = safeint(one(integer(T)))
-sizeof(::Type{T}) where T<:SafeInteger  = safeint(sizeof(integer(T)))
-bitsof(::Type{T}) where T<:SafeInteger  = safeint(sizeof(integer(T)) << 3)
-@inline zero(x::T) where T<:SafeInteger = zero(T)
-@inline one(x::T)  where T<:SafeInteger = one(T)
-@inline sizeof(x::T) where T<:SafeInteger = sizeof(T)
-@inline bitsof(x::T) where T<:SafeInteger = bitsof(T)
+for S in (:SafeSigned, :SafeUnsigned)
+  @eval begin
+    zero(::Type{T}) where T<:$S = safeint(zero(integer(T)))
+    one(::Type{T})  where T<:$S = safeint(one(integer(T)))
+    sizeof(::Type{T}) where T<:$S  = safeint(sizeof(integer(T)))
+    bitsof(::Type{T}) where T<:$S  = safeint(sizeof(integer(T)) << 3)
+    @inline zero(x::T) where T<:$S = zero(T)
+    @inline one(x::T)  where T<:$S = one(T)
+    @inline sizeof(x::T) where T<:$S = sizeof(T)
+    @inline bitsof(x::T) where T<:$S = bitsof(T)
+    ndigits0z(n::T) where T<:$S = ndigits0z(integer(x)) # do not reconvert
+    ndigits0z(n::T1, b::T2) where T1<:$S where T2<:SafeInteger = ndigits0z(integer(x), integer(b)) # do not reconvert
+    ndigits0z(n::T1, b::T2) where T1<:$S where T2<:Integer = ndigits0z(integer(x), b) # do not reconvert
+    @inline count_ones(x::T) where T<:$S = safeint(count_ones(integer(x)))
+    @inline leading_zeros(x::T) where T<:$S = safeint(leading_zeros(integer(x)))
+    @inline trailing_zeros(x::T) where T<:$S = safeint(trailing_zeros(integer(x)))
+    @inline leading_ones(x::T) where T<:$S = safeint(leading_ones(integer(x)))
+    @inline trailing_ones(x::T) where T<:$S = safeint(trailing_ones(integer(x)))
+  end
+end
 
 @inline signbit(x::T) where T<:SafeSigned = signbit(integer(x))
 @inline signbit(x::T) where T<:SafeUnsigned = false
-@inline sign(x::T) where T<:SafeInteger = safeint(sign(integer(x)))
-
-ndigits0z(n::T) where T<:SafeInteger = ndigits0z(integer(x)) # do not reconvert
-ndigits0z(n::T1, b::T2) where T1<:SafeInteger where T2<:SafeInteger = ndigits0z(integer(x), integer(b)) # do not reconvert
-ndigits0z(n::T1, b::T2) where T1<:SafeInteger where T2<:Integer = ndigits0z(integer(x), b) # do not reconvert
+@inline sign(x::T) where T<:SafeSigned = safeint(sign(integer(x)))
+@inline sign(x::T) where T<:SafeUnsigned = one(T)
 
 function abs(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError())
@@ -35,19 +45,21 @@ function abs2(x::T) where T<:SafeUnsigned
   return y
 end
 
-@inline function -(x::T) where T<:SafeSigned
+@inline function Base.:(-)(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError())
   return safeint(-(integer(x)))
 end  
-@inline (-)(x::T) where T<:SafeUnsigned = safeint(-integer(x))
+@inline Base.:(-)(x::T) where T<:SafeUnsigned = safeint(-integer(x))
 
-@inline count_ones(x::T) where T<:SafeInteger = safeint(count_ones(integer(x)))
-    
-for OP in (:(~), :leading_zeros, :trailing_zeros, :leading_ones, :trailing_ones)
-    @eval begin
-        @inline $OP(x::T) where T<:SafeInteger = safeint($OP(integer(x)))
-    end
-end
+@inline function copysign(x::T, y::T) where T<:SafeSigned
+  return safeint(integer( signbit(y) ? -abs(x) : x ))
+end  
+@inline copysign(x::T, y::T) where T<:SafeUnsigned = x
+
+@inline function flipsign(x::T, y::T) where T<:SafeSigned
+  return safeint(integer( signbit(y) ? -(x) : x ))
+end  
+@inline flipsign(x::T, y::T) where T<:SafeUnsigned = x
 
 # traits
 typemin(::Type{T}) where {T<:SafeInteger} = safeint(typemin(integer(T)))
