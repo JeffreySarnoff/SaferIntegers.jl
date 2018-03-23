@@ -4,9 +4,7 @@
 ##### This software is available under the MIT License, as a design and as realized.
 -----
 
-
-![Julia Software](https://github.com/JeffreySarnoff/Multiflora/blob/master/julia.svg)
-
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![Julia Software](https://github.com/JeffreySarnoff/Multiflora/blob/master/julia.svg)
 -----
 
 #### A Safer Way 
