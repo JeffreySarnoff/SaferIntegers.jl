@@ -14,7 +14,7 @@
 
 Using the default Int or UInt types allows overflow and underflow errors to occur silently, without notice. These incorrect values propagate and such errors are difficult to recognize after the fact.
 
-This package exports safer versions: SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128 and similarly for UInts. The safer versions check for overflow/underflow in arithmetic functions. The processing will stop with a message in the event that either exception is encountered.
+This package exports safer versions. These types check for _overflow and underflow_ in each of the basic arithmetic functions. The processing will stop with a message in the event of _overflow or underflow_.
 
 #### Background
 
