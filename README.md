@@ -145,6 +145,46 @@ Otherwise, they should be unsurprising.
 `isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`, `>>>`, `>>`, `<<`, `+`, `-`, `*`, `\`,
 `div`, `fld`, `cld`, `rem`, `mod`, `zero`, `one`, `typemin`, `typemax`, `widen` 
 
+## Benchmarking (one one machine)
+
+julia v0.7.0-alpha
+```julia
+julia> using SaferIntegers
+
+julia> using BenchmarkTools
+
+julia> a=17;b=27;c=37;d=47;e=57;f=67;g=77;h=87;i=97;
+
+julia> sa=SafeInt(a);sb=SafeInt(b);sc=SafeInt(c);sd=SafeInt(d);
+
+julia> se=SafeInt(e);sf=SafeInt(f);sg=SafeInt(g);sh=SafeInt(h);si=SafeInt(i);
+
+julia> BenchmarkTools.DEFAULT_PARAMETERS.time_tolerance=0.01
+0.01
+
+julia> @btime $a+$b+$c+$d+$e+$f+$g+$h+$i
+  1.968 ns (0 allocations: 0 bytes)
+513
+
+julia> @btime $sa+$sb+$sc+$sd+$se+$sf+$sg+$sh+$si
+  3.360 ns (0 allocations: 0 bytes)
+513
+
+julia> 3.36/1.968
+1.7073170731707317
+
+julia> @btime $a*$b*$c*$d*$e*$f*$g*$h*$i
+  2.242 ns (0 allocations: 0 bytes)
+1980813731415057
+
+julia> @btime $sa*$sb*$sc*$sd*$se*$sf*$sg*$sh*$si
+  3.360 ns (0 allocations: 0 bytes)
+1980813731415057
+
+julia> 3.36/2.242
+1.4986619090098126
+```
+
 ### credits
 
 This work derives from JuliaMath/RoundingIntegers.jl
