@@ -97,7 +97,7 @@ Where you had used`Int` or `UInt` now use `SafeInt` or `SafeUInt` and similarly
 with the bitsize-named versions.    
 
 SafeInt and SafeUInt give you these arithmetic operators:    
-+, -, *, div, rem, fld, mod    
+`+`, `-`, `*`, `div`, `rem`, `fld`, `mod`, `^`    
 which have become overflow and underflow aware.
 
 The Int and UInt types can fail at simple arithmetic        
