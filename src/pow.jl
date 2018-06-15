@@ -33,16 +33,16 @@ const maxpowInt8 = Int8[ 0,
 6, 4, 3, 3, 2, 4, 2, 2, 2, 2, 1, 1, 1, 1, 1, 7, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2, 1, 1, 1, 3, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ];
 
 
-for (T,A) in ((:SafeInt128, :maxpowInt128), (:SafeInt64, :maxpowInt64),
-              (:SafeInt32, :maxpowInt32), (:SafeInt16, :maxpowInt16),
-              (:SafeInt8, :maxpowInt8),
-              (:SafeUInt128, :maxpowUInt128), (:SafeUInt64, :maxpowUInt64),
-              (:SafeUInt32, :maxpowUInt32), (:SafeUInt16, :maxpowUInt16),
-              (:SafeUInt8, :maxpowUInt8))
+for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64, :Int64),
+              (:SafeInt32, :maxpowInt32, :Int32), (:SafeInt16, :maxpowInt16, :Int16),
+              (:SafeInt8, :maxpowInt8, :Int8),
+              (:SafeUInt128, :maxpowUInt128, :UInt128), (:SafeUInt64, :maxpowUInt64, :UInt64),
+              (:SafeUInt32, :maxpowUInt32, :UInt32), (:SafeUInt16, :maxpowUInt16, :UInt16),
+              (:SafeUInt8, :maxpowUInt8, :UInt8))
   @eval begin                
     function Base.:(^)(x::$T, y::$T)
         if 1 < x < 129
-           y <= $A[x] && return x^y
+           y <= $A[x] && return $T($I(x)^$I(y))
            throw(OverflowError(string(x,"^",y)))
         else
             signbit(y) && throw(DomainError(string(x,"^(",y,")")))
@@ -53,9 +53,9 @@ for (T,A) in ((:SafeInt128, :maxpowInt128), (:SafeInt64, :maxpowInt64),
         y === zero($T) && return one($T)
         (x === zero($T) || y === one($T)) && return x
         
-        z = Float64(x)^Float64(y)
+        z = Float64($I(x))^Float64($I(y))
         z > typemax($T) && throw(OverflowError(string(x,"^",y)))
-        return floor($T,z+0.49999999999999994)
+        return $T(floor($I,z+0.49999999999999994))
     end
   end
 end
