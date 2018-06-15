@@ -1,5 +1,5 @@
 import Base: zero, one, sizeof, typemax, typemin, widen,
-             signbit, sign, (~), (-), count_ones, ndigits0z,
+             signbit, sign, (~), (-), count_ones, count_zeros, ndigits0z,
              leading_zeros, trailing_zeros, leading_ones, trailing_ones,
              copysign, flipsign
 
@@ -16,6 +16,7 @@ for S in (:SafeSigned, :SafeUnsigned)
     ndigits0z(n::T) where T<:$S = ndigits0z(integer(x)) # do not reconvert
     ndigits0z(n::T1, b::T2) where T1<:$S where T2<:SafeInteger = ndigits0z(integer(x), integer(b)) # do not reconvert
     ndigits0z(n::T1, b::T2) where T1<:$S where T2<:Integer = ndigits0z(integer(x), b) # do not reconvert
+    @inline count_zeros(x::T) where T<:$S = safeint(count_zeros(integer(x)))
     @inline count_ones(x::T) where T<:$S = safeint(count_ones(integer(x)))
     @inline leading_zeros(x::T) where T<:$S = safeint(leading_zeros(integer(x)))
     @inline trailing_zeros(x::T) where T<:$S = safeint(trailing_zeros(integer(x)))
