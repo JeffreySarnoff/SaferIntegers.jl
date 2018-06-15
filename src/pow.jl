@@ -53,8 +53,12 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
         y === zero($T) && return one($T)
         (x === zero($T) || y === one($T)) && return x
         
-        z = Float64($I(x))^Float64($I(y))
-        z > typemax($T) && throw(OverflowError(string(x,"^",y)))
+        try
+            z = Float64($I(x))^Float64($I(y))
+            z > typemax($T) && throw(OverflowError(string(x,"^",y)))
+        catch
+            throw(OverflowError(string(x,"^",y)))
+        end
         return $T(floor($I,z+0.49999999999999994))
     end
   end
