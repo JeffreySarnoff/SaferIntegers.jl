@@ -65,3 +65,31 @@ end
 @test SafeUInt128(Int8(2)) === SafeUInt128(2)
 @test Int16(SafeUInt128(2)) === Int16(2)
 
+@test Int32(521) + Int32(125) == Int32(SafeInt32(521) + SafeInt32(125))
+@test Int32(521) - Int32(125) == Int32(SafeInt32(521) - SafeInt32(125))
+@test Int32(521) * Int32(125) == Int32(SafeInt32(521) * SafeInt32(125))
+@test div(Int32(521), Int32(125)) == Int32(div(SafeInt32(521), SafeInt32(125)))
+
+@test SafeInt32(521) + SafeInt32(125) == SafeInt32(Int32(521) + Int32(125))
+@test SafeInt32(521) - SafeInt32(125) == SafeInt32(Int32(521) - Int32(125))
+@test SafeInt32(521) * SafeInt32(125) == SafeInt32(Int32(521) * Int32(125))
+@test div(SafeInt32(521), SafeInt32(125)) == SafeInt32(div(Int32(521), Int32(125)))
+
+@test Int64(521) + Int64(125) == Int64(SafeInt64(521) + SafeInt64(125))
+@test Int64(521) - Int64(125) == Int64(SafeInt64(521) - SafeInt64(125))
+@test Int64(521) * Int64(125) == Int64(SafeInt64(521) * SafeInt64(125))
+@test div(Int64(521), Int64(125)) == Int64(div(SafeInt64(521), SafeInt64(125)))
+
+@test SafeInt64(521) + SafeInt64(125) == SafeInt64(Int64(521) + Int64(125))
+@test SafeInt64(521) - SafeInt64(125) == SafeInt64(Int64(521) - Int64(125))
+@test SafeInt64(521) * SafeInt64(125) == SafeInt64(Int64(521) * Int64(125))
+@test div(SafeInt64(521), SafeInt64(125)) == SafeInt64(div(Int64(521), Int64(125)))
+
+@test Int64(73)^Int64(5) == Int64(SafeInt64(73)^SafeInt64(5))
+@test SafeInt64(73)^SafeInt64(5) == SafeInt64(Int64(73)^Int64(5))
+@test Int32(73)^Int32(5) == Int64(SafeInt32(73)^SafeInt32(5))
+@test SafeInt32(73)^SafeInt32(5) == SafeInt32(Int32(73)^Int32(5))
+
+
+@test Int32(521)+Int32(125) == Int32(SafeInt32(521) + SafeInt32(125))
+@test Int32(521)-Int32(125) == Int32(SafeInt32(521) - SafeInt32(125))
