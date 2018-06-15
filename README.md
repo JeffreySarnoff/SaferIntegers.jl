@@ -5,8 +5,7 @@
 
 -----
 
-&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![Julia Software](https://github.com/JeffreySarnoff/Multiflora/blob/master/julia.svg)
-
+[![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegerrs.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl)
 
 -----
 
