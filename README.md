@@ -5,7 +5,7 @@
 
 -----
 
-[![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegerrs.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl)
+[![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl)
 
 -----
 
