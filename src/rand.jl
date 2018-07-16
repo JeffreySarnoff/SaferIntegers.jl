@@ -3,7 +3,7 @@ if VERSION > v"0.7-"
 else
    import Base.rand
 end
-
+export rand
 
 SafeInt32(x::UnitRange{I}) where {I<:Integer} = UnitRange(SafeInt32(x.start), SafeInt32(x.stop))
 
