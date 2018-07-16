@@ -79,7 +79,7 @@ for T in (:Int8, :Int16, :Int32, :Int64, :Int128,
           :UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
     @eval begin
         $T(x::UnitRange{I}) where {I<:SafeInteger} = UnitRange($T(x.start), $T(x.stop))
-        integer(x::UnitRange{I}) where {I<:SafeInteger} = $(x)
+        integer(x::UnitRange{I}) where {I<:SafeInteger} = $T(x)
     end
 end
 
