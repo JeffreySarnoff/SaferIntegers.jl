@@ -1,5 +1,3 @@
-import Base:rand
-
 Base.rand(::Type{T}) where {T<:SafeInteger} = T(rand(integer(T)))
 Base.rand(::Type{T}, n::I) where {T<:SafeInteger, I<:Integer} = T.(rand(integer(T), n))
 Base.rand(::Type{T}, n::I) where {T<:SafeInteger, I<:SafeInteger} = T.(rand(integer(T), integer(n)))
