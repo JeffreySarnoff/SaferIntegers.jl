@@ -15,3 +15,5 @@ else
    Base.rand(x::T, n::I) where {S<:SafeInteger, T<:UnitRange{S}, I<:Integer} = S.(rand(integer(x), n))
    Base.rand(x::T, n::I) where {S<:SafeInteger, T<:UnitRange{S}, I<:SafeInteger} = S.(rand(integer(x), integer(n)))
 end
+
+export rand
