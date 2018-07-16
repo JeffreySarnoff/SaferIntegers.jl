@@ -20,6 +20,6 @@ include("binary_ops.jl")
 include("arith_ops.jl")
 include("pow.jl")
 include("string_io.jl")
-include("rand.jl")
+#include("rand.jl")
 
 end # module SaferIntegers
