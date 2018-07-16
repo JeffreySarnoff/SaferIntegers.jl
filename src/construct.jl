@@ -67,3 +67,13 @@ for (SS,SU, IS, IU) in (
      $IU(x::T) where T<:SafeSigned = $IU(integer(x))
   end
 end
+
+for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128,
+          :SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
+    @eval $T(x::UnitRange{I}) where {I<:Integer} = UnitRange($T(x.start), $T(x.stop))
+end
+for T in (:Int8, :Int16, :Int32, :Int64, :Int128,
+          :UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
+    @eval $T(x::UnitRange{I}) where {I<:SafeInteger} = UnitRange($T(x.start), $T(x.stop))
+end
+
