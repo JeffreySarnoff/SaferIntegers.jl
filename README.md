@@ -1,7 +1,10 @@
 ## SaferIntegers
 
-##### Jeffrey Sarnoff &copy; 2017-2018.    
-##### This software is available under the MIT License, as a design and as realized.
+#### These integer types do not ignore arithmetic overflows and underflows.
+
+----
+
+#### Copyright ©&thinsp;2018 by Jeffrey Sarnoff. &nbsp;&nbsp; This work is made available under The MIT License.
 
 -----
 
