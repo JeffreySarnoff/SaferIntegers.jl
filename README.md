@@ -1,6 +1,5 @@
-## SaferIntegers
-
-#### These integer types do not ignore arithmetic overflows and underflows.
+# SaferIntegers
+### These integer types do not ignore arithmetic overflows and underflows.
 
 ----
 
