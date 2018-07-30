@@ -117,8 +117,8 @@ should a calculation encouter an overflow or underflow,
 > Use the package:  `using SaferIntegers`     
 
 - These functions check for overflow/underflow automatically:    
--- abs, (neg), (-), (+), (*), div, fld, cld, rem, mod, (^)
--- so does (/), before converting to Float64
+    - abs, (neg), (-), (+), (*), div, fld, cld, rem, mod, (^)
+    - so does (/), before converting to Float64
 
 ## Exported Types and Constructors / Converters
 
