@@ -63,4 +63,5 @@ end
 
 Base.:(^)(x::S, y::T) where {S<:SafeInteger, T<:Integer} = Base.:(^)(Base.promote(x,y)...,)
 Base.:(^)(x::T, y::S) where {S<:SafeInteger, T<:Integer} = Base.:(^)(Base.promote(x,y)...,)
+Base.:(^)(x::T, y::S) where {S<:SafeInteger, T<:SafeInteger} = Base.:(^)(Base.promote(x,y)...,)
 
