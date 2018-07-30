@@ -31,22 +31,30 @@ const maxpowInt8 = Int8[ 0,
 
 
 for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64, :Int64),
-              (:SafeInt32, :maxpowInt32, :Int32), (:SafeInt16, :maxpowInt16, :Int16),
-              (:SafeInt8, :maxpowInt8, :Int8),
-              (:SafeUInt128, :maxpowUInt128, :UInt128), (:SafeUInt64, :maxpowUInt64, :UInt64),
-              (:SafeUInt32, :maxpowUInt32, :UInt32), (:SafeUInt16, :maxpowUInt16, :UInt16),
-              (:SafeUInt8, :maxpowUInt8, :UInt8))
-  @eval begin                
-    function Base.:(^)(x::$T, y::$T)
+                (:SafeInt32, :maxpowInt32, :Int32), (:SafeInt16, :maxpowInt16, :Int16),
+                (:SafeInt8, :maxpowInt8, :Int8),
+                (:SafeUInt128, :maxpowUInt128, :UInt128), (:SafeUInt64, :maxpowUInt64, :UInt64),
+                (:SafeUInt32, :maxpowUInt32, :UInt32), (:SafeUInt16, :maxpowUInt16, :UInt16),
+                (:SafeUInt8, :maxpowUInt8, :UInt8))
+  @eval begin
+
+    function Base.:(^)(x::$T, y::$T) where {T}
         if 1 < x < 129
-           y <= $A[x] && return $T($I(x)^$I(y))
-           throw(OverflowError(string(x,"^",y)))
+            if y <= $A[x] 
+                $T($I(x)^$I(y))
+            else
+                throw(OverflowError(string(x,"^",y)))
+            end
         else
-            signbit(y) && throw(DomainError(string(x,"^(",y,")")))
-            return ipower(x, y)
+            if !signbit(y)
+                ipower(x, y)
+            else
+                throw(DomainError(string(x,"^(",y,")")))
+            end
         end
     end
-    function ipower(x::$T, y::$T)
+    
+    function ipower(x::$T, y::$T) where {T}
         y === zero($T) && return one($T)
         (x === zero($T) || y === one($T)) && return x
         
