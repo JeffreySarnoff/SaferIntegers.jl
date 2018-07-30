@@ -1,17 +1,14 @@
 environment:
   matrix:
-  - julia_version: 0.7
-  #- julia_version: nightly
-
-platform:
-  - x86
-  - x64
+  - JULIA_URL: "julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.exe"
+  - JULIA_URL: "julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.exe"
 
 ## uncomment the following lines to allow failures on nightly julia
 ## (tests will run but not make your overall status red)
-#matrix:
-#  allow_failures:
-#  - julia_version: nightly
+## matrix:
+##  allow_failures:
+##  - JULIA_URL: "julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.exe"
+##  - JULIA_URL: "julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.exe"
 
 branches:
   only:
@@ -25,12 +22,18 @@ notifications:
     on_build_status_changed: false
 
 install:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/JuliaCI/Appveyor.jl/master/bin/install.ps1'))
-
-build_script:
-  - echo "%JL_BUILD_SCRIPT%"
-  - julia -e "%JL_BUILD_SCRIPT%"
-
+  - ps: "[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12"
+# If there's a newer build queued for the same PR, cancel this one
+  - ps: if (env:APPVEYORPULLREQUESTNUMBER−andenv:APPVEYOR_BUILD_NUMBER -ne ((Invoke-RestMethod `
+        https://ci.appveyor.com/api/projects/env:APPVEYORACCOUNTNAME/env:APPVEYOR_PROJECT_SLUG/history?recordsNumber=50).builds | `
+        Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
+        throw "There are newer queued builds for this pull request, failing early." }
+# Download most recent Julia Windows binary
+  - ps: (new-object net.webclient).DownloadFile(
+        $env:JULIA_URL,
+        "C:\projects\julia-binary.exe")
+# Run installer silently, output to C:\projects\julia
+  - C:\projects\julia-binary.exe /S /D=C:\projects\julia
+  
 test_script:
-  - echo "%JL_TEST_SCRIPT%"
-- julia -e "%JL_TEST_SCRIPT%"
+- C:\projects\julia\bin\julia -e "Pkg.test(\"SaferIntegers\")"
