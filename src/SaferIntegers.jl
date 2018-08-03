@@ -1,5 +1,3 @@
-__precompile__()
-
 module SaferIntegers
 
 export SafeInteger, SafeSigned, SafeUnsigned,
