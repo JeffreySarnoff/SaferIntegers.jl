@@ -1,4 +1,4 @@
-import Base: string, show, hex, bits
+import Base: string, show, hex, bitstring
 
 function string(x::T) where T<:SafeSigned
     str = string( integer(x) )
@@ -17,5 +17,5 @@ show(x::T) where T<:SafeInteger = print(Base.STDOUT, string(x))
 hex(n::T, pad::Int=1) where T<:SafeUnsigned = hex(integer(n), pad)
 hex(n::T, pad::Int=1) where T<:SafeSigned = hex(signed(n), pad)
 
-bits(n::T) where T<: SafeUnsigned = bits(integer(n))
-bits(n::T) where T<: SafeSigned = bits(signed(n))
+bitstring(n::T) where T<: SafeUnsigned = bitstring(integer(n))
+bitstring(n::T) where T<: SafeSigned = bitstring(signed(n))
