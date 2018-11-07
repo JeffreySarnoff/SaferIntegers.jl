@@ -10,10 +10,15 @@ export UInt8, UInt16, UInt32, UInt64, UInt128,
 import Core: UInt8, UInt16, UInt32, UInt64, UInt128,
              Int8, Int16, Int32, Int64, Int128
 
+import Base.Checked: checked_add, checked_sub, checked_mul,
+                     checked_div, checked_fld, checked_cld,
+                     checked_rem, checked_mod
+
 import Base: string, bitstring, show,
     (<), (<=), (==), (!=), (>=), (>), (&), (|), (⊻),
     isequal, isless,
-    (>>>), (>>), (<<)
+    (>>>), (>>), (<<),
+    (+), (-), (*), (/), (\), div, fld, cld, rem, mod,
 
 
 include("type.jl")
