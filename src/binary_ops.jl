@@ -1,7 +1,3 @@
-import Base: (<), (<=), (==), (!=), (>=), (>), (&), (|), (⊻),
-             isequal, isless,
-             (>>>), (>>), (<<)
-
 for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
     @eval begin
 
