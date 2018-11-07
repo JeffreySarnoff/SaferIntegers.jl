@@ -15,10 +15,14 @@ import Base.Checked: checked_add, checked_sub, checked_mul,
                      checked_rem, checked_mod
 
 import Base: string, bitstring, show,
-    (<), (<=), (==), (!=), (>=), (>), (&), (|), (⊻),
+    (~), (&), (|), (⊻), (>>>), (>>), (<<),
+    (<), (<=), (==), (!=), (>=), (>), 
     isequal, isless,
-    (>>>), (>>), (<<),
     (+), (-), (*), (/), (\), div, fld, cld, rem, mod,
+    zero, one, sizeof, typemax, typemin, widen,
+    signbit, sign, count_ones, count_zeros, ndigits0z,
+    leading_zeros, trailing_zeros, leading_ones, trailing_ones,
+    copysign, flipsign
 
 
 include("type.jl")
