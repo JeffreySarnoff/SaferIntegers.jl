@@ -1,5 +1,5 @@
 
-abstract type SafeInteger  <: Integer end
+abstract type SafeInteger  <: Integer     end
 abstract type SafeUnsigned <: SafeInteger end
 abstract type SafeSigned   <: SafeInteger end
 
