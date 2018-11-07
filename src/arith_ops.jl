@@ -1,8 +1,3 @@
-import Base: (+), (-), (*), (/), (\), div, fld, cld, rem, mod
-import Base.Checked: checked_add, checked_sub, checked_mul,
-                     checked_div, checked_fld, checked_cld,
-                     checked_rem, checked_mod
-
 for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
                   (:(*), :checked_mul), (:div, :checked_div),
                   (:fld, :checked_fld), (:cld, :checked_cld),
