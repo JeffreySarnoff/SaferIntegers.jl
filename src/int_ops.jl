@@ -1,8 +1,3 @@
-import Base: zero, one, sizeof, typemax, typemin, widen,
-             signbit, sign, (~), (-), count_ones, count_zeros, ndigits0z,
-             leading_zeros, trailing_zeros, leading_ones, trailing_ones,
-             copysign, flipsign
-
 for S in (:SafeSigned, :SafeUnsigned)
   @eval begin
     zero(::Type{T}) where T<:$S = safeint(zero(baseint(T)))
