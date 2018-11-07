@@ -62,7 +62,7 @@ end
 end  
 @inline flipsign(x::T, y::T) where T<:SafeUnsigned = x
 
-# traits
 typemin(::Type{T}) where {T<:SafeInteger} = safeint(typemin(baseint(T)))
 typemax(::Type{T}) where {T<:SafeInteger} = safeint(typemax(baseint(T)))
+
 widen(::Type{T}) where {T<:SafeInteger} = safeint(widen(baseint(T)))
