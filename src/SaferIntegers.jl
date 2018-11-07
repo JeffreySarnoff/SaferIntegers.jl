@@ -10,7 +10,10 @@ export UInt8, UInt16, UInt32, UInt64, UInt128,
 import Core: UInt8, UInt16, UInt32, UInt64, UInt128,
              Int8, Int16, Int32, Int64, Int128
 
-import Base: string, bitstring, show
+import Base: string, bitstring, show,
+    (<), (<=), (==), (!=), (>=), (>), (&), (|), (⊻),
+    isequal, isless,
+    (>>>), (>>), (<<)
 
 
 include("type.jl")
