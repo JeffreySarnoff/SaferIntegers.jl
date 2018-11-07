@@ -9,24 +9,24 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
                   (:rem, :checked_rem), (:mod, :checked_mod))
     @eval begin
        @inline function $OP(x::T, y::T) where T<:SafeInteger
-            ix = integer(x)
-            iy = integer(y)
+            ix = baseint(x)
+            iy = baseint(y)
             result = $CHK(ix, iy)
             return safeint(result)
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeSigned
             xx, yy = promote(x, y)
-            ix = integer(xx)
-            iy = integer(yy)
+            ix = baseint(xx)
+            iy = baseint(yy)
             result = $CHK(ix, iy)
             return safeint(result)
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeUnsigned
             xx, yy = promote(x, y)
-            ix = integer(xx)
-            iy = integer(yy)
+            ix = baseint(xx)
+            iy = baseint(yy)
             result = $CHK(ix, iy)
             return safeint(result)
         end
@@ -44,16 +44,16 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
 end
 
 function (/)(x::S, y::S) where S<:SafeInteger
-    ix = integer(x)
-    iy = integer(y)
+    ix = baseint(x)
+    iy = baseint(y)
     checked_div(ix, iy)
     result = ix / iy
     return result
 end
 
 function (\)(x::S, y::S) where S<:SafeInteger
-    ix = integer(y)
-    iy = integer(x)
+    ix = baseint(y)
+    iy = baseint(x)
     checked_div(iy, ix)
     result = ix / iy
     return result
