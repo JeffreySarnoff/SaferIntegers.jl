@@ -153,29 +153,40 @@ Otherwise, they should be unsurprising.
 
 ## Benchmarking (one one machine)
 
-julia v0.7.0-alpha
+julia v1.0.1
 ```julia
-julia> using SaferIntegers
-julia> using BenchmarkTools
-julia> BenchmarkTools.DEFAULT_PARAMETERS.time_tolerance=0.01
+using SaferIntegers
+using BenchmarkTools
+BenchmarkTools.DEFAULT_PARAMETERS.time_tolerance=0.005
 
-julia> a=17;b=27;c=37;d=47;e=57;f=67;g=77;h=87;i=97;
-julia> sa=SafeInt(a);sb=SafeInt(b);sc=SafeInt(c);sd=SafeInt(d);
-julia> se=SafeInt(e);sf=SafeInt(f);sg=SafeInt(g);sh=SafeInt(h);si=SafeInt(i);
+@noinline function test(n, f, a,b,c,d)
+   result = a;
+   i = 0
+   while true
+       i += 1
+       i > n && break       
+       result += f(d,c)+f(b,a)+f(d,b)+f(c,a)
+   end
+   return result
+end
 
-julia> @btime $a+$b+$c+$d+$e+$f+$g+$h+$i
-  1.968 ns (0 allocations: 0 bytes)
-julia> @btime $sa+$sb+$sc+$sd+$se+$sf+$sg+$sh+$si
-  3.360 ns (0 allocations: 0 bytes)
-julia> 3.36/1.968
-1.7
+hundredths(x) = round(x, digits=2)
 
-julia> @btime $a*$b*$c*$d*$e*$f*$g*$h*$i
-  2.242 ns (0 allocations: 0 bytes)
-julia> @btime $sa*$sb*$sc*$sd*$se*$sf*$sg*$sh*$si
-  3.360 ns (0 allocations: 0 bytes)
-julia> 3.36/2.242
-1.5
+a = 17; b = 721; c = 75; d = 567;
+sa, sb, sc, sd = SafeInt.((a, b, c, d));
+n = 10_000;
+
+hundredths( (@belapsed test(n, +, $sa, $sb, $sc, $sd)) /
+            (@belapsed test(n, +, $a, $b, $c, $d))        )
+1.95
+
+hundredths( (@belapsed test(n, *, $sa, $sb, $sc, $sd)) /
+            (@belapsed test(n, *, $a, $b, $c, $d))        )
+1.25
+
+hundredths( (@belapsed test(n, div, $sa, $sb, $sc, $sd)) /
+            (@belapsed test(n, div, $a, $b, $c, $d))      )
+1.05
 ```
 
 ### credits
