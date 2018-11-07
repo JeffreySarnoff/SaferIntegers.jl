@@ -14,7 +14,8 @@ import Base.Checked: checked_add, checked_sub, checked_mul,
                      checked_div, checked_fld, checked_cld,
                      checked_rem, checked_mod
 
-import Base: string, bitstring, show,
+import Base: promote_rule, 
+    string, bitstring, show,
     (~), (&), (|), (⊻), (>>>), (>>), (<<),
     (<), (<=), (==), (!=), (>=), (>), 
     isequal, isless,
@@ -24,6 +25,7 @@ import Base: string, bitstring, show,
     leading_zeros, trailing_zeros, leading_ones, trailing_ones,
     copysign, flipsign
 
+using Random
 
 include("type.jl")
 include("construct.jl")
