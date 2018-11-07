@@ -13,12 +13,13 @@ for (S,I) in (
     @inline integer(::Type{$I}) = $I
     @inline integer(::Type{$S}) = $I
 
-    @inline $S(x::$I) = reinterpret($S, x)
-    @inline $I(x::$S) = reinterpret($I, x)
     @inline safeint(x::$I) = reinterpret($S, x)
     @inline integer(x::$S) = reinterpret($I, x)
     @inline safeint(x::$S) = x
     @inline integer(x::$I) = x
+
+    @inline $S(x::$I) = reinterpret($S, x)
+    @inline $I(x::$S) = reinterpret($I, x)
   end
 end
 
@@ -50,23 +51,23 @@ for (SS,SU, IS, IU) in (
    @eval begin
      $SS(x::T) where T<:Signed   = safeint(integer($SS)(x))
      $SS(x::T) where T<:Unsigned = safeint(integer($SS)(integer($SU)(x)))
-     $SS(x::T) where T<:SafeSigned   = safeint(integer($SS)(x))
-     $SS(x::T) where T<:SafeUnsigned = safeint(integer($SS)(integer($SU)(x)))
      $SU(x::T) where T<:Signed   = safeint(integer($SU)(x))
      $SU(x::T) where T<:Unsigned = safeint(integer($SU)(integer($SS)(x)))
+     $SS(x::T) where T<:SafeSigned   = safeint(integer($SS)(x))
+     $SS(x::T) where T<:SafeUnsigned = safeint(integer($SS)(integer($SU)(x)))
      $SU(x::T) where T<:SafeSigned   = safeint(integer($SU)(x))
      $SU(x::T) where T<:SafeUnsigned = safeint(integer($SU)(integer($SS)(x)))
 
      $IS(x::T) where T<:Signed   = $IS(integer(x))
-     $IS(x::T) where T<:Unsigned  = $IS(integer(x))
-     $IS(x::T) where T<:SafeSigned   = $IS(integer(x))
-     $IS(x::T) where T<:SafeUnsigned  = $IS(integer(x))
+     $IS(x::T) where T<:Unsigned = $IS(integer(x))
      $IU(x::T) where T<:Unsigned = $IU(integer(x))
-     $IU(x::T) where T<:Signed = $IU(integer(x))
+     $IU(x::T) where T<:Signed   = $IU(integer(x))
+     $IS(x::T) where T<:SafeSigned   = $IS(integer(x))
+     $IS(x::T) where T<:SafeUnsigned = $IS(integer(x))
      $IU(x::T) where T<:SafeUnsigned = $IU(integer(x))
-     $IU(x::T) where T<:SafeSigned = $IU(integer(x))
+     $IU(x::T) where T<:SafeSigned   = $IU(integer(x))
   end
 end
 
-safeint(x::UnitRange{I}) where {I<:Integer} = safeint(x.start):safeint(x.stop)
+safeint(x::UnitRange{I}) where {I<:Integer}     = safeint(x.start):safeint(x.stop)
 integer(x::UnitRange{S}) where {S<:SafeInteger} = integer(x.start):integer(x.stop)
