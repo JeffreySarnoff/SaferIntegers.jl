@@ -1,7 +1,7 @@
 safeint(::Type{Bool}) = Bool
-integer(::Type{Bool}) = Bool
+baseint(::Type{Bool}) = Bool
 safeint(x::Bool) = x
-integer(x::Bool) = x
+baseint(x::Bool) = x
 
 
 for (S,I) in (
@@ -10,13 +10,13 @@ for (S,I) in (
   @eval begin
     @inline safeint(::Type{$I}) = $S
     @inline safeint(::Type{$S}) = $S
-    @inline integer(::Type{$I}) = $I
-    @inline integer(::Type{$S}) = $I
+    @inline baseint(::Type{$I}) = $I
+    @inline baseint(::Type{$S}) = $I
 
     @inline safeint(x::$I) = reinterpret($S, x)
-    @inline integer(x::$S) = reinterpret($I, x)
+    @inline baseint(x::$S) = reinterpret($I, x)
     @inline safeint(x::$S) = x
-    @inline integer(x::$I) = x
+    @inline baseint(x::$I) = x
 
     @inline $S(x::$I) = reinterpret($S, x)
     @inline $I(x::$S) = reinterpret($I, x)
@@ -24,22 +24,22 @@ for (S,I) in (
 end
 
 SafeInt128(x::T) where T<:Union{SafeInt8,SafeInt16,SafeInt32,SafeInt64} =
-    safeint(Int128(integer(x)))
+    safeint(Int128(baseint(x)))
 SafeInt64(x::T) where T<:Union{SafeInt8,SafeInt16,SafeInt32} =
-    safeint(Int64(integer(x)))
+    safeint(Int64(baseint(x)))
 SafeInt32(x::T) where T<:Union{SafeInt8,SafeInt16} =
-    safeint(Int32(integer(x)))
+    safeint(Int32(baseint(x)))
 SafeInt16(x::T) where T<:SafeInt8 =
-    safeint(Int16(integer(x)))
+    safeint(Int16(baseint(x)))
 
 SafeUInt128(x::T) where T<:Union{SafeUInt8,SafeUInt16,SafeUInt32,SafeUInt64} =
-    safeint(UInt128(integer(x)))
+    safeint(UInt128(baseint(x)))
 SafeUInt64(x::T) where T<:Union{SafeUInt8,SafeUInt16,SafeUInt32} =
-    safeint(UInt64(integer(x)))
+    safeint(UInt64(baseint(x)))
 SafeUInt32(x::T) where T<:Union{SafeUInt8,SafeUInt16} =
-    safeint(UInt32(integer(x)))
+    safeint(UInt32(baseint(x)))
 SafeUInt16(x::T) where T<:SafeUInt8 =
-    safeint(UInt16(integer(x)))
+    safeint(UInt16(baseint(x)))
 
 
 for (SS,SU, IS, IU) in (
@@ -49,25 +49,25 @@ for (SS,SU, IS, IU) in (
     (:SafeInt64, :SafeUInt64, :Int64, :UInt64),
     (:SafeInt128, :SafeUInt128, :Int128, :UInt128) )
    @eval begin
-     $SS(x::T) where T<:Signed   = safeint(integer($SS)(x))
-     $SS(x::T) where T<:Unsigned = safeint(integer($SS)(integer($SU)(x)))
-     $SU(x::T) where T<:Signed   = safeint(integer($SU)(x))
-     $SU(x::T) where T<:Unsigned = safeint(integer($SU)(integer($SS)(x)))
-     $SS(x::T) where T<:SafeSigned   = safeint(integer($SS)(x))
-     $SS(x::T) where T<:SafeUnsigned = safeint(integer($SS)(integer($SU)(x)))
-     $SU(x::T) where T<:SafeSigned   = safeint(integer($SU)(x))
-     $SU(x::T) where T<:SafeUnsigned = safeint(integer($SU)(integer($SS)(x)))
+     $SS(x::T) where T<:Signed   = safeint(baseint($SS)(x))
+     $SS(x::T) where T<:Unsigned = safeint(baseint($SS)(baseint($SU)(x)))
+     $SU(x::T) where T<:Signed   = safeint(baseint($SU)(x))
+     $SU(x::T) where T<:Unsigned = safeint(baseint($SU)(baseint($SS)(x)))
+     $SS(x::T) where T<:SafeSigned   = safeint(baseint($SS)(x))
+     $SS(x::T) where T<:SafeUnsigned = safeint(baseint($SS)(baseint($SU)(x)))
+     $SU(x::T) where T<:SafeSigned   = safeint(baseint($SU)(x))
+     $SU(x::T) where T<:SafeUnsigned = safeint(baseint($SU)(baseint($SS)(x)))
 
-     $IS(x::T) where T<:Signed   = $IS(integer(x))
-     $IS(x::T) where T<:Unsigned = $IS(integer(x))
-     $IU(x::T) where T<:Unsigned = $IU(integer(x))
-     $IU(x::T) where T<:Signed   = $IU(integer(x))
-     $IS(x::T) where T<:SafeSigned   = $IS(integer(x))
-     $IS(x::T) where T<:SafeUnsigned = $IS(integer(x))
-     $IU(x::T) where T<:SafeUnsigned = $IU(integer(x))
-     $IU(x::T) where T<:SafeSigned   = $IU(integer(x))
+     $IS(x::T) where T<:Signed   = $IS(baseint(x))
+     $IS(x::T) where T<:Unsigned = $IS(baseint(x))
+     $IU(x::T) where T<:Unsigned = $IU(baseint(x))
+     $IU(x::T) where T<:Signed   = $IU(baseint(x))
+     $IS(x::T) where T<:SafeSigned   = $IS(baseint(x))
+     $IS(x::T) where T<:SafeUnsigned = $IS(baseint(x))
+     $IU(x::T) where T<:SafeUnsigned = $IU(baseint(x))
+     $IU(x::T) where T<:SafeSigned   = $IU(baseint(x))
   end
 end
 
 safeint(x::UnitRange{I}) where {I<:Integer}     = safeint(x.start):safeint(x.stop)
-integer(x::UnitRange{S}) where {S<:SafeInteger} = integer(x.start):integer(x.stop)
+baseint(x::UnitRange{S}) where {S<:SafeInteger} = baseint(x.start):baseint(x.stop)
