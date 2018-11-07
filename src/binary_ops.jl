@@ -1,12 +1,13 @@
-import Base: (<), (<=), (==), (!=), (>=), (>), (&), (|), (⊻), isequal, isless,
+import Base: (<), (<=), (==), (!=), (>=), (>), (&), (|), (⊻),
+             isequal, isless,
              (>>>), (>>), (<<)
 
 for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
     @eval begin
 
        @inline function $OP(x::T, y::T) where T<:SafeInteger
-           ix = integer(x)
-           iy = integer(y)
+           ix = baseint(x)
+           iy = baseint(y)
            result = $OP(ix, iy)
            return safeint(result)
        end
@@ -32,8 +33,8 @@ for OP in (:(&), :(|), :(⊻))
     @eval begin
 
        @inline function $OP(x::T, y::T) where T<:SafeInteger
-           ix = integer(x)
-           iy = integer(y)
+           ix = baseint(x)
+           iy = baseint(y)
            result = $OP(ix, iy)
            return safeint(result)
        end
@@ -61,7 +62,7 @@ for OP in (:(>>>), :(>>), :(<<))
     @eval begin
 
        @inline function $OP(x::T, y::T) where T<:SafeInteger
-            I = integer(T)
+            I = baseint(T)
             r1 = reinterpret(I, x)
             r2 = reinterpret(I, y)
             result = $OP(r1, r2)
@@ -69,27 +70,27 @@ for OP in (:(>>>), :(>>), :(<<))
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:SafeInteger
-            I1 = integer(T1)
-            I2 = integer(T2)
+            I1 = baseint(T1)
+            I2 = baseint(T2)
             xx = reinterpret(I1, x)
             yy = reinterpret(I2, y)
             return reinterpret(T1, $OP(xx, yy))
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
-            I1 = integer(T1)
+            I1 = baseint(T1)
             xx = reinterpret(I1, x)
             return reinterpret(T1, $OP(xx, y))
         end
 
         @inline function $OP(x::T1, y::Int64) where T1<:SafeInteger
-            I1 = integer(T1)
+            I1 = baseint(T1)
             xx = reinterpret(I1, x)
             return reinterpret(T1, $OP(xx, y))
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:Integer where T2<:SafeInteger
-            I2 = integer(T2)
+            I2 = baseint(T2)
             yy = reinterpret(I2, y)
             xx = $OP(x, yy)
             return reinterpret(stype(T1), xx)
