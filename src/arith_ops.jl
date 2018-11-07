@@ -54,7 +54,7 @@ end
 function (\)(x::S, y::S) where S<:SafeInteger
     ix = integer(y)
     iy = integer(x)
-    checked_div(ix, iy)
+    checked_div(iy, ix)
     result = ix / iy
     return result
 end
