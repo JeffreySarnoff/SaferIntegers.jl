@@ -8,5 +8,7 @@ julia:
   - nightly
 notifications:
   email: false
+git:
+  depth: 99999999
 after_success:
-- julia -e 'cd(Pkg.dir("ErrorfreeArithmetic")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())';
+- julia -e 'cd(Pkg.dir("SaferIntegers")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())';
