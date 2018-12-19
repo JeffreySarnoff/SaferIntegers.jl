@@ -153,7 +153,7 @@ Otherwise, they should be unsurprising.
 
 ## Benchmarking (one one machine)
 
-julia v1.0.1
+julia v1.1-dev
 ```julia
 using SaferIntegers
 using BenchmarkTools
@@ -178,7 +178,7 @@ n = 10_000;
 
 hundredths( (@belapsed test(n, +, $sa, $sb, $sc, $sd)) /
             (@belapsed test(n, +, $a, $b, $c, $d))        )
-1.95
+1.25
 
 hundredths( (@belapsed test(n, *, $sa, $sb, $sc, $sd)) /
             (@belapsed test(n, *, $a, $b, $c, $d))        )
@@ -186,7 +186,7 @@ hundredths( (@belapsed test(n, *, $sa, $sb, $sc, $sd)) /
 
 hundredths( (@belapsed test(n, div, $sa, $sb, $sc, $sd)) /
             (@belapsed test(n, div, $a, $b, $c, $d))      )
-1.05
+1.14
 ```
 
 ### credits
