@@ -59,35 +59,6 @@ There are security implications for integer overflow in certain situations.
 
 ----
 
-### How Does One Use This?
-
-Here is one way.  More detail is given later.
-
-```julia
-
-julia> using SaferIntegers, KahanSummation; sum_kbn = KahanSummation.sum_kbn;
-julia> srand(1618);
-
-julia> ints = [rand(Int64) for i in 1:10_000];
-julia> bigints = map(BigInt, ints);
-julia> safeints = map(SafeInt64, ints);
-
-julia> ints_sum, bigints_sum = sum_kbn(ints), sum_kbn(bigints);
-julia> round(Int, (ints_sum - bigints_sum) / ints_sum)
-48
-
-julia> try
-           sum_kbn(safeints)
-       catch
-           print("\n\n\t");
-           throw(OverflowError("invalid arithmetic result"))
-       end
-       
-       ERROR: OverflowError: invalid arithmetic result
-         
-```
-
-
 ## A Basic Guide
 
 To use safer integers within your computations, where you have been using    
