@@ -90,15 +90,15 @@ end
 # shifts
 const bitsof = SaferIntegers.bitsof
 
-@test @no_error( SafeInt(typemax(Int)) << bitsof(Int) )
-@test @is_error( SafeInt(typemax(Int)) << (bitsof(Int)+1) )
-@test @no_error( SafeInt(typemax(Int)) << -bitsof(Int) )
-@test @is_error( SafeInt(typemax(Int)) << -(bitsof(Int)+1) )
+@no_error( SafeInt(typemax(Int)) << bitsof(Int) )
+@is_error( SafeInt(typemax(Int)) << (bitsof(Int)+1) )
+@no_error( SafeInt(typemax(Int)) << (-bitsof(Int)) )
+@is_error( SafeInt(typemax(Int)) << (-(bitsof(Int)+1)) )
 
-@test @no_error( SafeInt(typemax(Int)) >>> bitsof(Int) )
-@test @is_error( SafeInt(typemax(Int)) >>> (bitsof(Int)+1) )
-@test @no_error( SafeInt(typemax(Int)) >>> -bitsof(Int) )
-@test @is_error( SafeInt(typemax(Int)) >>> -(bitsof(Int)+1) )
+@no_error( SafeInt(typemax(Int)) >>> bitsof(Int) )
+@is_error( SafeInt(typemax(Int)) >>> (bitsof(Int)+1) )
+@no_error( SafeInt(typemax(Int)) >>> (-bitsof(Int)) )
+@is_error( SafeInt(typemax(Int)) >>> (-(bitsof(Int)+1)) )
       
 @test SafeInt32(7) >>> SafeInt32(2) === SafeInt32(7 >>> 2)
 @test SafeInt32(7) >> SafeInt32(2) === SafeInt32(7 >> 2)
