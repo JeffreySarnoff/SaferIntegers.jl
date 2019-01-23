@@ -61,6 +61,6 @@ restart the REPL
 ```julia
 julia> using Twice
 
-julia> typeof(result) # on a 64bit platform
+julia> typeof(val) # on a 64bit platform
 Int64 
 ```
