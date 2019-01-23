@@ -1,4 +1,5 @@
 bitsof(::Type{T}) where {T<:Union{Signed, Unsigned}}  = sizeof(T) << 3
+bitsof(x::T) where {T<:Union{Signed, Unsigned}} = bitsof(T)
 
 for S in (:SafeSigned, :SafeUnsigned)
   @eval begin
