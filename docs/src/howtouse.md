@@ -10,4 +10,4 @@ Use these exported types
 
 ## Notes
 
-#### operations with a SafeInteger that result in an integer value will return SafeIntegers
+#### Operations with a SafeInteger that result in an integer value will return SafeIntegers
