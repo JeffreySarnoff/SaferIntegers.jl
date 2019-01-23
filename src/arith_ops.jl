@@ -79,3 +79,17 @@ function (\)(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
+
+
+
+function (divrem)(x::S, y::S) where S<:SafeInteger
+    ix = baseint(x)
+    iy = baseint(y)
+    return safeint(div(ix, iy)), safeint(rem(ix, iy)) # div, rem already are checked
+end
+
+function (fldmod)(x::S, y::S) where S<:SafeInteger
+    ix = baseint(x)
+    iy = baseint(y)
+    return safeint(fld(ix, iy)), safeint(mod(ix, iy)) # fld, mod already are checked
+end
