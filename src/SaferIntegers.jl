@@ -35,7 +35,6 @@ include("string_io.jl")
 include("rand.jl")
 
 if haskey(ENV, "USE_SAFE_INTS") && ENV["USE_SAFE_INTS"] == "true"
-    println("safe")
     const UI8 = SafeUInt8
     const UI16 = SafeUInt16
     const UI32 = SafeUInt32
@@ -47,7 +46,6 @@ if haskey(ENV, "USE_SAFE_INTS") && ENV["USE_SAFE_INTS"] == "true"
     const I64 = SafeInt64
     const I128 = SafeInt128
 else
-    println("unsafe")   
     const UI8 = UInt8
     const UI16 = UInt16
     const UI32 = UInt32
