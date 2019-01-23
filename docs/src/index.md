@@ -3,11 +3,7 @@
 
 ----
 
-#### Copyright ©&thinsp;2018-2019 by Jeffrey Sarnoff. &nbsp;&nbsp; This work is made available under The MIT License.
-
------
-
-[![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl)&nbsp;&nbsp;&nbsp;[![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/latest/)
+#### Copyright ©2018-2019 by Jeffrey Sarnoff. This work is made available under The MIT License.
 
 ----
 
