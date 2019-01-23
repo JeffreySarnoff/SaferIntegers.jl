@@ -89,3 +89,16 @@ end
 
 @test Int32(521)+Int32(125) == Int32(SafeInt32(521) + SafeInt32(125))
 @test Int32(521)-Int32(125) == Int32(SafeInt32(521) - SafeInt32(125))
+
+# shifts
+
+@test @no_error( SafeInt(typemax(Int)) << bitsof(Int) )
+@test @is_error( SafeInt(typemax(Int)) << (bitsof(Int)+1) )
+@test @no_error( SafeInt(typemax(Int)) << -bitsof(Int) )
+@test @is_error( SafeInt(typemax(Int)) << -(bitsof(Int)+1) )
+
+@test @no_error( SafeInt(typemax(Int)) >>> bitsof(Int) )
+@test @is_error( SafeInt(typemax(Int)) >>> (bitsof(Int)+1) )
+@test @no_error( SafeInt(typemax(Int)) >>> -bitsof(Int) )
+@test @is_error( SafeInt(typemax(Int)) >>> -(bitsof(Int)+1) )
+      
