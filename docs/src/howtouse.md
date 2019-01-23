@@ -27,7 +27,11 @@ And write your code using these exported types
 ```julia
 module Twice
 
-export twice
+export twice, val
+
+using SaferIntegers
+
+val = AkoInt(17)
 
 function twice(x::AkoInt)
     return 2 * x
@@ -40,10 +44,8 @@ julia> ENV["USE_SAFE_INTS"] = true # develop & test
 julia> using SaferIntegers
 julia> using Twice
 
-julia> value = AkoInt(5)
-5
-julia> result = twice(value)
-10
+julia> result = twice(val)
+34
 julia> typeof(result) # on a 64bit platform
 SafeInt64 
 ```
@@ -53,10 +55,8 @@ julia> ENV["USE_SAFE_INTS"] = false # release
 julia> using SaferIntegers
 julia> using Twice
 
-julia> value = AkoInt(5)
-5
-julia> result = twice(value)
-10
+julia> result = twice(val)
+34
 julia> typeof(result) # on a 64bit platform
 Int64 
 ```
