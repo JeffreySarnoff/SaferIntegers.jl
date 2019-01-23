@@ -34,7 +34,7 @@ include("pow.jl")
 include("string_io.jl")
 include("rand.jl")
 
-if isdefined(Main, USE_SAFE_INTS) && USE_SAFE_INTS
+if isdefined(Main, :USE_SAFE_INTS) && USE_SAFE_INTS
     const UI8 = SafeUInt8
     const UI16 = SafeUInt16
     const UI32 = SafeUInt32
