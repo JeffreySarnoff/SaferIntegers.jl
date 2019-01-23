@@ -33,8 +33,7 @@ There are security implications for integer overflow in certain situations.
  end
  
  a = Int16(456) * Int16(567)
- a == -3592
- # the for loop does not execute
+ a == -3592 # and the for loop does not execute
 ```
 
 ## Highlights
