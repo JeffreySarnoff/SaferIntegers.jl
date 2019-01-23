@@ -6,6 +6,10 @@ makedocs(
     authors = "Jeffrey Sarnoff",
     pages = Any[
         "Overview" => "index.md",
+        "Highlights" => "highlights.md",
+        "Basic Guide" => "basicguide.md",
+        "Supported Operations" => "supports.md",
+        "Benchmarks" => "benchmarks.md",
         "How To Use" => "howtouse.md",
         "Refs" => "references.md"
     ]
