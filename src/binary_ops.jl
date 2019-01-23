@@ -60,6 +60,7 @@ for OP in (:(>>>), :(>>), :(<<))
        @inline function $OP(x::T, y::T) where T<:SafeInteger
             r1 = baseint(x)
             r2 = baseint(y)
+            bitsof(T) < abs(r2) && throw(OverflowError("shift of ::$T by $y"))
             result = $OP(r1, r2)
             return reinterpret(T, result)
         end
@@ -67,21 +68,25 @@ for OP in (:(>>>), :(>>), :(<<))
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:SafeInteger
             xx = baseint(x)
             yy = baseint(y)
+            bitsof(T1) < abs(yy) && throw(OverflowError("shift of ::$T1 by $yy"))
             return reinterpret(T1, $OP(xx, yy))
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
             xx = baseint(x)
+            bitsof(T1) < abs(y) && throw(OverflowError("shift of ::$T1 by $y"))
             return reinterpret(T1, $OP(xx, y))
         end
 
         @inline function $OP(x::T1, y::Int) where T1<:SafeInteger
             xx = baseint(x)
+            bitsof(T1) < abs(y) && throw(OverflowError("shift of ::$T1 by $y"))
             return reinterpret(T1, $OP(xx, y))
         end
 
         @inline function $OP(x::T1, y::T2) where T1<:Integer where T2<:SafeInteger
             yy = baseint(y)
+            bitsof(T1) < abs(yy) && throw(OverflowError("shift of ::$T1 by $yy"))
             xx = $OP(x, yy)
             return reinterpret(stype(T1), xx)
         end
