@@ -81,15 +81,44 @@ function (\)(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
 end
 
 
-
-function (divrem)(x::S, y::S) where S<:SafeInteger
+function divrem(x::S, y::S) where S<:SafeInteger
     ix = baseint(x)
     iy = baseint(y)
     return safeint(div(ix, iy)), safeint(rem(ix, iy)) # div, rem already are checked
 end
 
-function (fldmod)(x::S, y::S) where S<:SafeInteger
+function divrem(x::S1, y::S2) where S1<:SafeInteger where S2<:SafeInteger
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+
+function divrem(x::S1, y::S2) where S1<:SafeInteger where S2<:Integer
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+
+function divrem(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+
+function fldmod(x::S, y::S) where S<:SafeInteger
     ix = baseint(x)
     iy = baseint(y)
     return safeint(fld(ix, iy)), safeint(mod(ix, iy)) # fld, mod already are checked
+end
+
+function fldmod(x::S1, y::S2) where S1<:SafeInteger where S2<:SafeInteger
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
+end
+
+function fldmod(x::S1, y::S2) where S1<:SafeInteger where S2<:Integer
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
+end
+
+function fldmod(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
 end
