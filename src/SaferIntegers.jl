@@ -34,7 +34,7 @@ include("pow.jl")
 include("string_io.jl")
 include("rand.jl")
 
-if isdefined(Main, :USE_SAFE_INTS) && USE_SAFE_INTS
+if haskey(ENV, "USE_SAFE_INTS") && ENV["USE_SAFE_INTS"] == "true"
     println("safe")
     const UI8 = SafeUInt8
     const UI16 = SafeUInt16
