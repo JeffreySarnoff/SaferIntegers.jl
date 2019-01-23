@@ -34,16 +34,6 @@ function abs(x::T) where T<:SafeSigned
 end  
 abs(x::T) where T<:SafeUnsigned = x
 
-function abs2(x::T) where T<:SafeSigned
-  x === typemin(x) && throw(OverflowError())
-  y = checked_mul(x, x)      
-  return y
-end
-function abs2(x::T) where T<:SafeUnsigned
-  y = checked_mul(x, x)      
-  return y
-end
-
 @inline function Base.:(-)(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError())
   return safeint(-(baseint(x)))
@@ -64,3 +54,33 @@ typemin(::Type{T}) where {T<:SafeInteger} = safeint(typemin(baseint(T)))
 typemax(::Type{T}) where {T<:SafeInteger} = safeint(typemax(baseint(T)))
 
 widen(::Type{T}) where {T<:SafeInteger} = safeint(widen(baseint(T)))
+
+
+# abs2
+
+sqrtmax(::Type{T}) where {T<:Integer} = floor(T, sqrt(typemax(T)))
+
+abs2max(::Type{T}) where {T<:Signed} = sqrtmax(T)
+
+function abs2max(::Type{T}) where {T<:Unsigned}
+    result = sqrtmax(T)
+    if T(result*result) === zero(T)
+       result -= one(T)
+    end
+    return result
+end
+
+for T in (:Int8, :Int16, :Int32, :Int64, :Int128,
+          :UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
+  maxabs2(::Type{$T}) = abs2max(T)
+end  
+
+function abs2(x::T) where T<:SafeSigned
+  x > maxabs2(T) && throw(OverflowError("$x^2 exceeds $T"))   
+  return x * x
+end
+
+function abs2(x::T) where T<:SafeUnsigned
+  x > maxabs2(T) && throw(OverflowError("$x^2 exceeds $T"))   
+  return x * x
+end
