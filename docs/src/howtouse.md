@@ -7,8 +7,10 @@ Just use safe integer types in place of the usual integer types.  The rest is we
 Use these exported types
 - `SafeInt`, `SafeInt8`, `SafeInt16`, `SafeInt32`, `SafeInt64`, `SafeInt128`
 - `SafeUInt`, `SafeUInt8` `SafeUInt16`, `SafeUInt32`, `SafeUInt64`, `SafeUInt128`
-<!--
+
 ## To Write Code and Choose Safe or Unsafe Integers
+
+Within your [toplevel] module
 
 First set the environment variable "USE_SAFE_INTS"
 - `ENV["USE_SAFE_INTS"] = true` to use SafeInt and SafeUInt types
@@ -27,37 +29,38 @@ And write your code using these exported types
 ```julia
 module Twice
 
-export twice, val
+export val
 
+ENV["USE_SAFE_INTS"] = true
 using SaferIntegers
 
 val = AkoInt(17)
 
-function twice(x::AkoInt)
-    return 2 * x
-end
-
 end # module
 ```
 ```julia
-julia> ENV["USE_SAFE_INTS"] = true # develop & test
-julia> using SaferIntegers
 julia> using Twice
 
-julia> result = twice(val)
-34
-julia> typeof(result) # on a 64bit platform
+julia> typeof(val) # on a 64bit platform
 SafeInt64 
+```
+edit the module, replace the ENV setting with `false`
+```julia
+module Twice
+
+export val
+
+ENV["USE_SAFE_INTS"] = false
+using SaferIntegers
+
+val = AkoInt(17)
+
+end # module
 ```
 restart the REPL
 ```julia
-julia> ENV["USE_SAFE_INTS"] = false # release
-julia> using SaferIntegers
 julia> using Twice
 
-julia> result = twice(val)
-34
 julia> typeof(result) # on a 64bit platform
 Int64 
 ```
--->
