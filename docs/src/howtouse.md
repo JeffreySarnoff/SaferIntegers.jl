@@ -7,7 +7,7 @@ Just use safe integer types in place of the usual integer types.  The rest is we
 Use these exported types
 - `SafeInt`, `SafeInt8`, `SafeInt16`, `SafeInt32`, `SafeInt64`, `SafeInt128`
 - `SafeUInt`, `SafeUInt8` `SafeUInt16`, `SafeUInt32`, `SafeUInt64`, `SafeUInt128`
-
+<!--
 ## To Write Code and Choose Safe or Unsafe Integers
 
 First set the environment variable "USE_SAFE_INTS"
@@ -60,3 +60,4 @@ julia> result = twice(val)
 julia> typeof(result) # on a 64bit platform
 Int64 
 ```
+-->
