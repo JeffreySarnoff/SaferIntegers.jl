@@ -35,6 +35,7 @@ include("string_io.jl")
 include("rand.jl")
 
 if haskey(ENV, "USE_SAFE_INTS") && ENV["USE_SAFE_INTS"] == "true"
+    println("safe")
     const AkoInt = Int === Int64 ? SafeInt64 : SafeInt32
     const AkoInt8 = SafeInt8
     const AkoInt16 = SafeInt16
@@ -48,6 +49,7 @@ if haskey(ENV, "USE_SAFE_INTS") && ENV["USE_SAFE_INTS"] == "true"
     const AkoUInt64 = SafeUInt64
     const AkoUInt128 = SafeUInt128
 else
+    println("unsafe")
     const AkoInt = Int === Int64 ? Int64 : Int32
     const AkoInt8 = Int8
     const AkoInt16 = Int16
