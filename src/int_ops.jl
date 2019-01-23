@@ -33,11 +33,11 @@ abs(x::T) where T<:SafeUnsigned = x
 
 function abs2(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError())
-  y = Base.Checked.checked_mul(x, x)      
+  y = checked_mul(x, x)      
   return y
 end
 function abs2(x::T) where T<:SafeUnsigned
-  y = Base.Checked.checked_mul(x, x)      
+  y = checked_mul(x, x)      
   return y
 end
 
