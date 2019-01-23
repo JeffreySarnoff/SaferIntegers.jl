@@ -11,9 +11,6 @@
 
 ----
 
-
------
-
 #### A Safer Way 
 
 Using the default Int or UInt types allows overflow and underflow errors to occur silently, without notice. These incorrect values propagate and such errors are difficult to recognize after the fact.
