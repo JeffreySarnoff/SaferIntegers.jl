@@ -4,9 +4,9 @@ export SafeInteger, SafeSigned, SafeUnsigned,
        SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
        SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128
 
-export UI8, UI16, UI32, UI64, UI128,
-       I8, I16, I32, I64, I128
-
+export AkoInt, AkoInt8, AkoInt16, AkoInt32, AkoInt64, AkoInt128,
+       AkoUInt, AkoUInt8, AkoUInt16, AkoUInt32, AkoUInt64, AkoUInt128
+       
 import Base.Checked: checked_add, checked_sub, checked_mul,
                      checked_div, checked_fld, checked_cld,
                      checked_rem, checked_mod
@@ -35,27 +35,31 @@ include("string_io.jl")
 include("rand.jl")
 
 if haskey(ENV, "USE_SAFE_INTS") && ENV["USE_SAFE_INTS"] == "true"
-    const UI8 = SafeUInt8
-    const UI16 = SafeUInt16
-    const UI32 = SafeUInt32
-    const UI64 = SafeUInt64
-    const UI128 = SafeUInt128
-    const I8 = SafeInt8
-    const I16 = SafeInt16
-    const I32 = SafeInt32
-    const I64 = SafeInt64
-    const I128 = SafeInt128
+    const AkoInt = Int === Int64 ? SafeInt64 : SafeInt32
+    const AkoInt8 = SafeInt8
+    const AkoInt16 = SafeInt16
+    const AkoInt32 = SafeInt32
+    const AkoInt64 = SafeInt64
+    const AkoInt128 = SafeInt128
+    const AkoUInt = Int === Int64 ? SafeUInt64 : SafeUInt32
+    const AkoUInt8 = SafeUInt8
+    const AkoUInt16 = SafeUInt16
+    const AkoUInt32 = SafeUInt32
+    const AkoUInt64 = SafeUInt64
+    const AkoUInt128 = SafeUInt128
 else
-    const UI8 = UInt8
-    const UI16 = UInt16
-    const UI32 = UInt32
-    const UI64 = UInt64
-    const UI128 = UInt128
-    const I8 = Int8
-    const I16 = Int16
-    const I32 = Int32
-    const I64 = Int64
-    const I128 = Int128
+    const AkoInt = Int === Int64 ? Int64 : Int32
+    const AkoInt8 = Int8
+    const AkoInt16 = Int16
+    const AkoInt32 = Int32
+    const AkoInt64 = Int64
+    const AkoInt128 = Int128
+    const AkoUInt = Int === Int64 ? UInt64 : UInt32
+    const AkoUIntI8 = UInt8
+    const AkoUInt16 = UInt16
+    const AkoUInt32 = UInt32
+    const AkoUInt64 = UInt64
+    const AkoUInt128 = UInt128
 end
 
 end # module SaferIntegers
