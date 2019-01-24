@@ -6,7 +6,7 @@
 - 𝒯  is an _unsafe type_
     - 𝓉  𝓉₁  𝓉₂ are values of type 𝒯
     - 𝒯ᵇⁱᵗˢ is the bitwidth of 𝒯 (32 is the bitwidth of Int32)
-
+     
 - 𝒮 is a built-in signed integer type
     - 𝒮: any one of ⦃ Int8, Int16, Int32, Int64, Int128 ⦄
     - 𝓈  𝓈₁  𝓈₂ are signed values (values of type 𝒮)
