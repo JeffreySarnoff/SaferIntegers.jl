@@ -6,7 +6,7 @@
 
 - 	⋵ ⦃ _ ⦄ selects any one within the collection, purposefully or intentlessly 
     - 𝗫 ⋵ ⦃ 𝗮, 𝗯, 𝗰 ⦄
-        - 𝗫 recieves 𝗮 or 𝗯 or 𝗰, as all are selectable
+        - 𝗫 recieves 𝗮 orelse 𝗯 orelse 𝗰, as all are selectable
         
 ----
 
