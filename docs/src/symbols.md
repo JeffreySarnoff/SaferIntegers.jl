@@ -1,6 +1,13 @@
 
 ## Symbols Used
 
+- ⦃ _ ⦄ is a collection of distinct entities ordered by an intrinsic relationship and sharing an essential characteristic
+     - ⦃ 𝗮, 𝗯, 𝗰 ⦄ is a collection of distinct letters ordered by lexicography and sharing that they are lowercase
+
+- 	⋵ ⦃ _ ⦄ selects any one or other one within the collection, as may be useful 
+    - 𝗫 ⋵ ⦃ 𝗮, 𝗯, 𝗰 ⦄
+        - 𝗫 recieves 𝗮 or 𝗯 or 𝗰, as all are selectable
+        
 ----
 
 - 𝒯  is an _unsafe type_
@@ -9,11 +16,11 @@
         - the bitwidth of Int32 is 32
      
 - 𝒮 is a built-in signed integer type
-    - 𝒮: any one of ⦃ Int8, Int16, Int32, Int64, Int128 ⦄
+    - 𝒮 ⋵ ⦃ Int8, Int16, Int32, Int64, Int128 ⦄
     - 𝓈  𝓈₁  𝓈₂ are values of type 𝒮
 
 - 𝒰 is a built-in unsigned integer type
-    - 𝒰: any one of ⦃ UInt8, UInt16, UInt32, UInt64, UInt128 ⦄
+    - 𝒰 ⋵ ⦃ UInt8, UInt16, UInt32, UInt64, UInt128 ⦄
     - 𝓊  𝓊₁  𝓊₂ are values of type 𝒰
 
 ----
@@ -24,11 +31,11 @@
         - the bitwidth of SafeInt64 is 64
 
 - 𝓢 is a safe signed integer type
-    - 𝓢: any one of ⦃ SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128 ⦄
+    - 𝓢 ⋵ ⦃ SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128 ⦄
     - 𝓼  𝓼₁  𝓼₂ are values of type 𝓢 
 
 - 𝓤 is a safe unsigned integer type
-    - 𝓤: any one of ⦃ SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128 ⦄
+    - 𝓤 ⋵ ⦃ SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128 ⦄
     - 𝓾  𝓾₁  𝓾₂ are values of type 𝓤
 
 ----
