@@ -2,11 +2,11 @@
 ## Symbols Used
 
 - ⦃ _ ⦄ is a collection of distinct entities ordered by an intrinsic relationship and sharing an essential characteristic
-     - ⦃ 𝗮, 𝗯, 𝗰 ⦄ is a collection of distinct letters ordered by lexicography and sharing that they are lowercase
+     - ⦃ 𝗮, 𝗰, 𝗸 ⦄ is a collection of distinct letters ordered lexicographically and sharing being lowercased
 
 - 	⋵ ⦃ _ ⦄ selects any one within the collection, purposefully or intentlessly 
-    - 𝗫 ⋵ ⦃ 𝗮, 𝗯, 𝗰 ⦄
-        - 𝗫 recieves 𝗮 orelse 𝗯 orelse 𝗰, as all are selectable
+    - 𝗫 ⋵ ⦃ 𝗮, 𝗰, 𝗸 ⦄
+        - 𝗫 recieves 𝗮 orelse 𝗰 orelse 𝗸, as all are selectable
         
 ----
 
