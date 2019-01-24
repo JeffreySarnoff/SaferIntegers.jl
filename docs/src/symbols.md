@@ -11,7 +11,7 @@
     - 𝒮: any one of ⦃ Int8, Int16, Int32, Int64, Int128 ⦄
     - 𝓈  𝓈₁  𝓈₂ are signed values (values of type 𝒮)
 
-- 𝒰 is a build-in unsigned integer type
+- 𝒰 is a built-in unsigned integer type
     - 𝒰: any one of ⦃ UInt8, UInt16, UInt32, UInt64, UInt128 ⦄
     - 𝓊  𝓊₁  𝓊₂ are unsigned values (values of type 𝒰)
 
