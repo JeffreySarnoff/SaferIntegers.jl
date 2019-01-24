@@ -5,7 +5,7 @@
 
 - 𝒯  is an _unsafe type_
     - 𝓉  𝓉₁  𝓉₂ are values of type 𝒯
-    - 𝒯ᵦ is the bitwidth of 𝒯 (32 is the bitwidth of Int32) 
+    - 𝒯ᵇⁱᵗˢ is the bitwidth of 𝒯 (32 is the bitwidth of Int32)
 
 - 𝒮 is a built-in signed integer type
     - 𝒮: any one of ⦃ Int8, Int16, Int32, Int64, Int128 ⦄
@@ -19,7 +19,7 @@
 
 - 𝓣  is a _safe type_
     - 𝓽  𝓽₁  𝓽₂ are values of type 𝓣
-    - 𝓣ᵦ is the bitwidth of 𝓣 (64 is the bitwidth of SafeInt64) 
+    - 𝓣ᵇⁱᵗˢ is the bitwidth of 𝓣 (64 is the bitwidth of SafeInt32)
 
 - 𝓢 is a safe signed integer type
     - 𝓢: any one of ⦃ SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128 ⦄
