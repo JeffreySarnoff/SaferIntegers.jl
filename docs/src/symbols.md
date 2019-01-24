@@ -4,7 +4,7 @@
 - ⦃ _ ⦄ is a collection of distinct entities ordered by an intrinsic relationship and sharing an essential characteristic
      - ⦃ 𝗮, 𝗯, 𝗰 ⦄ is a collection of distinct letters ordered by lexicography and sharing that they are lowercase
 
-- 	⋵ ⦃ _ ⦄ selects any one or other one within the collection, as may be useful 
+- 	⋵ ⦃ _ ⦄ selects any one within the collection, purposefully or intentlessly 
     - 𝗫 ⋵ ⦃ 𝗮, 𝗯, 𝗰 ⦄
         - 𝗫 recieves 𝗮 or 𝗯 or 𝗰, as all are selectable
         
