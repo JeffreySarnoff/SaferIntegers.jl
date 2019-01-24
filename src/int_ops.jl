@@ -72,7 +72,7 @@ end
 
 for T in (:Int8, :Int16, :Int32, :Int64, :Int128,
           :UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
-  maxabs2(::Type{$T}) = abs2max(T)
+  @eval maxabs2(::Type{$T}) = abs2max(T)
 end  
 
 function abs2(x::T) where T<:SafeSigned
