@@ -1,30 +1,3 @@
-for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
-    @eval begin
-
-       @inline function $OP(x::T, y::T) where T<:SafeInteger
-           ix = baseint(x)
-           iy = baseint(y)
-           result = $OP(ix, iy)
-           return safeint(result)
-       end
-
-       @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:SafeInteger
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-
-       @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-
-       @inline function $OP(x::T1, y::T2) where T1<:Integer where T2<:SafeInteger
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-   end
-end
-
 for OP in (:(&), :(|), :(⊻))
     @eval begin
 
@@ -52,6 +25,35 @@ for OP in (:(&), :(|), :(⊻))
 
    end
 end
+
+
+for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
+    @eval begin
+
+       @inline function $OP(x::T, y::T) where T<:SafeInteger
+           ix = baseint(x)
+           iy = baseint(y)
+           result = $OP(ix, iy)
+           return safeint(result)
+       end
+
+       @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:SafeInteger
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
+
+       @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
+
+       @inline function $OP(x::T1, y::T2) where T1<:Integer where T2<:SafeInteger
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
+   end
+end
+
 
 
 for OP in (:(>>>), :(>>), :(<<))
