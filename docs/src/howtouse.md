@@ -12,8 +12,7 @@ Use these exported types in place of their built-in counterparts
 
 - 𝒯  is an _unsafe type_
     - 𝓉  𝓉₁  𝓉₂ are values of type 𝒯
-
-- 𝒯ᵦ is the bitwidth of 𝒯 (32 is the bitwidth of Int32) 
+    - 𝒯ᵦ is the bitwidth of 𝒯 (32 is the bitwidth of Int32) 
 
 - 𝒮 is a built-in signed integer type (\scrS)
     - 𝓈  𝓈₁  𝓈₂ are signed values (values of type 𝒮)
@@ -22,10 +21,10 @@ Use these exported types in place of their built-in counterparts
     - 𝓊  𝓊₁  𝓊₂ are unsigned values (values of type 𝒰)
 
 
+
 - 𝓣  is a _safe type_
     - 𝓽  𝓽₁  𝓽₂ are values of type 𝓣
-
-- 𝓣ᵦ is the bitwidth of 𝓣 (64 is the bitwidth of SafeInt64) 
+    - 𝓣ᵦ is the bitwidth of 𝓣 (64 is the bitwidth of SafeInt64) 
 
 - 𝓢 is a safe signed integer type
     - 𝓼  𝓼₁  𝓼₂ are values of safe type 𝓢 
