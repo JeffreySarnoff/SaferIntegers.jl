@@ -29,13 +29,13 @@ end
 @inline sign(x::T) where T<:SafeUnsigned = one(T)
 
 function abs(x::T) where T<:SafeSigned
-  x === typemin(x) && throw(OverflowError())
+  x === typemin(x) && throw(OverflowError("cannot take `abs(typemin)`"))
   return safeint(abs(baseint(x)))
 end  
 abs(x::T) where T<:SafeUnsigned = x
 
 @inline function Base.:(-)(x::T) where T<:SafeSigned
-  x === typemin(x) && throw(OverflowError())
+  x === typemin(x) && throw(OverflowError("cannot negate typemin"))
   return safeint(-(baseint(x)))
 end  
 @inline Base.:(-)(x::T) where T<:SafeUnsigned = safeint(-baseint(x))
