@@ -27,6 +27,5 @@ of type `T` by 0 bits (unchanged) or by ±β bits where β ∈ ⦃0, 1, .., `bit
 An `OverflowError` occurs when there is an attempt to shift a value of safe type `T`
 by a magnitude greater than `±bitsof(T)`.
 
-## Notes
 
 #### Operations with a SafeInteger that result in an integer value will return SafeIntegers
