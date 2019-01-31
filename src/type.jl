@@ -21,13 +21,3 @@ else
     const SafeInt  = SafeInt64
     const SafeUInt = SafeUInt64
 end
-
-# these are available for autoconversion to SaferIntegers
-
-const SysInts = Union{Int8, Int16, Int32, Int64, Int128}
-const SysUInts = Union{UInt8, UInt16, UInt32, UInt64, UInt128}
-const SysIntegers = Union{SysInts, SysUInts}
-
-const SafeInts = Union{SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128}
-const SafeUInts = Union{SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
-const SafeIntegers = Union{SafeInts, SafeUInts}
