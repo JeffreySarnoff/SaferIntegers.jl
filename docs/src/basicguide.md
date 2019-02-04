@@ -31,11 +31,12 @@ should a calculation encouter an overflow or underflow,
     - abs, (neg), (-), (+), (*), (^), div, fld, cld, rem (%), mod, divrem, fldmod
     - so does (/), before converting to Float64
 
-## Exported Types and Constructors / Converters
+## Exported Types / Constructors
 
 - `SafeInt8`, `SafeInt16`, `SafeInt32`, `SafeInt64`, `SafeInt128`    
 - `SafeUInt8`, `SafeUInt16`, `SafeUInt32`, `SafeUInt64`, `SafeUInt128`   
 - `SafeSigned`, `SafeUnsigned`, `SafeInteger`
 
-They check for overflow, even when multiplied by the usual Int and UInt types.    
-Otherwise, they should be unsurprising.
+They check for overflow, even when multiplied by the usual Int and UInt types.
+
+They do not auto-widen. Otherwise, they should be unsurprising.
