@@ -10,7 +10,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
-        @inline function $OP(x::T1, y::T2) where T1<:SafeSigned where T2<:SafeSigned
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:SafeSigned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
@@ -18,7 +18,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
-        @inline function $OP(x::T1, y::T2) where T1<:SafeUnsigned where T2<:SafeUnsigned
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:SafeUnsigned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
@@ -26,12 +26,12 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
         
-        @inline function $OP(x::T1, y::T2) where T1<:SafeInteger where T2<:Integer
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Integer}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
 
-        @inline function $OP(x::T1, y::T2) where T1<:Integer where T2<:SafeInteger
+        @inline function $OP(x::T1, y::T2) where {T1<:Integer, T2<:SafeInteger}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
@@ -54,28 +54,28 @@ function (\)(x::S, y::S) where S<:SafeInteger
     return result
 end
 
-function (/)(x::S1, y::S2) where S1<:SafeInteger where S2<:SafeInteger
+function (/)(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return (/)(xx, yy)
 end
-function (/)(x::S1, y::S2) where S1<:SafeInteger where S2<:Integer
+function (/)(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
    xx, yy = promote(x, y)
    return (/)(xx, yy)
 end
-function (/)(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
+function (/)(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return (/)(xx, yy)
 end
 
-function (\)(x::S1, y::S2) where S1<:SafeInteger where S2<:SafeInteger
+function (\)(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
-function (\)(x::S1, y::S2) where S1<:SafeInteger where S2<:Integer
+function (\)(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
-function (\)(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
+function (\)(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
@@ -87,17 +87,17 @@ function divrem(x::S, y::S) where S<:SafeInteger
     return safeint(div(ix, iy)), safeint(rem(ix, iy)) # div, rem already are checked
 end
 
-function divrem(x::S1, y::S2) where S1<:SafeInteger where S2<:SafeInteger
+function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
 
-function divrem(x::S1, y::S2) where S1<:SafeInteger where S2<:Integer
+function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
 
-function divrem(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
+function divrem(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
@@ -108,17 +108,17 @@ function fldmod(x::S, y::S) where S<:SafeInteger
     return safeint(fld(ix, iy)), safeint(mod(ix, iy)) # fld, mod already are checked
 end
 
-function fldmod(x::S1, y::S2) where S1<:SafeInteger where S2<:SafeInteger
+function fldmod(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
 
-function fldmod(x::S1, y::S2) where S1<:SafeInteger where S2<:Integer
+function fldmod(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
 
-function fldmod(x::S1, y::S2) where S2<:SafeInteger where S1<:Integer
+function fldmod(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
