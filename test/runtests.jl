@@ -103,3 +103,8 @@ const bitsof = SaferIntegers.bitsof
 @test SafeInt32(7) >>> SafeInt32(2) === SafeInt32(7 >>> 2)
 @test SafeInt32(7) >> SafeInt32(2) === SafeInt32(7 >> 2)
 @test SafeInt32(7) << SafeInt32(2) === SafeInt32(7 << 2)
+
+@test typeof(SafeInt32(7) // SafeInt32(5)) === Rational{SafeInt32}
+a = SafeInt32(32); b = SafeInt32(25); c = a//b - 1;
+@test typeof(c) === Rational{SafeInt32}
+@test a//b * b//a === Rational{SafeInt32}(1,1)
