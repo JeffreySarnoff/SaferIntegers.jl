@@ -6,7 +6,8 @@ export SafeInteger, SafeSigned, SafeUnsigned,
        
 import Base.Checked: checked_add, checked_sub, checked_mul,
                      checked_div, checked_fld, checked_cld,
-                     checked_rem, checked_mod
+                     checked_rem, checked_mod,
+                     add_with_overflow, sub_with_overflow, mul_with_overflow
 
 import Base: promote_rule, 
     string, bitstring, show,
