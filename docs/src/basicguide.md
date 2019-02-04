@@ -13,9 +13,8 @@ SafeInt and SafeUInt give you these arithmetic operators:
 `+`, `-`, `*`, `div`, `rem`, `fld`, `mod`, `^`    
 which have become overflow and underflow aware.
 
-The Int and UInt types can fail at simple arithmetic        
-and will continue carrying the incorrectness forward.    
-The validity of values obtained is difficult to ascertain.
+The Int and UInt types can fail at simple arithmetic and will continue carrying the incorrectness forward.    
+So, the validity of values obtained is difficult to ascertain.
 
 Most calculations proceed without incident, 
 and when used SafeInts operate as Ints
