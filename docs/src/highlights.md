@@ -17,3 +17,5 @@
 - This package is designed for easy use and written to be performant in many sorts of use.
 
 - Using **SaferIntegers** can preclude some known ways that insecure systems are breached.
+
+- Supports Rationals formed of SafeInteger types
