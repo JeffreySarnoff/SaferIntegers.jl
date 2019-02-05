@@ -25,7 +25,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             result = $CHK(ix, iy)
             return safeint(result)
         end
-        
+
         @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Integer}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
@@ -122,3 +122,60 @@ function fldmod(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
+
+for F in (:gcd, :lcm)
+  @eval begin
+    function $F(x::S, y::S) where S<:SafeInteger
+        ix = baseint(x)
+        iy = baseint(y)
+        return safeint($F(ix, iy))
+    end
+
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+
+    function $F(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+  end
+end
+
+for F in (:gcd, :lcm)
+  @eval begin
+    function $F(x::S, y::S) where S<:SafeInteger
+        ix = baseint(x)
+        iy = baseint(y)
+        return safeint($F(ix, iy))
+    end
+
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+
+    function $F(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+  end
+end
+
+function divgcd(x::S, y::S) where {S<:SafeInteger}
+    g = gcd(x,y)
+    return div(x,g), div(y,g)
+end
+
+divgcd(x, y) = divgcd(promote(x,y)...)
