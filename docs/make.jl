@@ -9,8 +9,8 @@ makedocs(
         "Highlights" => "highlights.md",
         "Basic Guide" => "basicguide.md",
         "Supported Operations" => "supports.md",
-        "Symbols Used" => "symbols.md",
         "How To Use" => "howtouse.md",
+        "Safer Rationals" => "rationals.md",
         "Benchmarks" => "benchmarks.md",
         "Refs" => "references.md"
     ]
