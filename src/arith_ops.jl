@@ -148,31 +148,6 @@ for F in (:gcd, :lcm)
   end
 end
 
-for F in (:gcd, :lcm)
-  @eval begin
-    function $F(x::S, y::S) where S<:SafeInteger
-        ix = baseint(x)
-        iy = baseint(y)
-        return safeint($F(ix, iy))
-    end
-
-    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
-       xx, yy = promote(x, y)
-       return $F(xx, yy)
-    end
-
-    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
-       xx, yy = promote(x, y)
-       return $F(xx, yy)
-    end
-
-    function $F(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
-       xx, yy = promote(x, y)
-       return $F(xx, yy)
-    end
-  end
-end
-
 function divgcd(x::S, y::S) where {S<:SafeInteger}
     g = gcd(x,y)
     return div(x,g), div(y,g)
