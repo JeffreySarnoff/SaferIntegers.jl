@@ -71,3 +71,10 @@ end
 
 safeint(x::UnitRange{I}) where {I<:Integer}     = safeint(x.start):safeint(x.stop)
 baseint(x::UnitRange{S}) where {S<:SafeInteger} = baseint(x.start):baseint(x.stop)
+
+
+function Rational{T}(num::I, den::I) where {I<:Integer, T<:SafeInteger}
+    num == den == zero(T) && __throw_rational_argerror(T)
+    num2, den2 = (sign(den) < 0) ? (den !== typemin(I) ? divgcd(-num, -den) : divgcd(num, den) ) : divgcd(num, den)
+    Rational{T}(SaferIntegers.safeint(num2) , SaferIntegers.baseint(den2))
+end
