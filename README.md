@@ -122,7 +122,7 @@ Otherwise, they should be unsurprising.
 - `zero`, `one`
 - `typemin`, `typemax`, `widen` 
 
-## Benchmarking (one one machine)
+## Benchmarking (on one machine)
 
 julia v1.1-dev
 ```julia
