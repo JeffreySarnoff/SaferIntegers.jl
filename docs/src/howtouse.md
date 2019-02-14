@@ -3,6 +3,8 @@
 
 #### Just use safe integer types in place of the usual integer types.  The rest is well handled.
 
+----
+
 ## To Write Code With Safe Integers
 
 Use these exported types in place of their built-in counterparts
