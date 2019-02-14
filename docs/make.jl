@@ -10,6 +10,7 @@ makedocs(
         "Basic Guide" => "basicguide.md",
         "Supported Operations" => "supports.md",
         "How To Use" => "howtouse.md",
+        "Safe Shifts" => "safeshifts.md",
         "Safer Rationals" => "rationals.md",
         "Benchmarks" => "benchmarks.md",
         "Refs" => "references.md"
