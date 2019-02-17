@@ -55,6 +55,8 @@ There are security implications for integer overflow in certain situations.
 
 - This package is designed for easy use and written to be performant in many sorts of use.
 
+- All exported types are stable (e.g. `typeof(SafeInt32 + 1) == SafeInt32`)
+
 - Using **SaferIntegers** can preclude some known ways that insecure systems are breached.
 
 ----
