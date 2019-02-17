@@ -3,7 +3,7 @@
 
 ----
 
-##### Copyright ©2018-2019 by Jeffrey Sarnoff. This work is made available under The MIT License.
+Copyright ©2018-2019 by Jeffrey Sarnoff. This work is made available under The MIT License.
 
 ----
 
