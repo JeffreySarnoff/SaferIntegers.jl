@@ -38,4 +38,4 @@ should a calculation encouter an overflow or underflow,
 
 They check for overflow, even when multiplied by the usual Int and UInt types.
 
-They do not auto-widen. Otherwise, they should be unsurprising.
+They do not auto-widen and are type stable. Otherwise, they are as system integers.
