@@ -153,4 +153,5 @@ function divgcd(x::S, y::S) where {S<:SafeInteger}
     return div(x,g), div(y,g)
 end
 
-divgcd(x, y) = divgcd(promote(x,y)...)
+divgcd(x::I, y::S) where {I<:Integer, S<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::S, y::I) where {I<:Integer, S<:SafeInteger} = divgcd(promote(x,y)...)
