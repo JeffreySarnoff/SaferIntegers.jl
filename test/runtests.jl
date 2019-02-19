@@ -9,6 +9,12 @@ macro is_error(x)
     :(@test (try $x; false; catch e; true; end))
 end
 
+@testset "checked" begin
+    @test_throws OverflowError checked_add(SafeInt8(120), SafeInt8(20))
+    @test_throws OverflowError checked_sub(SafeUInt8(10), SafeUInt8(20))
+    @test_throws OverflowError checked_mul(SafeInt8(100), SafeInt8(10))
+end
+
 @testset "throw" begin
     for (S,T) in ((:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), 
                   (:SafeInt64, :Int64), (:SafeInt128, :Int128))
