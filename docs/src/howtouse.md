@@ -12,3 +12,9 @@ Use these exported types in place of their built-in counterparts
 - `SafeUInt`, `SafeUInt8` `SafeUInt16`, `SafeUInt32`, `SafeUInt64`, `SafeUInt128`
 
 #### Operations with a SafeInteger that result in an integer value will return a SafeInteger
+- except shifts of a system integer by a SafeInteger
+     - check for overflow
+     - return the same type of value as is shifted
+- shifts of a SafeInteger by a system integer or SafeInteger
+     - check for overflow
+     - return a SafeInteger, the same type of value as is shifted
