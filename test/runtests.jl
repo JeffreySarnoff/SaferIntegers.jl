@@ -157,10 +157,10 @@ end
 end
 
 @testset "divide" begin
-    @test (/)(SafeInt32(625), SafeInt32(125)) == (\)(Int32(625), Int32(125))
-    @test (/)(SafeInt32(625), Int32(125)) == (\)(Int32(625), Int32(125))
-    @test (/)(Int32(625), SafeInt32(125)) == (\)(Int32(625), Int32(125))
-    @test (/)(Int64(625), Int64(125)) == Int64((\)(SafeInt64(625), SafeInt64(125)))
+    @test (/)(SafeInt32(625), SafeInt32(125)) == (/)(Int32(625), Int32(125))
+    @test (/)(SafeInt32(625), Int32(125)) == (/)(Int32(625), Int32(125))
+    @test (/)(Int32(625), SafeInt32(125)) == (/)(Int32(625), Int32(125))
+    @test (/)(Int64(625), Int64(125)) == Int64((/)(SafeInt64(625), SafeInt64(125)))
     @test (\)(SafeInt32(125), SafeInt32(625)) == (\)(Int32(125), Int32(625))
     @test (\)(SafeInt32(125), Int32(625)) == (\)(Int32(125), Int32(625))
     @test (\)(SafeInt32(125), Int32(625)) == (\)(Int32(125), Int32(625))
