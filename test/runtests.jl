@@ -176,7 +176,7 @@ const bitsof = SaferIntegers.bitsof
     @test Int32(7) << SafeInt32(2) === Int32(7 << 2)
 end
 
-testset "rational" begin
+@testset "rational" begin
     a = SafeInt32(32); b = SafeInt32(25); c = a//b - 1;
 
     @test typeof(SafeInt32(7) // SafeInt32(5)) === Rational{SafeInt32}
