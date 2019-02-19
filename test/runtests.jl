@@ -14,10 +14,10 @@ end
         (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128),
         (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
       @eval begin
-        @test safeint(::Type{$I}) === $S
-        @test safeint(::Type{$S}) === $S
-        @test baseint(::Type{$I}) === $I
-        @test baseint(::Type{$S}) === $I
+        @test safeint($I) === $S
+        @test safeint($S) === $S
+        @test baseint($I) === $I
+        @test baseint($S) === $I
         @test safeint($I(5)) === reinterpret($S, $I(5))
         @test baseint($S(5)) === reinterpret($I, $S(5))
         @test safeint($S(5)) === $S(5)
@@ -26,7 +26,9 @@ end
         @test $I($S(5)) === reinterpret($I, $S(5))
       end
     end
+end
 
+@testset "construct2" begin
     @test safeint(Bool) === Bool
     @test baseint(Bool) === Bool
     @test safeint(true) === true
