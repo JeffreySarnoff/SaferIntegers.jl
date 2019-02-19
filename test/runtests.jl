@@ -42,6 +42,11 @@ end
     @test_throws OverflowError (+)(SafeInt8(120), SafeInt8(20))
     @test_throws OverflowError (-)(SafeUInt8(10), SafeUInt8(20))
     @test_throws OverflowError (*)(SafeInt8(100), SafeInt8(100))
+    @test div(SafeInt16(100), SafeInt16(20)) === SafeInt16(div(100, 20))
+    @test fld(SafeInt16(100), SafeInt16(15)) === SafeInt16(fld(100, 15))
+    @test cld(SafeInt16(100), SafeInt16(15)) === SafeInt16(cld(100, 15))
+    @test mod(SafeInt16(100), SafeInt16(15)) === SafeInt16(mod(100, 15))
+    @test rem(SafeInt16(100), SafeInt16(15)) === SafeInt16(rem(100, 15))
 end
 
 @testset "throw" begin
