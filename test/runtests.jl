@@ -161,10 +161,10 @@ end
     @test (\)(SafeInt32(521), Int32(125)) == (\)(Int32(521), Int32(125))
     @test (\)(Int32(521), SafeInt32(125)) == (\)(Int32(521), Int32(125))
     @test (\)(Int64(521), Int64(125)) == Int64((\)(SafeInt64(521), SafeInt64(125)))
-    @test (/)(SafeInt32(521), SafeInt32(125)) == (\)(Int32(521), Int32(125))
-    @test (/)(SafeInt32(521), Int32(125)) == (\)(Int32(521), Int32(125))
-    @test (/)(SafeInt32(521), Int32(125)) == (\)(Int32(521), Int32(125))
-    @test (/)(Int64(521), Int64(125)) == Int64((\)(SafeInt64(521), SafeInt64(125)))
+    @test (/)(SafeInt32(521), SafeInt32(125)) == (/)(Int32(521), Int32(125))
+    @test (/)(SafeInt32(521), Int32(125)) == (/)(Int32(521), Int32(125))
+    @test (/)(SafeInt32(521), Int32(125)) == (/)(Int32(521), Int32(125))
+    @test (/)(Int64(521), Int64(125)) == Int64((/)(SafeInt64(521), SafeInt64(125)))
 end
 
 @testset "number theory" begin
