@@ -9,8 +9,6 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             result = $CHK(ix, iy)
             return safeint(result)
         end
-    
-        $CHK(x::T, y::T) where T<:SafeInteger = $OP(x, y)
         
         @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:SafeSigned}
             xx, yy = promote(x, y)
