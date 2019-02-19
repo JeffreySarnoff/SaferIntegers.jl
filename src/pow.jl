@@ -69,6 +69,4 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
 end
 
 Base.:(^)(x::S, y::T) where {S<:SafeInteger, T<:Integer} = (^)(promote(x,y)...,)
-Base.:(^)(x::T, y::S) where {S<:SafeInteger, T<:Integer} = (^)(promote(x,y)...,)
-
 Base.:(^)(x::T, y::S) where {T<:Integer, S<:SafeInteger} = baseint((^)(promote(safeint(x), y)...))
