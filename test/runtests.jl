@@ -325,10 +325,12 @@ end
     @test 7^SafeInt32(5) === 7^5
     @test SafeInt32(32)^3 === SafeInt32(32^3)
 
-    @test SafeInt(130)^SafeInt32(1) === SafeInt(130^1)
-    @test SafeInt(130)^1 === SafeInt(130^1)
-    @test 130^SafeInt32(1) === 130^1
-    @test SafeInt(130)^1 === SafeInt(130^1)
+    @test SafeInt128(130)^SafeInt32(2) === SafeInt128(Int128(130)^2)
+    @test SafeInt128(130)^2 === SafeInt(Int128(130^2))
+    @test Int128(130)^SafeInt32(2) === Int128(130)^2
+    @test SafeInt128(130)^2 === SafeInt(Int128(130)^2)
+
+    
 end
 
 @testset "rational" begin
