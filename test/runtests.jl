@@ -89,6 +89,10 @@ end
     @test SafeInt16(7) | SafeInt16(2) === SafeInt16(7|2)
     @test xor(SafeInt64(7), SafeInt64(2)) === SafeInt64(xor(7,2))
 
+    @test SafeInt32(7) & SafeInt16(2) === SafeInt32(7&2)
+    @test SafeInt32(7) | SafeInt16(2) === SafeInt32(7|2)
+    @test xor(SafeInt32(7), SafeInt16(2)) === SafeInt32(xor(7,2))
+
     @test ~SafeUInt32(5) == ~UInt32(5)
     @test SafeInt32(7) & Int32(2) === SafeInt32(7&2)
     @test SafeInt16(7) | Int16(2) === SafeInt16(7|2)
@@ -204,6 +208,10 @@ const bitsof = SaferIntegers.bitsof
     @test SafeInt32(7) >>> SafeInt32(2) === SafeInt32(7 >>> 2)
     @test SafeInt32(7) >> SafeInt32(2) === SafeInt32(7 >> 2)
     @test SafeInt32(7) << SafeInt32(2) === SafeInt32(7 << 2)
+
+    @test SafeInt32(7) >>> SafeInt16(2) === SafeInt32(7 >>> 2)
+    @test SafeInt16(7) >> SafeInt32(2) === SafeInt16(7 >> 2)
+    @test SafeInt16(7) << SafeInt32(2) === SafeInt16(7 << 2)
 
     @test SafeInt32(7) >>> Int32(2) === SafeInt32(7 >>> 2)
     @test SafeInt32(7) >> Int32(2) === SafeInt32(7 >> 2)
