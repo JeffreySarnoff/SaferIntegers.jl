@@ -80,7 +80,7 @@ for OP in (:(>>>), :(>>), :(<<))
             return reinterpret(T1, $OP(xx, y))
         end
 
-        @inline function $OP(x::T1, y::Int) where T1<:SafeInteger
+        @inline function $OP(x::T1, y::Int) where {T1<:SafeInteger}
             xx = baseint(x)
             bitsof(T1) < abs(y) && throw(OverflowError("cannot shift $T1 by $y"))
             return reinterpret(T1, $OP(xx, y))
@@ -88,9 +88,8 @@ for OP in (:(>>>), :(>>), :(<<))
 
         @inline function $OP(x::T1, y::T2) where {T1<:Integer, T2<:SafeInteger}
             yy = baseint(y)
-            bitsof(T1) < abs(yy) && throw(OverflowError("shift of ::$T1 by $yy"))
-            xx = $OP(x, yy)
-            return reinterpret(stype(T1), xx)
+            bitsof(T1) < abs(yy) && throw(OverflowError("cannot shift $T1 by $yy"))
+            return reinterpret(T1, $OP(x, yy))
         end
 
    end
