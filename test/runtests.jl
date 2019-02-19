@@ -41,7 +41,7 @@ end
     @test BigFloat(SafeInt(5)) == BigFloat(5)
 end
 
-@testset "checked" begin
+@testset "checked signed" begin
     @test_throws OverflowError (+)(SafeInt8(120), SafeInt8(20))
     @test_throws OverflowError (-)(SafeUInt8(10), SafeUInt8(20))
     @test_throws OverflowError (*)(SafeInt8(100), SafeInt8(100))
@@ -50,6 +50,17 @@ end
     @test cld(SafeInt16(100), SafeInt16(15)) === SafeInt16(cld(100, 15))
     @test mod(SafeInt16(100), SafeInt16(15)) === SafeInt16(mod(100, 15))
     @test rem(SafeInt16(100), SafeInt16(15)) === SafeInt16(rem(100, 15))
+end
+
+@testset "checked unsigned" begin
+    @test_throws OverflowError (+)(SafeUInt8(250), SafeUInt8(20))
+    @test_throws OverflowError (-)(SafeUInt8(10), SafeUInt8(20))
+    @test_throws OverflowError (*)(SafeUInt8(100), SafeUInt8(100))
+    @test div(SafeUInt16(100), SafeUInt16(20)) === SafeUInt16(div(UInt16(100), UInt16(20)))
+    @test fld(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(fld(UInt16(100), UInt16(15)))
+    @test cld(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(cld(UInt16(100), UInt16(15)))
+    @test mod(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(mod(UInt16(100), UInt16(15)))
+    @test rem(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(rem(UInt16(100), UInt16(15)))
 end
 
 @testset "throw" begin
