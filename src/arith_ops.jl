@@ -58,11 +58,11 @@ function (/)(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return (/)(xx, yy)
 end
-function (/)(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
+function (/)(x::S, y::I) where {S<:SafeInteger, I<:Integer}
    xx, yy = promote(x, y)
    return (/)(xx, yy)
 end
-function (/)(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
+function (/)(x::I, y::S) where {I<:Integer, S<:SafeInteger}
    xx, yy = promote(x, y)
    return (/)(xx, yy)
 end
@@ -71,11 +71,11 @@ function (\)(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
-function (\)(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
+function (\)(x::S, y::I) where {S<:SafeInteger, I<:Integer}
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
-function (\)(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
+function (\)(x::I, y::S) where {I<:Integer, S<:SafeInteger}
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
