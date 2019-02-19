@@ -11,7 +11,7 @@ Use these exported types in place of their built-in counterparts
 - `SafeInt`, `SafeInt8`, `SafeInt16`, `SafeInt32`, `SafeInt64`, `SafeInt128`
 - `SafeUInt`, `SafeUInt8` `SafeUInt16`, `SafeUInt32`, `SafeUInt64`, `SafeUInt128`
 
-#### Almost all ops with a SafeInteger that result in an integer value will return a SafeInteger
+### Almost all ops with a SafeInteger that result in an integer value will return a SafeInteger
 
 #### one shift signature and one power signature are the exceptions
 
@@ -19,8 +19,8 @@ Use these exported types in place of their built-in counterparts
 - powers (`^`) check for overflow then return the same type as that of the base powered
 
 To check for overflow and propagate safety:
-    - use a `SafeInteger` on the left hand side of a shift 
-    - use a `SafeInteger` as the base number that is raised to a power
+- use a `SafeInteger` on the left hand side of a shift 
+- use a `SafeInteger` as the base number that is raised to a power
     
 To check for overflow only:
 - use a `SafeInteger` on the right hand side of a shift
