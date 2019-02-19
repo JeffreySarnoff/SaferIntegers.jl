@@ -149,6 +149,37 @@ end
     @test Int32(521)-Int32(125) == Int32(SafeInt32(521) - SafeInt32(125))
 end
 
+@testset "divide" begin
+    @test (\)(SafeInt32(521), SafeInt32(125)) == (\)(Int32(521), Int32(125))
+    @test (\)(SafeInt32(521), Int32(125)) == (\)(Int32(521), Int32(125))
+    @test (\)(Int32(521), SafeInt32(125)) == (\)(Int32(521), Int32(125))
+    @test (\)(Int64(521), Int64(125)) == Int64((\)(SafeInt64(521), SafeInt64(125)))
+    @test (/)(SafeInt32(521), SafeInt32(125)) == (\)(Int32(521), Int32(125))
+    @test (/)(SafeInt32(521), Int32(125)) == (\)(Int32(521), Int32(125))
+    @test (/)(SafeInt32(521), Int32(125)) == (\)(Int32(521), Int32(125))
+    @test (/)(Int64(521), Int64(125)) == Int64((\)(SafeInt64(521), SafeInt64(125)))
+end
+
+@testset "number theory" begin
+    @test lcm(SafeInt32(7), SafeInt16(2)) === SafeInt32(gcd(7,2))
+    @test gcd(SafeInt32(7), SafeInt16(-2)) === SafeInt32(lcm(7,-2))
+    @test divrem(SafeInt32(7), SafeInt16(2)) === SafeInt32.(divrem(7,2))
+    @test fldmod(SafeInt32(7), SafeInt16(-2)) === SafeInt32.(fldmod(7,-2))
+    @test divgcd(SafeInt32(7), SafeInt16(-2)) === SafeInt32.(divgcd(7,-2))
+
+    @test lcm(SafeInt32(7), Int16(2)) === SafeInt32(gcd(7,2))
+    @test gcd(SafeInt32(7), Int16(-2)) === SafeInt32(lcm(7,-2))
+    @test divrem(SafeInt32(7), Int16(2)) === SafeInt32.(divrem(7,2))
+    @test fldmod(SafeInt32(7), Int16(-2)) === SafeInt32.(fldmod(7,-2))
+    @test divgcd(SafeInt32(7), Int16(-2)) === SafeInt32.(divgcd(7,-2))
+
+    @test lcm(Int32(7), SafeInt16(2)) === SafeInt16(gcd(7,2))
+    @test gcd(Int32(7), SafeInt16(-2)) === SafeInt16(lcm(7,-2))
+    @test divrem(Int32(7), SafeInt16(2)) === SafeInt16.(divrem(7,2))
+    @test fldmod(Int32(7), SafeInt16(-2)) === SafeInt16.(fldmod(7,-2))
+    @test divgcd(Int32(7), SafeInt16(-2)) === SafeInt16.(divgcd(7,-2))
+end
+
 # shifts
 const bitsof = SaferIntegers.bitsof
 
