@@ -201,6 +201,35 @@ end
     @test SaferIntegers.divgcd(Int32(7), SafeInt16(-2)) === SafeInt16.(Base.divgcd(7,-2))
 end
 
+@testset "int ops" begin
+    @test copysign(SafeInt32(1), SafeInt32(-1)) === SafeInt32(-1)
+    @test copysign(SafeInt32(-1), SafeInt32(1)) === SafeInt32(1)
+    @test copysign(SafeInt16(1), -1.0) === SafeInt16(-1)
+    @test copysign(SafeInt16(-1), SafeInt32(1)) === SafeInt16(1)
+    @test copysign(1, SafeInt16(1)) === 1
+    @test copysign(1, SafeInt16(-1)) === -1
+    @test copysign(SafeInt16(1), -1) === SafeInt16(-1)
+    @test copysign(SafeInt16(-1), 1) === SafeInt16(1)
+    @test copysign(SafeInt16(1), SafeInt32(-1)) === SafeInt16(-1)
+    @test copysign(SafeInt16(-1), SafeInt32(1)) === SafeInt16(1)
+    
+    @test flipsign(SafeInt32(1), SafeInt32(-1)) === SafeInt32(-1)
+    @test flipsign(SafeInt32(-1), SafeInt32(1)) === SafeInt32(-1)
+    @test flipsign(SafeInt16(1), -1.0) === SafeInt16(-1)
+    @test flipsign(SafeInt16(-1), SafeInt32(1)) === SafeInt16(-1)
+    @test flipsign(1, SafeInt16(1)) === 1
+    @test flipsign(1, SafeInt16(-1)) === -1
+    @test flipsign(SafeInt16(1), -1) === SafeInt16(-1)
+    @test flipsign(SafeInt16(-1), 1) === SafeInt16(-1)
+    @test flipsign(SafeInt16(1), SafeInt32(-1)) === SafeInt16(-1)
+    @test flipsign(SafeInt32(-1), SafeInt16(1)) === SafeInt32(-1)
+    
+    @test -SafeInt(1) === SafeInt(-1)
+    
+    @test abs2(SafeInt(5)) === SafeInt(25)
+    @test abs2(SafeUInt(5)) === SafeUInt(25)
+end
+
 # shifts
 const bitsof = SaferIntegers.bitsof
 
