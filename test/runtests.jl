@@ -325,7 +325,7 @@ end
     @test 7^SafeInt32(5) === 7^5
     @test SafeInt32(32)^3 === SafeInt32(32^3)
 
-    @test SafeInt(130)^SafeInt32(2) === SafeInt(130^5)
+    @test SafeInt(130)^SafeInt32(2) === SafeInt(130^2)
     @test SafeInt(130)^2 === SafeInt(130^2)
     @test 130^SafeInt32(2) === 130^2
     @test SafeInt(130)^2 === SafeInt(130^2)
