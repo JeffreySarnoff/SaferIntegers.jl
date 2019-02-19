@@ -16,8 +16,8 @@ matrix:
     - julia: nightly
   fast_finish: true
 after_success:
-  # push coverage results to Codecov
-  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+  # push coverage results to Codecov and Coveralls
+  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder()); Coveralls.submit(process_folder())'
 jobs:
   include:
     - stage: "Documentation"
