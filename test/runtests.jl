@@ -37,8 +37,8 @@ end
     @test baseint(true) === true
     
     @test Float16(SafeInt(5)) === Float16(5)
-    @test BigInt(SafeInt(5)) === BigInt(5)
-    @test BigFloat(SafeInt(5)) === BigFloat(5)
+    @test BigInt(SafeInt(5)) == BigInt(5)
+    @test BigFloat(SafeInt(5)) == BigFloat(5)
 end
 
 @testset "checked" begin
