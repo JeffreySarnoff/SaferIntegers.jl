@@ -9,33 +9,40 @@ macro is_error(x)
     :(@test (try $x; false; catch e; true; end))
 end
 
-for (S,T) in ((:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), 
-              (:SafeInt64, :Int64), (:SafeInt128, :Int128))
-   @eval begin
-        @test one($S) === $S(one($T))
-        @test one($T) === $T(one($S))
-        @no_error( $S(typemin($T)) )
-        @is_error( $S(typemax($T)) + one($T) )
-        @is_error( $S(typemin($T)) - one($T) )
-        @is_error( $S(typemax($T)) + one($S) )
-        @is_error( $S(typemin($T)) - one($S) )
-   end         
-end
-for (S,T) in ((:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), 
-              (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128))
-   @eval begin
-        @test one($S) === $S(one($T))        
-        @test one($T) === $T(one($S))
-        @no_error( $S(typemax($T)) )
-        @is_error( $S(typemax($T)) + one($T) )
-        @is_error( zero($S) - one($T) )
-        @is_error( $S(typemax($T)) + one($S) )
-        @is_error( zero($S) - one($S) )
-        @test $S(5) === $S($T(5))
-        @test $T(5) === $T($S(5))
-   end         
+@testset "throw" begin
+    for (S,T) in ((:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), 
+                  (:SafeInt64, :Int64), (:SafeInt128, :Int128))
+       @eval begin
+            @test one($S) === $S(one($T))
+            @test one($T) === $T(one($S))
+            @no_error( $S(typemin($T)) )
+            @is_error( $S(typemax($T)) + one($T) )
+            @is_error( $S(typemin($T)) - one($T) )
+            @is_error( $S(typemax($T)) + one($S) )
+            @is_error( $S(typemin($T)) - one($S) )
+       end         
+    end
+
+    for (S,T) in ((:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), 
+                  (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128))
+       @eval begin
+            @test one($S) === $S(one($T))        
+            @test one($T) === $T(one($S))
+            @no_error( $S(typemax($T)) )
+            @is_error( $S(typemax($T)) + one($T) )
+            @is_error( zero($S) - one($T) )
+            @is_error( $S(typemax($T)) + one($S) )
+            @is_error( zero($S) - one($S) )
+            @test $S(5) === $S($T(5))
+            @test $T(5) === $T($S(5))
+       end         
+    end
 end
 
+@testset "float" begin
+    Float64(SafeInt16(22)) === Float64(22)
+    Float32(SafeInt64(22)) === Float32(22)
+end
 @testset "constructors" begin
     @test SafeInt16(Int8(2)) === SafeInt16(2)
     @test Int16(SafeInt8(2)) === Int16(2)
