@@ -78,3 +78,16 @@ function Rational{T}(num::I, den::I) where {I<:Integer, T<:SafeInteger}
     num2, den2 = (sign(den) < 0) ? (den !== typemin(I) ? divgcd(-num, -den) : divgcd(num, den) ) : divgcd(num, den)
     Rational{T}(SaferIntegers.safeint(num2) , SaferIntegers.baseint(den2))
 end
+
+
+for (S,I) in (
+    (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128),
+    (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
+  @eval begin
+    Base.Float64(x::$S) = Float64(reinterpret($I, x))
+    Base.Float32(x::$S) = Float32(reinterpret($I, x))
+    Base.Float16(x::$S) = Float16(reinterpret($I, x))
+    Base.BigFloat(x::$S) = BigFloat(reinterpret($I, x))
+    Base.BigInt(x::$S) = BigInt(reinterpret($I, x))        
+  end
+end    
