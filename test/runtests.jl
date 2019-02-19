@@ -9,6 +9,35 @@ macro is_error(x)
     :(@test (try $x; false; catch e; true; end))
 end
 
+@testset "construct" begin
+    for (S,I) in (
+        (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128),
+        (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
+      @eval begin
+        @test safeint(::Type{$I}) === $S
+        @test safeint(::Type{$S}) === $S
+        @test baseint(::Type{$I}) === $I
+        @test baseint(::Type{$S}) === $I
+        @test safeint($I(5)) === reinterpret($S, $I(5))
+        @test baseint($S(5)) === reinterpret($I, $S(5))
+        @test safeint($S(5)) === $S(5)
+        @test baseint($I(5)) === $I(5)
+        @test $S($I(5)) === reinterpret($S, $I(5))
+        @test $I($S(5)) === reinterpret($I, $S(5))
+      end
+    end
+
+    @test safeint(Bool) === Bool
+    @test baseint(Bool) === Bool
+    @test safeint(true) === true
+    @test baseint(true) === true
+    
+    @tesst SafeInt32(true) === true
+    @test Float16(SafeInt(5)) === Float16(5)
+    @test BigInt(SafeInt(5)) === BigInt(5)
+    @test BigFloat(SafeInt(5)) === BigFloat(5)
+end
+
 @testset "checked" begin
     @test_throws OverflowError (+)(SafeInt8(120), SafeInt8(20))
     @test_throws OverflowError (-)(SafeUInt8(10), SafeUInt8(20))
