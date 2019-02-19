@@ -10,9 +10,9 @@ macro is_error(x)
 end
 
 @testset "checked" begin
-    @test_throws OverflowError checked_add(SafeInt8(120), SafeInt8(20))
-    @test_throws OverflowError checked_sub(SafeUInt8(10), SafeUInt8(20))
-    @test_throws OverflowError checked_mul(SafeInt8(100), SafeInt8(10))
+    @test_throws OverflowError (+)(SafeInt8(120), SafeInt8(20))
+    @test_throws OverflowError (-)(SafeUInt8(10), SafeUInt8(20))
+    @test_throws OverflowError (*)(SafeInt8(100), SafeInt8(100))
 end
 
 @testset "throw" begin
