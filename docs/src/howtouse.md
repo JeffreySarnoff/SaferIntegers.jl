@@ -15,3 +15,5 @@ Use these exported types in place of their built-in counterparts
 - shifts (`>>>`, `>>`, `<<`) check for overflow then return the same type as that shifted
 - powers (`^`) check for overflow then return the same type as that of the base powered
 
+When the intent is to propagate safety, use a `SafeInteger` on the left hand side of a shift and as the base number to a power.  When the intent is to check for overflow and propagate an unsafe integer, use an unsafe integer on the left hand side of a shift and as the base number to a power with a `SafeInteger` on the right hand side of a shift and as the power to which a base number is raised.
+
