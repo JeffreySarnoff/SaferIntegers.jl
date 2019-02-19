@@ -61,6 +61,15 @@ end
     @test cld(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(cld(UInt16(100), UInt16(15)))
     @test mod(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(mod(UInt16(100), UInt16(15)))
     @test rem(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(rem(UInt16(100), UInt16(15)))
+
+    @test_throws OverflowError (+)(SafeUInt8(10), typemax(SafeUInt16))
+    @test_throws OverflowError (-)(SafeUInt8(10), typemax(SafeUInt16))
+    @test_throws OverflowError (*)(SafeUInt8(100), typemax(SafeUInt16))
+    @test div(SafeUInt32(100), SafeUInt16(20)) === SafeUInt32(div(UInt16(100), UInt16(20)))
+    @test fld(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(fld(UInt16(100), UInt16(15)))
+    @test cld(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(cld(UInt16(100), UInt16(15)))
+    @test mod(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(mod(UInt16(100), UInt16(15)))
+    @test rem(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(rem(UInt16(100), UInt16(15)))
 end
 
 @testset "throw" begin
