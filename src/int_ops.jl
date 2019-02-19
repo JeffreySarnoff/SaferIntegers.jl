@@ -41,7 +41,7 @@ end
 @inline Base.:(-)(x::T) where T<:SafeUnsigned = safeint(-baseint(x))
 
 @inline function copysign(x::T, y::T) where T<:SafeSigned
-  return safeint(baseint( signbit(y) ? -abs(x) : x ))
+  return safeint(baseint( signbit(y) ? -abs(x) : abs(x) ))
 end  
 @inline copysign(x::T, y::T) where T<:SafeUnsigned = x
 
@@ -73,7 +73,13 @@ end
 for T in (:Int8, :Int16, :Int32, :Int64, :Int128,
           :UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
   @eval maxabs2(::Type{$T}) = abs2max(T)
-end  
+end
+
+for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128,
+          :SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
+  @eval maxabs2(::Type{$T}) = abs2max(baseint(T))
+end
+
 
 function abs2(x::T) where T<:SafeSigned
   x > maxabs2(T) && throw(OverflowError("$x^2 exceeds $T"))   
