@@ -226,7 +226,8 @@ end
 @testset "power" begin
     @test SafeInt32(7)^SafeInt32(5) === SafeInt32(7^5)
     @test SafeInt32(7)^5 === SafeInt32(7^5)
-    @test 7^SafeInt32(5) === (7^5)     
+    @test 7^SafeInt32(5) === 7^5
+    @test SafeInt32(32)^3 === SafeInt32(32^3)
 end
 
 @testset "rational" begin
