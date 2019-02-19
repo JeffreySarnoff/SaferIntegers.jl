@@ -23,11 +23,11 @@ Integer overflow occurs when an integer type is increased beyond its maximum val
    typemin(UInt) - one(UInt) == typemax(UInt)
    ```
 There are security implications for integer overflow in certain situations.
-```julia
- for i in 1:a
-    secure(biohazard[i])
- end
- 
- a = Int16(456) * Int16(567)
- a == -3592 # and the for loop does not execute
-```
+   ```julia
+    for i in 1:a
+       secure(biohazard[i])
+    end
+
+    a = Int16(456) * Int16(567)
+    a == -3592 # and the for loop does not execute
+   ```
