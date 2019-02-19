@@ -164,6 +164,6 @@ hundredths( (@belapsed test(n, div, $sa, $sb, $sc, $sd)) /
 
 ### credits
 
-This work derives from JuliaMath/RoundingIntegers.jl
+This work derives from [RoundingIntegers.jl](https://github.com/JuliaMath/RoundingIntegers.jl)
 
 
