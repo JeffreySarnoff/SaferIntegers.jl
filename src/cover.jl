@@ -35,12 +35,12 @@ for OP in (:checked_add, :checked_sub,
             return safeint(result)
         end
         
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Integer}
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:UnsafeInteger}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:Integer, T2<:SafeInteger}
+        @inline function $OP(x::T1, y::T2) where {T1<:UnsafeInteger, T2<:SafeInteger}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
@@ -72,12 +72,12 @@ for OP in (:add_with_overflow, :sub_with_overflow, :mul_with_overflow)
             return safeint(value), bool
         end
         
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Integer}
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:UnsafeInteger}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:Integer, T2<:SafeInteger}
+        @inline function $OP(x::T1, y::T2) where {T1<:UnsafeInteger, T2<:SafeInteger}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
