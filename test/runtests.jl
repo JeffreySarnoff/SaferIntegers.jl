@@ -171,9 +171,9 @@ const bitsof = SaferIntegers.bitsof
     @test SafeInt32(7) >> Int32(2) === SafeInt32(7 >> 2)
     @test SafeInt32(7) << Int32(2) === SafeInt32(7 << 2)
 
-    @test Int32(7) >>> SafeInt32(2) === SafeInt32(7 >>> 2)
-    @test Int32(7) >> SafeInt32(2) === SafeInt32(7 >> 2)
-    @test Int32(7) << SafeInt32(2) === SafeInt32(7 << 2)
+    @test Int32(7) >>> SafeInt32(2) === Int32(7 >>> 2)
+    @test Int32(7) >> SafeInt32(2) === Int32(7 >> 2)
+    @test Int32(7) << SafeInt32(2) === Int32(7 << 2)
 end
 
 testset "rational" begin
