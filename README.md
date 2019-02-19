@@ -7,7 +7,8 @@
 
 -----
 
-[![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl)&nbsp;&nbsp;&nbsp;[![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/stable/)
+[![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl)&nbsp;&nbsp;&nbsp;[![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/stable/))&nbsp;&nbsp;&nbsp;[![codecov](https://codecov.io/gh/JeffreySarnoff/SaferIntegers.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JeffreySarnoff/SaferIntegers.jl)
+
 
 -----
 
