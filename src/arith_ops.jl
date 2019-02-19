@@ -3,14 +3,21 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
                   (:fld, :checked_fld), (:cld, :checked_cld),
                   (:rem, :checked_rem), (:mod, :checked_mod))
     @eval begin
-       @inline function $OP(x::T, y::T) where T<:SafeInteger
+       @inline function $OP(x::T, y::T) where T<:SafeSigned
             ix = baseint(x)
             iy = baseint(y)
             result = $CHK(ix, iy)
             return safeint(result)
-        end
+       end
         
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:SafeSigned}
+       @inline function $OP(x::T, y::T) where T<:SafeUnsigned
+            ix = baseint(x)
+            iy = baseint(y)
+            result = $CHK(ix, iy)
+            return safeint(result)
+       end
+
+       @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:SafeSigned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
