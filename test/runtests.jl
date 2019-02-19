@@ -1,6 +1,8 @@
 using SaferIntegers
 using Test
 
+baseint = SaferIntegers.baseint
+safeint = SaferIntegers.safeint
 
 macro no_error(x)
     :(@test (try $x; true; catch e; false; end))
