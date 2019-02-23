@@ -37,7 +37,7 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
                 (:SafeUInt8, :maxpowUInt8, :UInt8))
   @eval begin
 
-    function Base.:(^)(x::$T, y::$T) where {T}
+    function Base.:(^)(x::$T, y::$T)
         if 1 < x < 129
             if y <= $A[x] 
                 $T($I(x)^$I(y))
@@ -53,18 +53,20 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
         end
     end
 
-    function ipower(x::T, y::T) where {T}
-        y === zero(T) && return one(T)
-        (x === zero(T) || y === one(T)) && return x
+    function ipower(x::$T, y::$T)
+        y === zero($T) && return one($T)
+        (x === zero($T) || y === one($T)) && return x
         z = 0.0
         try
-            z = Float64(I(x))^Float64(I(y))
+            z = Float64($I(x))^Float64($I(y))
         catch
             throw(OverflowError(string(x,"^",y)))
         end
-        z > typemax(T) && throw(OverflowError(""))
-        return T(floor(I,z+0.49999999999999994))
+        z > typemax($T) && throw(OverflowError(""))
+        return T(floor($I,z+0.49999999999999994))
     end
+    
+  end
 end
 
 Base.:(^)(x::S1, y::S1) where {S1<:SafeInteger, S2<:SafeInteger} = (^)(promote(x,y)...,)
