@@ -28,7 +28,7 @@ There are security implications for integer overflow in certain situations.
 
 ```julia
 a = Int16(456) * Int16(567)
--3592
+# a == -3592
 
 for i in 1:a
     secure(biohazard[i])
