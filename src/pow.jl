@@ -63,7 +63,7 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
             throw(OverflowError(string(x,"^",y)))
         end
         z > typemax($T) && throw(OverflowError(""))
-        return T(floor($I,z+0.49999999999999994))
+        return $T(floor($I,z+0.49999999999999994))
     end
     
   end
