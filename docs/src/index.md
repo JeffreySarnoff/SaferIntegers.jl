@@ -28,12 +28,10 @@ There are security implications for integer overflow in certain situations.
 
 ```julia
 a = Int16(456) * Int16(567)
-
-# a == -3592 
-# this for loop does not execute
+-3592
 
 for i in 1:a
     secure(biohazard[i])
 end
 ```
-
+With `a < 0`, the `for` loop does not execute.
