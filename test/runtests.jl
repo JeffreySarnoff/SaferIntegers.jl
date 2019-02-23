@@ -362,7 +362,9 @@ end
     @test SafeInt64(40)^SafeInt32(2) === SafeInt64(Int64(40)^2)
     @test SafeInt64(40)^2 === SafeInt64(Int64(40^2))
     @test Int64(40)^SafeInt32(2) === Int64(40)^2
-    @test SafeInt64(40)^2 === SafeInt64(Int64(40)^2)    
+    @test SafeInt64(40)^2 === SafeInt64(Int64(40)^2)
+    
+    @test SaferIntegers.ipower(SafeInt32(2), SafeInt32(3)) === SafeInt32(8)
 end
 
 @testset "rational" begin
