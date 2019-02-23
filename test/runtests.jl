@@ -269,9 +269,10 @@ end
     @test SaferIntegers.checked_mod(SafeInt32(7), SafeInt16(-2)) === SafeInt32(mod(7,-2))
     @test SaferIntegers.checked_fld(SafeInt32(7), SafeInt16(2)) === SafeInt32(fld(7,2))
     @test SaferIntegers.checked_cld(SafeInt32(7), SafeInt16(2)) === SafeInt32(cld(7,2))
-    @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeInt32(2)) === SafeInt32(7+2), false
-    @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeInt32(2)) === SafeInt32(7-2), false
-    @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeInt32(2)) === SafeInt32(7*2), false
+    
+    @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
+    @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
+    @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
     
 end
 
