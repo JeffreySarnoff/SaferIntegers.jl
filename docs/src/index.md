@@ -29,6 +29,7 @@ Integer overflow occurs when an integer type is increased beyond its maximum val
 There are security implications for integer overflow in certain situations.
 
 ```julia
+
     a = Int16(456) * Int16(567)
 
     # a == -3592 
@@ -37,4 +38,6 @@ There are security implications for integer overflow in certain situations.
     for i in 1:a
         secure(biohazard[i])
     end
+
 ```
+
