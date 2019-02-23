@@ -140,6 +140,7 @@ end
     @test Float64(SafeInt16(22)) === Float64(22)
     @test Float32(SafeInt64(22)) === Float32(22)
 end
+
 @testset "constructors" begin
     @test SafeInt16(Int8(2)) === SafeInt16(2)
     @test Int16(SafeInt8(2)) === Int16(2)
@@ -255,6 +256,23 @@ end
 
     @test Int32(521)+Int32(125) == Int32(SafeInt32(521) + SafeInt32(125))
     @test Int32(521)-Int32(125) == Int32(SafeInt32(521) - SafeInt32(125))
+end
+
+@testset "checked arithmetic" begin
+    @test SaferIntegers.checked_neg(SafeInt16(7)) === SafeInt16(-7)
+    @test SaferIntegers.checked_abs(SafeInt16(-7)) === SafeInt16(7)
+    @test SaferIntegers.checked_add(SafeInt16(7), SafeInt32(2)) === SafeInt32(7+2)
+    @test SaferIntegers.checked_sub(SafeInt8(7), SafeInt64(2)) === SafeInt64(7-2)
+    @test SaferIntegers.checked_mul(SafeInt32(7), SafeInt16(2)) === SafeInt32(7*2)
+    @test SaferIntegers.checked_div(SafeInt32(7), SafeInt16(2)) === SafeInt32(div(7,2))
+    @test SaferIntegers.checked_rem(SafeInt32(7), SafeInt16(-2)) === SafeInt32(rem(7,-2))
+    @test SaferIntegers.checked_mod(SafeInt32(7), SafeInt16(-2)) === SafeInt32(mod(7,-2))
+    @test SaferIntegers.checked_fld(SafeInt32(7), SafeInt16(2)) === SafeInt32(fld(7,2))
+    @test SaferIntegers.checked_cld(SafeInt32(7), SafeInt16(2)) === SafeInt32(cld(7,2))
+    @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeInt32(2)) === SafeInt32(7+2), false
+    @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeInt32(2)) === SafeInt32(7-2), false
+    @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeInt32(2)) === SafeInt32(7*2), false
+    
 end
 
 @testset "divide" begin
