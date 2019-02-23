@@ -41,6 +41,40 @@ end
     @test BigFloat(SafeInt(5)) == BigFloat(5)
 end
 
+@testset "construct3" begin
+    @test SafeInt128(Float16(5)) === SafeInt128(5)
+    @test SafeInt128(Float32(5)) === SafeInt128(5)
+    @test SafeInt128(Float64(5)) === SafeInt128(5)
+    @test SafeInt64(Float16(5)) === SafeInt64(5)
+    @test SafeInt64(Float32(5)) === SafeInt64(5)
+    @test SafeInt64(Float64(5)) === SafeInt64(5)
+    @test SafeInt32(Float16(5)) === SafeInt32(5)
+    @test SafeInt32(Float32(5)) === SafeInt32(5)
+    @test SafeInt32(Float64(5)) === SafeInt32(5)
+    @test SafeInt16(Float16(5)) === SafeInt16(5)
+    @test SafeInt16(Float32(5)) === SafeInt16(5)
+    @test SafeInt16(Float64(5)) === SafeInt16(5)
+    @test SafeInt8(Float16(5)) === SafeInt8(5)
+    @test SafeInt8(Float32(5)) === SafeInt8(5)
+    @test SafeInt8(Float64(5)) === SafeInt8(5)
+
+    @test SafeUInt128(Float16(5)) === SafeUInt128(5)
+    @test SafeUInt128(Float32(5)) === SafeUInt128(5)
+    @test SafeUInt128(Float64(5)) === SafeUInt128(5)
+    @test SafeUInt64(Float16(5)) === SafeUInt64(5)
+    @test SafeUInt64(Float32(5)) === SafeUInt64(5)
+    @test SafeUInt64(Float64(5)) === SafeUInt64(5)
+    @test SafeUInt32(Float16(5)) === SafeUInt32(5)
+    @test SafeUInt32(Float32(5)) === SafeUInt32(5)
+    @test SafeUInt32(Float64(5)) === SafeUInt32(5)
+    @test SafeUInt16(Float16(5)) === SafeUInt16(5)
+    @test SafeUInt16(Float32(5)) === SafeUInt16(5)
+    @test SafeUInt16(Float64(5)) === SafeUInt16(5)
+    @test SafeUInt8(Float16(5)) === SafeUInt8(5)
+    @test SafeUInt8(Float32(5)) === SafeUInt8(5)
+    @test SafeUInt8(Float64(5)) === SafeUInt8(5)
+end
+
 @testset "checked signed" begin
     @test_throws OverflowError (+)(SafeInt8(120), SafeInt8(20))
     @test_throws OverflowError (-)(SafeUInt8(10), SafeUInt8(20))
