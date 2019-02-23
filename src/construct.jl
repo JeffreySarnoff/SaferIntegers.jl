@@ -91,3 +91,15 @@ for (S,I) in (
     Base.BigInt(x::$S) = BigInt(reinterpret($I, x))        
   end
 end    
+
+for (S,I) in (
+    (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128) )
+  @eval $S(x::T) where {T<:Base.IEEEFloat} =
+            isinteger(x) && typemin($I) < x <typemax($I) ? $S($I(x)) : throw(OverflowError("$x"))
+end
+
+for (S,I) in (
+    (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
+  @eval $S(x::T) where {T<:Base.IEEEFloat} =
+            isinteger(x) && x <typemax($I) ? $S($I(x)) : throw(OverflowError("$x"))
+end
