@@ -18,26 +18,22 @@ This package exports safer versions. These types check for _overflow and underfl
 Integer overflow occurs when an integer type is increased beyond its maximum value. Integer underflow occurs when an integer type is decreased below its minimum value.  Signed and Unsigned values are subject to overflow and underflow.  With Julia, you can see the rollover using Int or UInt types:
 
 ```julia
-
-    typemax(Int) + one(Int) < 0
-    typemin(Int) - one(Int) > 0
-    typemax(UInt) + one(UInt) == typemin(UInt)
-    typemin(UInt) - one(UInt) == typemax(UInt)
-
+typemax(Int) + one(Int) < 0
+typemin(Int) - one(Int) > 0
+typemax(UInt) + one(UInt) == typemin(UInt)
+typemin(UInt) - one(UInt) == typemax(UInt)
 ```
 
 There are security implications for integer overflow in certain situations.
 
 ```julia
+a = Int16(456) * Int16(567)
 
-    a = Int16(456) * Int16(567)
+# a == -3592 
+# this for loop does not execute
 
-    # a == -3592 
-    # this for loop does not execute
-
-    for i in 1:a
-        secure(biohazard[i])
-    end
-
+for i in 1:a
+    secure(biohazard[i])
+end
 ```
 
