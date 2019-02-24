@@ -56,13 +56,19 @@ end
 
 for OP in (:add_with_overflow, :sub_with_overflow, :mul_with_overflow)
     @eval begin
-       @inline function $OP(x::T, y::T) where T<:SafeInteger
+       @inline function $OP(x::T, y::T) where T<:SafeSigned
             ix = baseint(x)
             iy = baseint(y)
             value, bool = $OP(ix, iy)
             return safeint(value), bool
         end
-
+        
+        @inline function $OP(x::T, y::T) where T<:SafeUnsigned
+            ix = baseint(x)
+            iy = baseint(y)
+            value, bool = $OP(ix, iy)
+            return safeint(value), bool
+        end
         @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:SafeSigned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
