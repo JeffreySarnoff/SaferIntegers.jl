@@ -299,8 +299,8 @@ end
     @test SaferIntegers.checked_sub(SafeUInt64(7), SafeUInt64(2)) === SafeUInt64(7-2)
     @test SaferIntegers.checked_mul(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(7*2)
     @test SaferIntegers.checked_div(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(div(7,2))
-    @test SaferIntegers.checked_rem(SafeUInt32(7), SafeUInt32(-2)) === SafeUInt32(rem(7,-2))
-    @test SaferIntegers.checked_mod(SafeUInt32(7), SafeUInt32(-2)) === SafeUInt32(mod(7,-2))
+    @test SaferIntegers.checked_rem(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(rem(7,2))
+    @test SaferIntegers.checked_mod(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(mod(7,2))
     @test SaferIntegers.checked_fld(SafeUInt16(7), SafeUInt16(2)) === SafeUInt16(fld(7,2))
     @test SaferIntegers.checked_cld(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(cld(7,2))
 
@@ -308,8 +308,8 @@ end
     @test SaferIntegers.checked_sub(SafeUInt8(7), SafeUInt64(2)) === SafeUInt64(7-2)
     @test SaferIntegers.checked_mul(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(7*2)
     @test SaferIntegers.checked_div(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(div(7,2))
-    @test SaferIntegers.checked_rem(SafeUInt32(7), SafeUInt16(-2)) === SafeUInt32(rem(7,-2))
-    @test SaferIntegers.checked_mod(SafeUInt32(7), SafeUInt16(-2)) === SafeUInt32(mod(7,-2))
+    @test SaferIntegers.checked_rem(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(rem(7,2))
+    @test SaferIntegers.checked_mod(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(mod(7,2))
     @test SaferIntegers.checked_fld(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(fld(7,2))
     @test SaferIntegers.checked_cld(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(cld(7,2))
     
