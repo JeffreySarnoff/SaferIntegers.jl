@@ -480,6 +480,7 @@ end
     
     @test SaferIntegers.ipower(SafeInt32(2), SafeInt32(3)) === SafeInt32(8)
     @test_throws OverflowError SaferIntegers.ipower(SafeInt16(16), SafeInt16(16))
+    @test_throws OverflowError SaferIntegers.ipower(typemax(SafeInt64), typemax(SafeInt64))
 end
 
 @testset "rational" begin
