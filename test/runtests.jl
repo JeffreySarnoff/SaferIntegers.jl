@@ -267,7 +267,7 @@ end
     @test Int32(521)-Int32(125) == Int32(SafeInt32(521) - SafeInt32(125))
 end
 
-@testset "checked arithmetic" begin
+@testset "checked signed arithmetic" begin
     @test SaferIntegers.checked_neg(SafeInt16(7)) === SafeInt16(-7)
     @test SaferIntegers.checked_abs(SafeInt16(-7)) === SafeInt16(7)
 
@@ -292,7 +292,30 @@ end
     @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
     @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
     @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
+end
+
+@testset "checked unsigned arithmetic" begin
+    @test SaferIntegers.checked_add(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(7+2)
+    @test SaferIntegers.checked_sub(SafeUInt64(7), SafeUInt64(2)) === SafeUInt64(7-2)
+    @test SaferIntegers.checked_mul(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(7*2)
+    @test SaferIntegers.checked_div(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(div(7,2))
+    @test SaferIntegers.checked_rem(SafeUInt32(7), SafeUInt32(-2)) === SafeUInt32(rem(7,-2))
+    @test SaferIntegers.checked_mod(SafeUInt32(7), SafeUInt32(-2)) === SafeUInt32(mod(7,-2))
+    @test SaferIntegers.checked_fld(SafeUInt16(7), SafeUInt16(2)) === SafeUInt16(fld(7,2))
+    @test SaferIntegers.checked_cld(SafeUInt32(7), SafeUInt32(2)) === SafeUInt32(cld(7,2))
+
+    @test SaferIntegers.checked_add(SafeUInt16(7), SafeUInt32(2)) === SafeUInt32(7+2)
+    @test SaferIntegers.checked_sub(SafeUInt8(7), SafeUInt64(2)) === SafeUInt64(7-2)
+    @test SaferIntegers.checked_mul(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(7*2)
+    @test SaferIntegers.checked_div(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(div(7,2))
+    @test SaferIntegers.checked_rem(SafeUInt32(7), SafeUInt16(-2)) === SafeUInt32(rem(7,-2))
+    @test SaferIntegers.checked_mod(SafeUInt32(7), SafeUInt16(-2)) === SafeUInt32(mod(7,-2))
+    @test SaferIntegers.checked_fld(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(fld(7,2))
+    @test SaferIntegers.checked_cld(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(cld(7,2))
     
+    @test SaferIntegers.add_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false
+    @test SaferIntegers.sub_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false
+    @test SaferIntegers.mul_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false   
 end
 
 @testset "divide" begin
