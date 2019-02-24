@@ -292,6 +292,10 @@ end
     @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
     @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
     @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
+    
+    @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeInt16(2))[2] === false
+    @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeInt16(2))[2] === false
+    @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeInt16(2))[2] === false
 end
 
 @testset "checked unsigned arithmetic" begin
@@ -315,7 +319,11 @@ end
     
     @test SaferIntegers.add_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false
     @test SaferIntegers.sub_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false
-    @test SaferIntegers.mul_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false   
+    @test SaferIntegers.mul_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false
+    
+    @test SaferIntegers.add_with_overflow(SafeUInt32(7), SafeUInt16(2))[2] === false
+    @test SaferIntegers.sub_with_overflow(SafeUInt32(7), SafeUInt16(2))[2] === false
+    @test SaferIntegers.mul_with_overflow(SafeUInt32(7), SafeUInt16(2))[2] === false   
 end
 
 @testset "checked mixed arithmetic" begin
