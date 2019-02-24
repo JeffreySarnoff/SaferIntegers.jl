@@ -56,13 +56,10 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
     function ipower(x::$T, y::$T)
         y === zero($T) && return one($T)
         (x === zero($T) || y === one($T)) && return x
-        z = 0.0
-        try
-            z = Float64($I(x))^Float64($I(y))
-        catch
+        z = Float64($I(x))^Float64($I(y))
+        if !isfinite(z) || z > typemax($T)
             throw(OverflowError(string(x,"^",y)))
         end
-        z > typemax($T) && throw(OverflowError(""))
         return $T(floor($I,z+0.49999999999999994))
     end
     
