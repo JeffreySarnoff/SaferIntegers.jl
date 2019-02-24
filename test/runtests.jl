@@ -469,6 +469,10 @@ end
     @test SafeInt32(32)^3 === SafeInt32(32^3)
 
     @test SafeInt64(40)^SafeInt32(2) === SafeInt64(Int64(40)^2)
+    @test_throws OverflowError SafeInt16(32)^SafeInt16(32)
+    @test_throws DomainError SafeInt16(32)^SafeInt16(-2)
+    @test_throws DomainError SafeInt64(130)^SafeInt64(-2)
+    
     @test SafeInt64(40)^2 === SafeInt64(Int64(40^2))
     @test Int64(40)^SafeInt32(2) === Int64(40)^2
     @test SafeInt64(40)^2 === SafeInt64(Int64(40)^2)
