@@ -318,6 +318,29 @@ end
     @test SaferIntegers.mul_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false   
 end
 
+@testset "checked mixed arithmetic" begin
+    @test SaferIntegers.checked_add(SafeInt32(7), SafeUInt32(2)) === SafeUInt32(7+2)
+    @test SaferIntegers.checked_sub(SafeInt64(7), SafeUInt64(2)) === SafeUInt64(7-2)
+    @test SaferIntegers.checked_mul(SafeInt32(7), SafeUInt32(2)) === SafeUInt32(7*2)
+    @test SaferIntegers.checked_div(SafeInt32(7), SafeUInt32(2)) === SafeUInt32(div(7,2))
+    @test SaferIntegers.checked_rem(SafeInt32(7), SafeUInt32(2)) === SafeUInt32(rem(7,2))
+    @test SaferIntegers.checked_mod(SafeInt32(7), SafeUInt32(2)) === SafeUInt32(mod(7,2))
+    @test SaferIntegers.checked_fld(SafeInt16(7), SafeUInt16(2)) === SafeUInt16(fld(7,2))
+    @test SaferIntegers.checked_cld(SafeInt32(7), SafeUInt32(2)) === SafeUInt32(cld(7,2))
+
+    @test SaferIntegers.checked_add(SafeInt16(7), SafeUInt32(2)) === SafeUInt32(7+2)
+    @test SaferIntegers.checked_sub(SafeInt8(7), SafeUInt64(2)) === SafeUInt64(7-2)
+    @test SaferIntegers.checked_mul(SafeInt32(7), SafeUInt16(2)) === SafeInt32(7*2)
+    @test SaferIntegers.checked_div(SafeInt32(7), SafeUInt16(2)) === SafeInt32(div(7,2))
+    @test SaferIntegers.checked_rem(SafeInt32(7), SafeUInt16(2)) === SafeInt32(rem(7,2))
+    @test SaferIntegers.checked_mod(SafeInt32(7), SafeUInt16(2)) === SafeInt32(mod(7,2))
+    @test SaferIntegers.checked_fld(SafeInt32(7), SafeUInt16(2)) === SafeInt32(fld(7,2))
+    @test SaferIntegers.checked_cld(SafeInt32(7), SafeUInt16(2)) === SafeInt32(cld(7,2))
+    
+    @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeUInt32(2))[2] === false
+    @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeUInt32(2))[2] === false
+    @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeUInt32(2))[2] === false   
+end
 @testset "divide" begin
     @test (/)(SafeInt32(625), SafeInt32(125)) == (/)(Int32(625), Int32(125))
     @test (/)(SafeInt64(625), SafeInt32(125)) == (/)(Int64(625), Int32(125))
