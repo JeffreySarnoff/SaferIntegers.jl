@@ -69,6 +69,7 @@ for OP in (:add_with_overflow, :sub_with_overflow, :mul_with_overflow)
             value, bool = $OP(ix, iy)
             return safeint(value), bool
         end
+        
         @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:SafeSigned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
@@ -84,15 +85,6 @@ for OP in (:add_with_overflow, :sub_with_overflow, :mul_with_overflow)
             value, bool = $OP(ix, iy)
             return safeint(value), bool
         end
-        
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:UnsafeInteger}
-            xx, yy = promote(x, y)
-            return $OP(xx, yy)
-        end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:UnsafeInteger, T2<:SafeInteger}
-            xx, yy = promote(x, y)
-            return $OP(xx, yy)
-        end
     end
 end
