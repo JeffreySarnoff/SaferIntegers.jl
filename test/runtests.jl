@@ -347,23 +347,23 @@ end
 end
 
 @testset "checked safe with unsafe arithmetic" begin
-    @test SaferIntegers.checked_add(SafeInt32(7), Int32(2)) === SafeUInt32(7+2)
-    @test SaferIntegers.checked_sub(SafeInt64(7), Int64(2)) === SafeUInt64(7-2)
-    @test SaferIntegers.checked_mul(SafeInt32(7), Int32(2)) === SafeUInt32(7*2)
-    @test SaferIntegers.checked_div(SafeInt32(7), Int32(2)) === SafeUInt32(div(7,2))
-    @test SaferIntegers.checked_rem(SafeInt32(7), Int32(2)) === SafeUInt32(rem(7,2))
-    @test SaferIntegers.checked_mod(SafeInt32(7), Int32(2)) === SafeUInt32(mod(7,2))
-    @test SaferIntegers.checked_fld(SafeInt16(7), Int16(2)) === SafeUInt16(fld(7,2))
-    @test SaferIntegers.checked_cld(SafeInt32(7), Int32(2)) === SafeUInt32(cld(7,2))
+    @test SaferIntegers.checked_add(SafeInt32(7), Int32(2)) === SafeInt32(7+2)
+    @test SaferIntegers.checked_sub(SafeInt64(7), Int64(2)) === SafeInt64(7-2)
+    @test SaferIntegers.checked_mul(SafeInt32(7), Int32(2)) === SafeInt32(7*2)
+    @test SaferIntegers.checked_div(SafeInt32(7), Int32(2)) === SafeInt32(div(7,2))
+    @test SaferIntegers.checked_rem(SafeInt32(7), Int32(2)) === SafeInt32(rem(7,2))
+    @test SaferIntegers.checked_mod(SafeInt32(7), Int32(2)) === SafeInt32(mod(7,2))
+    @test SaferIntegers.checked_fld(SafeInt16(7), Int16(2)) === SafeInt16(fld(7,2))
+    @test SaferIntegers.checked_cld(SafeInt32(7), Int32(2)) === SafeInt32(cld(7,2))
 
-    @test SaferIntegers.checked_add(Int16(7), SafeUInt32(2)) === SafeUInt32(7+2)
-    @test SaferIntegers.checked_sub(Int8(7), SafeUInt64(2)) === SafeUInt64(7-2)
-    @test SaferIntegers.checked_mul(Int32(7), SafeUInt16(2)) === SafeInt32(7*2)
-    @test SaferIntegers.checked_div(Int32(7), SafeUInt16(2)) === SafeInt32(div(7,2))
-    @test SaferIntegers.checked_rem(Int32(7), SafeUInt16(2)) === SafeInt32(rem(7,2))
-    @test SaferIntegers.checked_mod(Int32(7), SafeUInt16(2)) === SafeInt32(mod(7,2))
-    @test SaferIntegers.checked_fld(Int32(7), SafeUInt16(2)) === SafeInt32(fld(7,2))
-    @test SaferIntegers.checked_cld(Int32(7), SafeUInt16(2)) === SafeInt32(cld(7,2))
+    @test SaferIntegers.checked_add(Int16(7), SafeInt32(2)) === SafeInt32(7+2)
+    @test SaferIntegers.checked_sub(Int8(7), SafeInt64(2)) === SafeInt64(7-2)
+    @test SaferIntegers.checked_mul(Int32(7), SafeInt16(2)) === SafeInt32(7*2)
+    @test SaferIntegers.checked_div(Int32(7), SafeInt16(2)) === SafeInt32(div(7,2))
+    @test SaferIntegers.checked_rem(Int32(7), SafeInt16(2)) === SafeInt32(rem(7,2))
+    @test SaferIntegers.checked_mod(Int32(7), SafeInt16(2)) === SafeInt32(mod(7,2))
+    @test SaferIntegers.checked_fld(Int32(7), SafeInt16(2)) === SafeInt32(fld(7,2))
+    @test SaferIntegers.checked_cld(Int32(7), SafeInt16(2)) === SafeInt32(cld(7,2))
 end
 
 @testset "divide" begin
