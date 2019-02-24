@@ -358,12 +358,12 @@ end
 
     @test SaferIntegers.checked_add(Int16(7), SafeInt32(2)) === SafeInt32(7+2)
     @test SaferIntegers.checked_sub(Int8(7), SafeInt64(2)) === SafeInt64(7-2)
-    @test SaferIntegers.checked_mul(Int32(7), SafeInt16(2)) === SafeInt32(7*2)
-    @test SaferIntegers.checked_div(Int32(7), SafeInt16(2)) === SafeInt32(div(7,2))
-    @test SaferIntegers.checked_rem(Int32(7), SafeInt16(2)) === SafeInt32(rem(7,2))
-    @test SaferIntegers.checked_mod(Int32(7), SafeInt16(2)) === SafeInt32(mod(7,2))
-    @test SaferIntegers.checked_fld(Int32(7), SafeInt16(2)) === SafeInt32(fld(7,2))
-    @test SaferIntegers.checked_cld(Int32(7), SafeInt16(2)) === SafeInt32(cld(7,2))
+    @test SaferIntegers.checked_mul(Int32(7), SafeInt16(2)) === SafeInt16(7*2)
+    @test SaferIntegers.checked_div(Int32(7), SafeInt16(2)) === SafeInt16(div(7,2))
+    @test SaferIntegers.checked_rem(Int32(7), SafeInt16(2)) === SafeInt16(rem(7,2))
+    @test SaferIntegers.checked_mod(Int32(7), SafeInt16(2)) === SafeInt16(mod(7,2))
+    @test SaferIntegers.checked_fld(Int32(7), SafeInt16(2)) === SafeInt16(fld(7,2))
+    @test SaferIntegers.checked_cld(Int32(7), SafeInt64(2)) === SafeInt64(cld(7,2))
 end
 
 @testset "divide" begin
