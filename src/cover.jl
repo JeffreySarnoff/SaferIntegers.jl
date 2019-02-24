@@ -12,7 +12,14 @@ for OP in (:checked_add, :checked_sub,
            :checked_mul, :checked_div, :checked_fld, :checked_cld,
            :checked_rem, :checked_mod)
     @eval begin
-       @inline function $OP(x::T, y::T) where T<:SafeInteger
+       @inline function $OP(x::T, y::T) where T<:SafeSigned
+            ix = baseint(x)
+            iy = baseint(y)
+            result = $OP(ix, iy)
+            return safeint(result)
+        end
+
+       @inline function $OP(x::T, y::T) where T<:SafeUnsigned
             ix = baseint(x)
             iy = baseint(y)
             result = $OP(ix, iy)
