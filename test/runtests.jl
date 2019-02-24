@@ -469,6 +469,7 @@ end
     @test SafeInt32(32)^3 === SafeInt32(32^3)
 
     @test SafeInt64(40)^SafeInt32(2) === SafeInt64(Int64(40)^2)
+    @test SafeInt64(130)^SafeInt64(2) === SafeInt64(Int64(130)^2)
     @test_throws OverflowError SafeInt16(32)^SafeInt16(32)
     @test_throws DomainError SafeInt16(32)^SafeInt16(-2)
     @test_throws DomainError SafeInt64(130)^SafeInt64(-2)
@@ -478,6 +479,7 @@ end
     @test SafeInt64(40)^2 === SafeInt64(Int64(40)^2)
     
     @test SaferIntegers.ipower(SafeInt32(2), SafeInt32(3)) === SafeInt32(8)
+    @test_throws OverflowError SaferIntegers.ipower(SafeInt16(16), SafeInt16(16))
 end
 
 @testset "rational" begin
