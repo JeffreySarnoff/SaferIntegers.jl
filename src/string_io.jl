@@ -4,7 +4,7 @@ function string(x::T) where T<:SafeSigned
 end
 
 function string(x::T) where T<:SafeUnsigned
-    str = string(baseint(x), base=16)
+    str = string(baseint(x))
     return str
 end
 
