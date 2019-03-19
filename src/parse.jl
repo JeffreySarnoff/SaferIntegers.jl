@@ -5,17 +5,7 @@ for (S,T) in ((:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32),  (
       return $S(x)
     end
     
-    function tryparse(::Type{$S}, str::A; base::Int=10) where {A<:AbstractString}
-      x = tryparse($T, str, base=base)
-      return $S(x)
-    end
-    
-    function tryparse(::Type{$S}, str::A; base::SafeInt32=10) where {A<:AbstractString}
-      x = tryparse($T, str, base=Int(base))
-      return $S(x)
-    end
-
-    function tryparse(::Type{$S}, str::A; base::SafeInt64=10) where {A<:AbstractString}
+    function tryparse(::Type{$S}, str::A; base=10) where {A<:AbstractString}
       x = tryparse($T, str, base=Int(base))
       return $S(x)
     end
@@ -29,17 +19,7 @@ for (S,T) in ((:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :Int32
       return $S(x)
     end
     
-    function tryparse(::Type{$S}, str::A; base::Int=10) where {A<:AbstractString}
-      x = tryparse($T, str, base=base)
-      return $S(x)
-    end
-    
-    function tryparse(::Type{$S}, str::A; base::SafeInt32=10) where {A<:AbstractString}
-      x = tryparse($T, str, base=Int(base))
-      return $S(x)
-    end
-
-    function tryparse(::Type{$S}, str::A; base::SafeInt64=10) where {A<:AbstractString}
+    function tryparse(::Type{$S}, str::A; base=10) where {A<:AbstractString}
       x = tryparse($T, str, base=Int(base))
       return $S(x)
     end
