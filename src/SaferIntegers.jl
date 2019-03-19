@@ -9,7 +9,7 @@ import Base.Checked: checked_neg, checked_abs, checked_add, checked_sub, checked
                      add_with_overflow, sub_with_overflow, mul_with_overflow
 
 import Base: promote_rule,
-    string, bitstring, show,
+    string, bitstring, show, parse, tryparse,
     (~), (&), (|), (⊻), (>>>), (>>), (<<),
     (<), (<=), (==), (!=), (>=), (>),
     isequal, isless,
@@ -31,6 +31,7 @@ include("binary_ops.jl")
 include("arith_ops.jl")
 include("pow.jl")
 include("string_io.jl")
+include("parse.jl")
 include("rand.jl")
 include("cover.jl")
 
