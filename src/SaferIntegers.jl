@@ -23,6 +23,8 @@ import Base: promote_rule,
 
 using Random
 
+import ChangePrecision: changeprecision
+
 include("type.jl")
 include("construct.jl")
 include("promote.jl")
@@ -34,5 +36,6 @@ include("string_io.jl")
 include("parse.jl")
 include("rand.jl")
 include("cover.jl")
+include("change.jl")
 
 end # module SaferIntegers
