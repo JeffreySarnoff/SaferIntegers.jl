@@ -63,6 +63,14 @@ There are security implications for integer overflow in certain situations.
 
 - Using **SaferIntegers** can preclude some known ways that insecure systems are breached.
 
+### Test packages for integer safety
+
+- `@saferintegers include("Package.jl")`
+    - includes a type modified `Package.jl` in the current environment
+    - all `Integer` types in `Package.jl` are become `SafeInteger` types
+    - run it and see if there are any problems!
+
+
 ----
 
 ## A Basic Guide
