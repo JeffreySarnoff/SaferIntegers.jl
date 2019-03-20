@@ -1,6 +1,6 @@
 # work with ChangePrecision.jl
 
-changeprecision(T::Type, x::Float64) = x # do not change float literals
+# changeprecision(T::Type, x::Float64) = x # do not change float literals
 
 function changeprecision(T, x::I) where {I<:Union{Integer,SafeSigned,SafeUnsigned}}
     if T === :SafeInt
