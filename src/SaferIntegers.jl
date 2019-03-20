@@ -24,8 +24,6 @@ import Base: promote_rule,
 
 using Random
 
-import ChangePrecision: @changeprecision, changeprecision
-
 include("type.jl")
 include("construct.jl")
 include("promote.jl")
