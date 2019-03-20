@@ -3,15 +3,6 @@
 import Random, Statistics, LinearAlgebra
 using Random: AbstractRNG
 
-import SaferIntegers: SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
-                      SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128
-
-## Note: code in this module must be very careful with math functions,
-#        because we've defined module-specific versions of very basic
-#        functions like + and *.   Call Base.:+ etcetera if needed.
-
-export @changetype
-
 ############################################################################
 # The @changetype(T, expr) macro, below, takes calls to
 # functions f that default to producing Float64 (e.g. from integer args)
