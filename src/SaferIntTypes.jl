@@ -1,3 +1,5 @@
+# the better parts of this derive from ChangePrecision.jl
+
 module SaferIntTypes
 
 export @saferintegers
@@ -78,12 +80,6 @@ end
 
 
 function changetypes(ex::Expr)
-#    if isa(ex, Integer)
-#        return Int === Int64 ? SafeInt64(ex) : SafeInt32(ex)
-    #if (Meta.isexpr(ex, :call, 2) && isa(ex.args[2], Integer))
-    #    return changetype_of_cast_int(ex)     
-    #if (Meta.isexpr(ex, :(=), 2) && isa(ex.args[2].args[2], Integer))
-    #    return changetype_of_assigned_cast_int(ex)
     if Meta.isexpr(ex, :call, 3) && ex.args[1] == :^ && ex.args[3] isa Int
         # mimic Julia 0.6/0.7's lowering to literal_pow
         return Expr(:call, ChangeType.literal_pow, :^, changetype(ex.args[2]), Val{ex.args[3]}())
