@@ -32,3 +32,25 @@ To check for overflow only:
 - use a `SafeInteger` as the power to which the base number is raised
     - and an unsafe integer as the base number
 
+## Test code for integer safety
+
+### test snippets
+```julia
+
+julia> @saferintegers begin
+         x = 64
+         y = Int16(16)
+         z = x + y + SafeInt128(x)
+         x, y, z
+         end
+(64, 16, 144)
+
+julia> typeof.(ans)
+(SafeInt64, SafeInt16, SafeInt128)
+```
+
+### test source file
+```julia
+julia> cd(<source file directory>)
+julia> @saferintegers include(<filename.jl>)
+```
