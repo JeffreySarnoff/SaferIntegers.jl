@@ -10,7 +10,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
        end
         
-       @inline function $OP(x::T, y::T) where T<:SafeUnsignedInteger}
+       @inline function $OP(x::T, y::T) where {T<:SafeUnsignedInteger}
             ix = baseint(x)
             iy = baseint(y)
             result = $CHK(ix, iy)
