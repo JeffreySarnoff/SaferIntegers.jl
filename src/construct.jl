@@ -95,15 +95,19 @@ end
 for (S,I) in (
     (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128) )
     for F in (:Float64, :Float32, :Float16)
-        @eval $S(x::$F) =
-            isinteger(x) && typemin($I) < x <typemax($I) ? $S($I(x)) : throw(OverflowError("$x"))
+        @eval function $S(x::$F)
+            !isinteger(x) && throw(DomainError("$x"))
+            typemin($I) < x <typemax($I) ? $S($I(x)) : throw(OverflowError("$x"))
+        end
     end    
 end
 
 for (S,I) in (
     (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
     for F in (:Float64, :Float32, :Float16)
-        @eval $S(x::$F) =
-            isinteger(x) && typemin($I) < x <typemax($I) ? $S($I(x)) : throw(OverflowError("$x"))
+        @eval function $S(x::$F)
+            !isinteger(x) && throw(DomainError("$x"))
+            typemin($I) < x <typemax($I) ? $S($I(x)) : throw(OverflowError("$x"))
+        end
     end    
 end
