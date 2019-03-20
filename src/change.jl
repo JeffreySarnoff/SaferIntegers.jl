@@ -16,7 +16,7 @@ const binaryfuncs = (:*, :+, :-, :^) # binary arith functions (x::I, y::I) -> I
 
 
 # functions to change to ChangeType.func(T, ...) calls:
-const changefuncs = Set([randfuncs..., matfuncs..., :include])
+const changefuncs = Set([rand, zeros, ones, +, -, *, ^, include])
 
 const HWInt = Union{Bool,Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt128}
 
