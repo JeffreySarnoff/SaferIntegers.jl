@@ -5,6 +5,7 @@ export SafeInteger, SafeSigned, SafeUnsigned,
        SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128,
        @saferintegers
 
+include("SaferIntTypes.jl")
 using .SaferIntTypes
 
 import Base.Checked: checked_neg, checked_abs, checked_add, checked_sub, checked_mul,
