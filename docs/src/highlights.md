@@ -19,3 +19,6 @@
 - Using **SaferIntegers** can preclude some known ways that insecure systems are breached.
 
 - Supports Rationals formed of SafeInteger types
+
+- Supports testing of other source code for integer safety
+
