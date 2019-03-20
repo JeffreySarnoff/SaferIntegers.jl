@@ -112,13 +112,13 @@ changetype(::Type{T}, x, f::AbstractFloat) where {T<:SFInt} = f
 for f in binaryfuncs
     @eval $f(T, args...) = Base.$f(changetype.(T, args...)...,)
 end
+for f in randfuncs
+    @eval $f(T, args...) = Base.$f(changetype.(T, args...)...,)
+end
+for f in matfuncs
+    @eval $f(T, args...) = Base.$f(changetype.(T, args...)...,)
+end
 
-for F in randfuncs
-    @eval Base.$F(::Type{S}, ::Type{I}, n) where {S<:SFInt, I<:HWInt} = $F(S, n)
-end
-for F in matfuncs
-    @eval Base.$F(::Type{S}, ::Type{I}, n) where {S<:SFInt, I<:HWInt} = $F(S, n)
-end
 
 macro safetypes(expr)
     esc(safetypes(expr))
