@@ -37,6 +37,5 @@ include("string_io.jl")
 include("parse.jl")
 include("rand.jl")
 include("cover.jl")
-include("change.jl")
 
 end # module SaferIntegers
