@@ -199,9 +199,9 @@ hundredths( (@belapsed test(n, div, $sa, $sb, $sc, $sd)) /
 
 ### credits
 
-This work derives from [RoundingIntegers.jl](https://github.com/JuliaMath/RoundingIntegers.jl)
+This work derives from [RoundingIntegers.jl](https://github.com/JuliaMath/RoundingIntegers.jl).
 
-The @saferintegers machinery derives from [ChangePrecision.jl](https://github.com/stevengj/ChangePrecision.jl)
+The @saferintegers machinery is heavily informed by [ChangePrecision.jl](https://github.com/stevengj/ChangePrecision.jl).
 
 
 
