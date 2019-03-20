@@ -99,9 +99,9 @@ function changetype(T, ex::Expr)
     elseif Meta.isexpr(ex, :call, 2) && ex.args[1] == :include
         return :($include($T, @__MODULE__, $(ex.args[2])))
     elseif Meta.isexpr(ex, :call) && ex.args[1] in changefuncs
-        return Expr(:call, Core.eval(ChangeType, ex.args[1]), T, changetype.(T, ex.args[2:end])...)
+        return Expr(:call, Core.eval(SaferIntegers, ex.args[1]), T, changetype.(T, ex.args[2:end])...)
     elseif Meta.isexpr(ex, :., 2) && ex.args[1] in changefuncs && Meta.isexpr(ex.args[2], :tuple)
-        return Expr(:., Core.eval(ChangeType, ex.args[1]), Expr(:tuple, T, changetype.(T, ex.args[2].args)...))
+        return Expr(:., Core.eval(SaferIntegers, ex.args[1]), Expr(:tuple, T, changetype.(T, ex.args[2].args)...))
     elseif Meta.isexpr(ex, :call, 3) && ex.args[1] == :^ && ex.args[3] isa Int
     else
         return Expr(ex.head, changetype.(T, ex.args)...)
