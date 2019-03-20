@@ -1,8 +1,7 @@
-abstract type SafeInteger  <: Integer     end
 abstract type SafeUnsigned <: Unsigned    end # was <: SafeInteger
 abstract type SafeSigned   <: Signed      end # was <: SafeInteger
 
-SaferInteger = Union{SafeSigned,SafeUnsigned}
+SafeInteger = Union{SafeSigned,SafeUnsigned}
 
 primitive type SafeInt8    <: SafeSigned     8 end
 primitive type SafeInt16   <: SafeSigned    16 end
