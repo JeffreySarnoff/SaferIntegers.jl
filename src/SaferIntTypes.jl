@@ -5,6 +5,8 @@ export @saferintegers
 import Random
 using Random: AbstractRNG
 
+using MacroTools
+
 using ..SaferIntegers
 
 ## Note: code in this module must be very careful with math functions,
