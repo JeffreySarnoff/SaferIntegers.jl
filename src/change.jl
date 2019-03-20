@@ -76,3 +76,6 @@ macro changetype(T, expr)
     esc(changetype(T, expr))
 end
 
+macro safetypes(expr)
+    esc(safetypes(expr))
+end
