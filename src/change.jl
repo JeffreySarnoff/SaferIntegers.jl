@@ -26,8 +26,6 @@ function changeprecision(T, x::I) where {I<:Union{Integer,SafeSigned,SafeUnsigne
     elseif T === :SafeUInt8
         return SafeUInt8(x)
     else
-        return :(parse($T, $(string(x))))
+        return x
     end
 end
-
-changeprecision(T, x) = x
