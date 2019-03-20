@@ -1,6 +1,6 @@
 # work with ChangePrecision.jl
 
-function changeprecision(T, x::I) where {I<:Union{Integer,SafeSigned,SafeUnsigned}}
+function changeprecision(T, x::I) where {T<:Union{SafeSigned, SafeUnsigned}, I<:Union{Integer,SafeSigned,SafeUnsigned}}
     if T === :SafeInt
         return Int === Int64 ? SafeInt64(x) : SafeInt32(x)
     elseif T === :SafeInt64
