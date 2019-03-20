@@ -8,13 +8,20 @@ const SFInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt1
 const SFSInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128}
 const SFUInt = Union{SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
 
+
 const randfuncs = (:rand) # random-number generators
 const matfuncs = (:ones, :zeros) # functions to construct arrays
-#const complexfuncs = (:abs, :angle) # functions that give Integer results with Float args
-const binaryfuncs = (:*, :+, :-, :^) # binary functions on irrationals that make Float64
+# const complexfuncs = (:abs, :angle) # functions that give Ints for Float args
+const binaryfuncs = (:*, :+, :-, :^) # binary arith functions (x::I, y::I) -> I
+
 
 # functions to change to ChangeType.func(T, ...) calls:
-const changefuncs = Set([rand, ones, zeros, *, +, -, ^, Base.include])
+const changefuncs = Set([randfuncs..., matfuncs..., :include])
+
+const HWInt = Union{Bool,Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt128}
+
+const SFInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128, SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
+############################################################################
 
 changetype(T, x) = x
 
@@ -80,8 +87,40 @@ function include(T, mod, filename::AbstractString)
     Core.eval(mod, changetype(T, expr))
 end
 
+"""
+    @changetype T expression
+
+Change the "default" precision in the given `expression` to the floating-point
+type `T`.
+
+This changes floating-point literals, integer expressions like `1/3`,
+random-number functions like `rand`, and matrix constructors like `ones`
+to default to the new type `T`.
+
+For example,
+```
+@changetype Float32 begin
+    x = 7.3
+    y = 1/3
+    z = rand() .+ ones(3,4)
+end
+```
+uses `Float32` precision for all of the expressions in `begin ... end`.
+"""
 macro changetype(T, expr)
     esc(changetype(T, expr))
+end
+
+changetype(::Type{T}, x, f::AbstractFloat) where {T<:SFInt} = f
+for f in binaryfuncs
+    @eval $f(T, args...) = Base.$f(changetype.(T, args...)...,)
+end
+
+for F in randfuncs
+    @eval Base.$F(::Type{S}, ::Type{I}, n) where {S<:SFInt, I<:HWInt} = $F(S, n)
+end
+for F in matfuncs
+    @eval Base.$F(::Type{S}, ::Type{I}, n) where {S<:SFInt, I<:HWInt} = $F(S, n)
 end
 
 macro safetypes(expr)
