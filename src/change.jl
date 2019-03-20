@@ -8,6 +8,15 @@ const SFInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt1
 const SFSInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128}
 const SFUInt = Union{SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
 
+const randfuncs = (:rand) # random-number generators
+const matfuncs = (:ones, :zeros) # functions to construct arrays
+#const complexfuncs = (:abs, :angle) # functions that give Integer results with Float args
+const binaryfuncs = (:*, :+, :-, :^) # binary functions on irrationals that make Float64
+
+# functions to change to ChangeType.func(T, ...) calls:
+const changefuncs = Set([randfuncs..., matfuncs...,
+                         binaryfuncs..., :include])
+
 changetype(T, x) = x
 
 changetype(T, x::I) where {I<:HWInt} = parse(T, string(x)) # change int literals
