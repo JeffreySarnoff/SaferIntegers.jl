@@ -1,25 +1,66 @@
 # work with logic from ChangePrecision.jl
-import Base: +, -, *, ^, zeros, ones, rand
 
+import Random, Statistics, LinearAlgebra
+using Random: AbstractRNG
 
-const HWInt = Union{Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt128}
-const HWSInt = Union{Int8,Int16,Int32,Int64,Int128}
-const HWUInt = Union{UInt8,UInt16,UInt32,UInt64,UInt128}
+import SaferIntegers: SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128,
+                      SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128
 
-const SFInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128, SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
-const SFSInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128}
-const SFUInt = Union{SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
+## Note: code in this module must be very careful with math functions,
+#        because we've defined module-specific versions of very basic
+#        functions like + and *.   Call Base.:+ etcetera if needed.
 
+export @changetype
 
-const randfuncs = (:rand,) # random-number generators
+############################################################################
+# The @changetype(T, expr) macro, below, takes calls to
+# functions f that default to producing Float64 (e.g. from integer args)
+# and converts them to calls to ChangeType.f(T, args...).  Then
+# we implement our f(T, args...) to default to T instead.  The following
+# are a list of function calls to transform in this way.
+
+const randfuncs = (:rand, :randn, :randexp) # random-number generators
 const matfuncs = (:ones, :zeros) # functions to construct arrays
-# const complexfuncs = (:abs, :angle) # functions that give Ints for Float args
-const binaryfuncs = (:*, :+, :-, :^) # binary arith functions (x::I, y::I) -> I
+const complexfuncs = (:abs, :angle) # functions that give Float64 for Complex{Int}
+const binaryfuncs = (:*, :+, :-, :^) # binary functions on irrationals that make Float64
 
+# math functions that convert integer-like arguments to floating-point results
+# (from https://docs.julialang.org/en/release-0.6/manual/mathematical-operations/, up to date as of 0.6)
+const intfuncs = (:/, :\, :inv, :float,
+                  # powers logs and roots
+                  :√,:∛,:sqrt,:cbrt,:hypot,:exp,:exp2,:exp10,:expm1,:log,:log2,:log10,:log1p,:cis,
+                  # trig
+                  :sin,    :cos,    :tan,    :cot,    :sec,    :csc,
+                  :sinh,   :cosh,   :tanh,   :coth,   :sech,   :csch,
+                  :asin,   :acos,   :atan,   :acot,   :asec,   :acsc,
+                  :asinh,  :acosh,  :atanh,  :acoth,  :asech,  :acsch,
+                  :sinc,   :cosc,   :atan2,
+                  :cospi,  :sinpi,
+                  # trig in degrees
+                  :deg2rad,:rad2deg,
+                  :sind,   :cosd,   :tand,   :cotd,   :secd,   :cscd,
+                  :asind,  :acosd,  :atand,  :acotd,  :asecd,  :acscd,
+                  )
+
+
+# functions that convert integer arrays to floating-point results
+const statfuncs = (:mean, :std, :stdm, :var, :varm, :median, :cov, :cor)
+const linalgfuncs = (:opnorm, :norm, :normalize,
+                     :factorize, :cholesky, :bunchkaufman, :ldlt, :lu, :qr, :lq,
+                     :eigen, :eigvals, :eigfact, :eigmax, :eigmin, :eigvecs,
+                     :hessenberg, :schur, :svd, :svdvals,
+                     :cond, :condskeel, :det, :logdet, :logabsdet,
+                     :pinv, :nullspace, :lyap, :sylvester)
 
 # functions to change to ChangeType.func(T, ...) calls:
-const changefuncs = Set([rand, zeros, ones, +, -, *, ^, include])
+const changefuncs = Set([randfuncs..., matfuncs...,
+                         intfuncs..., complexfuncs...,
+                         statfuncs..., linalgfuncs...,
+                         binaryfuncs..., :include])
 
+const HWInt = Union{Bool,Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt128}
+
+const SFInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt128, SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
 ############################################################################
 
 changetype(T, x) = x
@@ -114,14 +155,7 @@ changetype(::Type{T}, x, f::AbstractFloat) where {T<:SFInt} = f
 for f in binaryfuncs
     @eval $f(T, args...) = Base.$f(changetype.(T, args...)...,)
 end
-for f in randfuncs
-    @eval $f(T, args...) = Base.$f(changetype.(T, args...)...,)
-end
-for f in matfuncs
-    @eval $f(T, args...) = Base.$f(changetype.(T, args...)...,)
-end
 
-
-macro safetypes(expr)
-    esc(safetypes(expr))
+for F in matfuncs
+    @eval Base.$F(::Type{S}, ::Type{I}, n) where {S<:SFInt, I<:HWInt} = $F(S, n)
 end
