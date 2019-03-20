@@ -136,6 +136,29 @@ Otherwise, they should be unsurprising.
 - `zero`, `one`
 - `typemin`, `typemax`, `widen` 
 
+## Test code for integer safety
+
+### test snippets
+```julia
+
+julia> @saferintegers begin
+         x = 64
+         y = Int16(16)
+         z = x + y + SafeInt128(x)
+         x, y, z
+         end
+(64, 16, 144)
+
+julia> typeof.(ans)
+(SafeInt64, SafeInt16, SafeInt128)
+```
+
+### test source file
+```julia
+julia> cd(<source file directory>)
+julia> @saferintegers include(<filename.jl>)
+```
+
 ## Benchmarking (on one machine)
 
 julia v1.1-dev
