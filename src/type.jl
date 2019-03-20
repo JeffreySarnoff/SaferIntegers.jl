@@ -1,8 +1,6 @@
 abstract type SafeUnsigned <: Unsigned    end # was <: SafeInteger
 abstract type SafeSigned   <: Signed      end # was <: SafeInteger
 
-SafeInteger = Union{SafeSigned,SafeUnsigned}
-
 primitive type SafeInt8    <: SafeSigned     8 end
 primitive type SafeInt16   <: SafeSigned    16 end
 primitive type SafeInt32   <: SafeSigned    32 end
@@ -27,3 +25,6 @@ end
 const UnsafeSigned = Union{Int128, Int64, Int32, Int16, Int8}
 const UnsafeUnsigned = Union{UInt128, UInt64, UInt32, UInt16, UInt8}
 const UnsafeInteger = Union{UnsafeSigned, UnsafeUnsigned}
+
+const SafeInteger = Union{SafeInt128, SafeInt64, SafeInt32, SafeInt16, SafeInt8,
+                          SafeUInt128, SafeUInt64, SafeUInt32, SafeUInt16, SafeUInt8 }
