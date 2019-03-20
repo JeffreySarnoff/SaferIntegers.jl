@@ -9,10 +9,10 @@ version = "v1.1.1"
 
 [deps]
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
-ChangePrecision = "3cb15238-376d-56a3-8042-d33272777c9a"
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["Test", "ChangePrecision"]
+test = ["Test"]
