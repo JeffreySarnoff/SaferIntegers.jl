@@ -20,6 +20,25 @@ for (S,I) in (
 
     @inline $S(x::$I) = reinterpret($S, x)
     @inline $I(x::$S) = reinterpret($I, x)
+
+    @inline SafeInteger(::Type{$I}) = $S
+    @inline SafeInteger(x::$I) = reinterpret($S, x)
+  end
+end
+
+for (S,I) in (
+    (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128) )
+  @eval begin
+    @inline SafeSigned(::Type{$I}) = $S
+    @inline SafeSigned(x::$I) = reinterpret($S, x)
+  end
+end
+
+for (S,I) in (
+    (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
+  @eval begin
+    @inline SafeUnsigned(::Type{$I}) = $S
+    @inline SafeUnsigned(x::$I) = reinterpret($S, x)
   end
 end
 
