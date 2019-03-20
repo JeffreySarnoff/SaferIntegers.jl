@@ -8,7 +8,7 @@ for (S,T) in ((:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32),  (
     
     function tryparse(::Type{$S}, str::A; base=10) where {A<:AbstractString}
       x = tryparse($T, str, base=Int(base))
-      return $S(x)
+      return ifelse(isnothing(x), nothing, $S(x))
     end
   end
 end
@@ -23,7 +23,7 @@ for (S,T) in ((:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :Int32
     
     function tryparse(::Type{$S}, str::A; base=10) where {A<:AbstractString}
       x = tryparse($T, str, base=Int(base))
-      return $S(x)
+      return ifelse(isnothing(x), nothing, $S(x))
     end
   end
 end
