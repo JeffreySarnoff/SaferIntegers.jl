@@ -26,5 +26,7 @@ const UnsafeSigned = Union{Int128, Int64, Int32, Int16, Int8}
 const UnsafeUnsigned = Union{UInt128, UInt64, UInt32, UInt16, UInt8}
 const UnsafeInteger = Union{UnsafeSigned, UnsafeUnsigned}
 
+const SafeSignedInteger = Union{SafeInt128, SafeInt64, SafeInt32, SafeInt16, SafeInt8}
+const SafeUnsignedInteger = Union{SafeUInt128, SafeUInt64, SafeUInt32, SafeUInt16, SafeUInt8 }
 const SafeInteger = Union{SafeInt128, SafeInt64, SafeInt32, SafeInt16, SafeInt8,
                           SafeUInt128, SafeUInt64, SafeUInt32, SafeUInt16, SafeUInt8 }
