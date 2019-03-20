@@ -3,21 +3,21 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
                   (:fld, :checked_fld), (:cld, :checked_cld),
                   (:rem, :checked_rem), (:mod, :checked_mod))
     @eval begin
-       @inline function $OP(x::T, y::T) where T<:SafeSigned
+       @inline function $OP(x::T, y::T) where {T<:SafeSignedInteger}
             ix = baseint(x)
             iy = baseint(y)
             result = $CHK(ix, iy)
             return safeint(result)
        end
         
-       @inline function $OP(x::T, y::T) where T<:SafeUnsigned
+       @inline function $OP(x::T, y::T) where T<:SafeUnsignedInteger}
             ix = baseint(x)
             iy = baseint(y)
             result = $CHK(ix, iy)
             return safeint(result)
        end
 
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:SafeSigned}
+       @inline function $OP(x::T1, y::T2) where {T1<:SafeSignedInteger, T2<:SafeSignedInteger}
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
@@ -45,7 +45,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
     end
 end
 
-function (/)(x::S, y::S) where S<:SafeInteger
+function (/)(x::S, y::S) where {S<:SafeInteger}
     ix = baseint(x)
     iy = baseint(y)
     checked_div(ix, iy)
@@ -53,7 +53,7 @@ function (/)(x::S, y::S) where S<:SafeInteger
     return result
 end
 
-function (\)(x::S, y::S) where S<:SafeInteger
+function (\)(x::S, y::S) where {S<:SafeInteger}
     ix = baseint(y)
     iy = baseint(x)
     checked_div(iy, ix)
@@ -88,7 +88,7 @@ function (\)(x::I, y::S) where {I<:Integer, S<:SafeInteger}
 end
 
 
-function divrem(x::S, y::S) where S<:SafeInteger
+function divrem(x::S, y::S) where {S<:SafeInteger}
     ix = baseint(x)
     iy = baseint(y)
     return safeint(div(ix, iy)), safeint(rem(ix, iy)) # div, rem already are checked
@@ -109,7 +109,7 @@ function divrem(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    return divrem(xx, yy)
 end
 
-function fldmod(x::S, y::S) where S<:SafeInteger
+function fldmod(x::S, y::S) where {S<:SafeInteger}
     ix = baseint(x)
     iy = baseint(y)
     return safeint(fld(ix, iy)), safeint(mod(ix, iy)) # fld, mod already are checked
@@ -132,7 +132,7 @@ end
 
 for F in (:gcd, :lcm)
   @eval begin
-    function $F(x::S, y::S) where S<:SafeInteger
+    function $F(x::S, y::S) where {S<:SafeInteger}
         ix = baseint(x)
         iy = baseint(y)
         return safeint($F(ix, iy))
