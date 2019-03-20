@@ -9,7 +9,7 @@ const SFSInt = Union{SafeInt, SafeInt8, SafeInt16, SafeInt32, SafeInt64, SafeInt
 const SFUInt = Union{SafeUInt, SafeUInt8, SafeUInt16, SafeUInt32, SafeUInt64, SafeUInt128}
 
 
-const randfuncs = (:rand) # random-number generators
+const randfuncs = (:rand,) # random-number generators
 const matfuncs = (:ones, :zeros) # functions to construct arrays
 # const complexfuncs = (:abs, :angle) # functions that give Ints for Float args
 const binaryfuncs = (:*, :+, :-, :^) # binary arith functions (x::I, y::I) -> I
