@@ -14,8 +14,7 @@ const matfuncs = (:ones, :zeros) # functions to construct arrays
 const binaryfuncs = (:*, :+, :-, :^) # binary functions on irrationals that make Float64
 
 # functions to change to ChangeType.func(T, ...) calls:
-const changefuncs = Set([randfuncs..., matfuncs...,
-                         binaryfuncs..., :include])
+const changefuncs = Set([rand, ones, zeros, *, +, -, ^, Base.include])
 
 changetype(T, x) = x
 
