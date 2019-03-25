@@ -13,7 +13,7 @@ Use these exported types in place of their built-in counterparts
 
 ----
 
-### Almost all ops with a SafeInteger that result in an integer value will return a SafeInteger
+### Almost all ops with a SafeInteger that yield integer will return a SafeInteger
 
 #### one shift signature and one power signature are the exceptions
 
