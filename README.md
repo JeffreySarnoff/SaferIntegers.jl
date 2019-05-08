@@ -8,8 +8,8 @@
 -----
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/stable/)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl)&nbsp;&nbsp;&nbsp;
-[![Test Coverage](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl/coverage.svg?branch=master)](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl?branch=master)
-&nbsp;&nbsp;&nbsp;[![Test Coverage](https://coveralls.io/repos/github/JeffreySarnoff/SaferIntegers.jl/badge.svg?branch=master)](https://coveralls.io/github/JeffreySarnoff/SaferIntegers.jl?branch=master)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Test Coverage](https://coveralls.io/repos/github/JeffreySarnoff/SaferIntegers.jl/badge.svg?branch=master)](https://coveralls.io/github/JeffreySarnoff/SaferIntegers.jl?branch=master)
+&nbsp;&nbsp;&nbsp;[![Test Coverage](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl/coverage.svg?branch=master)](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl?branch=master)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 
