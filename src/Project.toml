@@ -1,0 +1,22 @@
+desc = "a submodule within the `SaferIntegers` module`" 
+keywords = ["integer", "overflow", "underflow", "checked-arithmetic"]
+name = "SaferIntTypes"
+uuid = "88634af6-177f-5301-88b8-7819386cfa38"
+repo = "https://github.com/JeffreySarnoff/SaferIntegers.jl.git"
+author = "Jeffrey Sarnoff"
+license = "MIT"
+version = "v2.1.1"
+
+[deps]
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
+
+[compat]
+MacroTools = "0"
+julia = "1"
