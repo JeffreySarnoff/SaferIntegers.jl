@@ -75,6 +75,19 @@ end
     @test SafeUInt8(Float64(5)) === SafeUInt8(5)
 end
 
+@testset "construct 4" begin
+    @test SafeInt8(typemax(SafeInt8)) == typemax(SafeInt8)
+    @test SafeInt16(typemax(SafeInt16)) == typemax(SafeInt16)
+    @test SafeInt32(typemax(SafeInt32)) == typemax(SafeInt32)
+    @test SafeInt64(typemax(SafeInt64)) == typemax(SafeInt64)
+    @test SafeInt128(typemax(SafeInt128)) == typemax(SafeInt128)
+    @test SafeUInt8(typemax(SafeUInt8)) == typemax(SafeUInt8)
+    @test SafeUInt16(typemax(SafeUInt16)) == typemax(SafeUInt16)
+    @test SafeUInt32(typemax(SafeUInt32)) == typemax(SafeUInt32)
+    @test SafeUInt64(typemax(SafeUInt64)) == typemax(SafeUInt64)
+    @test SafeUInt128(typemax(SafeUInt128)) == typemax(SafeUInt128)
+end
+
 @testset "checked signed" begin
     @test_throws OverflowError (+)(SafeInt8(120), SafeInt8(20))
     @test_throws OverflowError (-)(SafeInt8(-120), SafeInt8(20))
