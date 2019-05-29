@@ -130,3 +130,9 @@ for (S,I) in (
         end
     end    
 end
+
+for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128,
+          :SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
+    @eval $T(x::$T) = x
+end
+        
