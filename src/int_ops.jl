@@ -38,7 +38,6 @@ abs(x::T) where T<:SafeUnsigned = x
   x === typemin(x) && throw(OverflowError("cannot negate typemin"))
   return safeint(-(baseint(x)))
 end  
-@inline Base.:(-)(x::T) where T<:SafeUnsigned = safeint(-baseint(x))
 
 @inline function Base.:(-)(x::T) where T<:SafeUnsigned
     throw(OverflowError("cannot negate unsigned type"))
