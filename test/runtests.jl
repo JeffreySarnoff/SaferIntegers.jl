@@ -158,6 +158,15 @@ end
     end
 end
 
+@testset "-unsigned" begin
+    @is_error( -SafeUInt(0) )
+    @is_error( -SafeUInt8(1) )
+    @is_error( -SafeUInt16(1) )
+    @is_error( -SafeUInt32(1) )
+    @is_error( -SafeUInt64(1) )
+    @is_error( -SafeUInt128(1) )
+end
+
 @testset "float" begin
     @test Float64(SafeInt16(22)) === Float64(22)
     @test Float32(SafeInt64(22)) === Float32(22)
