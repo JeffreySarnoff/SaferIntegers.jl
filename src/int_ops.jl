@@ -40,6 +40,10 @@ abs(x::T) where T<:SafeUnsigned = x
 end  
 @inline Base.:(-)(x::T) where T<:SafeUnsigned = safeint(-baseint(x))
 
+@inline function Base.:(-)(x::T) where T<:SafeUnsigned
+    throw(OverflowError("cannot negate unsigned type"))
+end
+
 @inline function copysign(x::T, y::T) where T<:SafeSigned
   return safeint(baseint( signbit(y) ? -abs(x) : abs(x) ))
 end  
