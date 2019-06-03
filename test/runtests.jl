@@ -11,7 +11,15 @@ macro is_error(x)
     :(@test (try $x; false; catch e; true; end))
 end
 
-@testset "construct" begin
+@testset "construct0" begin
+    for T in (:Int8, :Int16, :Int32, :Int64, :Int128, :UInt8, :UInt16, :UInt32, :UInt64, :UInt128)
+      @eval begin
+        @test $T(BigInt(2)) == $T(2)
+      end
+    end
+end
+
+@testset "construct1" begin
     for (S,I) in (
         (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128),
         (:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128) )
