@@ -3,14 +3,11 @@
 ## Construction
 
 ```julia
-Rational{SafeInt32}(3, 5) === SafeInt32(3) // SafeInt32(5)
+SafeRational(2, 5) == SafeInt(2) // SafeInt(5)
 
-Rational(SafeInt(3), SafeInt(5)) === SafeInt(3) // SafeInt(5)
-# Rational{SafeInt64}(3, 5) on 64 bit machine
+SafeRational(SafeUInt16(2), SafeUInt16(5)) == SafeUInt16(2) // SafeUInt16(5)
 
-a = SafeInt16(3); b = 5;
-Rational(a, b)
-# Rational{SafeInt16}(3, 5)
+SafeRational(Int16(2), Int32(5)) == SafeInt32(2) // SafeInt32(5)
 ```
 
 ## Use
