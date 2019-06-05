@@ -63,6 +63,8 @@ There are security implications for integer overflow in certain situations.
 
 - Using **SaferIntegers** can preclude some known ways that insecure systems are breached.
 
+- Safer rationals just work: `Rational{SafeInt64}(161803398875,100000000000)`
+
 ### Test code for integer safety
 
 - `@saferintegers include(join("PackageTestDirectory", "PackageTests.jl"))`
