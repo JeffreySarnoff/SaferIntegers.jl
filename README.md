@@ -55,15 +55,15 @@ There are security implications for integer overflow in certain situations.
 
 ### What Does This Package Offer?
 
-- **SaferIntegers** lets you work more cleanly and always alerts otherwise silent problems.
+- _SaferIntegers_ let you work more cleanly and always alerts otherwise silent problems.
 
 - This package is designed for easy use and written to be performant in many sorts of use.
 
 - All exported types are stable (e.g. `typeof(SafeInt32 + 1) == SafeInt32`)
 
-- Using **SaferIntegers** can preclude some known ways that insecure systems are breached.
+- Using _SaferIntegers_ can preclude some known ways that insecure systems are breached.
 
-- Safer rationals just work: `SafeRational(161803398875,100000000000)`
+- Safer Rationals just work: `SafeRational(161803398875,100000000000)`
 
 ### Test code for integer safety
 
