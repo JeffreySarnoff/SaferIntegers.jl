@@ -1,5 +1,5 @@
 string(x::T) where T<:SafeSigned = string(baseint(x))
-string(x::T) where T<:SafeUnigned = string(baseint(x))
+string(x::T) where T<:SafeUnsigned = string(baseint(x))
 
 bitstring(n::T) where T<:SafeInteger = bitstring(baseint(n))
 
