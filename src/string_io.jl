@@ -1,17 +1,12 @@
-function string(x::T) where T<:SafeSigned
-    str = string(baseint(x))
-    return str
-end
-
-function string(x::T) where T<:SafeUnsigned
-    str = string(baseint(x))
-    return str
-end
+string(x::T) where T<:SafeSigned = string(baseint(x))
+string(x::T) where T<:SafeUnigned = string(baseint(x))
 
 bitstring(n::T) where T<:SafeInteger = bitstring(baseint(n))
 
-show(io::IO, x::T) where T<:SafeSigned = print(io,  string(x))
-show(x::T) where T<:SafeSigned = print(Base.stdout, string(x))
+repr(x::S) where {S<:SafeInteger} = string(typeof(x),"(",repr(baseint(x)),")")
 
-show(io::IO, x::T) where T<:SafeUnsigned = print(io,  baseint(x))
-show(x::T) where T<:SafeUnsigned = print(Base.stdout, baseint(x))
+show(io::IO, x::T) where T<:SafeSigned = show(io,  baseint(x))
+show(x::T) where T<:SafeSigned = print(Base.stdout, baseint(x))
+
+show(io::IO, x::T) where T<:SafeUnsigned = show(io,  baseint(x))
+show(x::T) where T<:SafeUnsigned = show(Base.stdout, baseint(x))
