@@ -33,6 +33,22 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:SafeUnsigned}
+            xx, yy = promote(x, y)
+            ix = baseint(xx)
+            iy = baseint(yy)
+            result = $CHK(ix, iy)
+            return safeint(result)
+        end
+
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:SafeSigned}
+            xx, yy = promote(x, y)
+            ix = baseint(xx)
+            iy = baseint(yy)
+            result = $CHK(ix, iy)
+            return safeint(result)
+        end
+
         @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Integer}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
