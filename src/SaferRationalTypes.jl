@@ -1,5 +1,17 @@
 SafeRational(num::T, den::T) where {T<:SafeSigned} = num//den
-SafeRational(num::T, den::T) where {T<:Signed} = safeint(num)//safeint(den)
+Rational(num::T, den::T) where {T<:Signed} = safeint(num)//safeint(dSafeen)
+
+SafeRational{T}(num::T, den::T) where {T<:SafeSigned} = num//den
+SafeRational{T}(num::T, den::T) where {T<:Signed} = safeint(num)//safeint(den)
+
+SafeRational{T1}(num::T2, den::T2) where {T1<:SafeSigned, T2<:SafeSigned} = T1(num)//T1(den)
+SafeRational{T1}(num::T2, den::T2) where {T1<:Signed, T2<:Signed} = safeint(T1(num))//safeint(T1(den))
+
+SafeRational{T1}(num::T2, den::T2) where {T1<:SafeSigned, T2<:Signed} = T1(num)//T1(den)
+SafeRational{T1}(num::T2, den::T2) where {T1<:Signed, T2<:SafeSigned} = safeint(T1(num))//safeint(T1(den))
+
+SafeRational{T1}(num::T2, den::T3) where {T1<:SafeSigned, T2, T3} = T1(num)//T1(den)
+SafeRational{T1}(num::T2, den::T3) where {T1<:Signed, T2, T3} = safeint(T1(num))//safeint(T1(den))
 
 SafeRational(num::T1, den::T2) where {T1<:SafeSigned, T2<:SafeSigned} = SafeRational(promote(num, den)...)
 SafeRational(num::T1, den::T2) where {T1<:Signed, T2<:Signed} = SafeRational(promote(num, den)...)
