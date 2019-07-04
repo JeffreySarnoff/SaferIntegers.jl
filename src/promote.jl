@@ -10,11 +10,8 @@ promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned   where T<:Unsigned = S
 promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Signed   = S
 promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Unsigned = S
 
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned   where T<:Base.IEEEFloat = T
-promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Base.IEEEFloat = T
-
-#promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned   where T<:Base.IEEEFloat = S
-#promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Base.IEEEFloat = S
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeSigned   where T<:Base.IEEEFloat = S
+promote_rule(::Type{S}, ::Type{T}) where S<:SafeUnsigned where T<:Base.IEEEFloat = S
 
 promote_rule(::Type{S}, ::Type{BigFloat}) where S<:SafeSigned  = BigFloat
 promote_rule(::Type{S}, ::Type{BigFloat}) where S<:SafeUnsigned = BigFloat
