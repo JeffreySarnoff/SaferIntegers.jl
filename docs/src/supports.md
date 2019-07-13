@@ -6,7 +6,8 @@
 - `ndigits0z`
 - `isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`
 - `>>>`, `>>`, `<<`, `+`, `-`, `*`, `\`, `^`
-- `div`, `fld`, `cld`, `rem`, `mod`
+- `div`, `fld`, `fld1`, `cld`, `rem`, `mod`, `mod1`
+- `divrem`, `fldmod`, `fldmod1`
 - `zero`, `one`
 - `typemin`, `typemax`, `widen`
 
