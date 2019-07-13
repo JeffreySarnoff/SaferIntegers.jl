@@ -206,7 +206,7 @@ function fldmod1(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
-function fldmod1(x::S, y::Bool) where {S1<:SafeInteger}
+function fldmod1(x::S, y::Bool) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
