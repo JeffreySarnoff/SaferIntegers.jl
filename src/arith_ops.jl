@@ -1,7 +1,19 @@
+function checked_mod1(x::T, y::T) where T<:Integer
+    result = checked_mod(x, y)
+    result = ifelse(result === zero(T), y, result))
+    return result
+end
+
+function checked_fld1(x::T, y::T) where T<:Integer
+    d = checked_div(x, y)
+    return d + (!signbit(x ⊻ y) & (d * y !== x))
+end
+
 for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
                   (:(*), :checked_mul), (:div, :checked_div),
                   (:fld, :checked_fld), (:cld, :checked_cld),
-                  (:rem, :checked_rem), (:mod, :checked_mod))
+                  (:rem, :checked_rem), (:mod, :checked_mod),
+                  (:mod1, :checked_mod1), (:fld1, :checked_fld1))
     @eval begin
        @inline function $OP(x::T, y::T) where T<:SafeSigned
             ix = baseint(x)
@@ -143,7 +155,28 @@ end
 
 function fldmod(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
-   return fldmod(xx, yy)
+   return fldmod1(xx, yy)
+end
+
+function fldmod1(x::S, y::S) where S<:SafeInteger
+    ix = baseint(x)
+    iy = baseint(y)
+    return safeint(fld1(ix, iy)), safeint(mod1(ix, iy)) # fld1, mod1 already are checked
+end
+
+function fldmod1(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
+end
+
+function fldmod1(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
+end
+
+function fldmod1(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
 end
 
 for F in (:gcd, :lcm)
