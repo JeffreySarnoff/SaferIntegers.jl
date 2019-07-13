@@ -1,6 +1,6 @@
 function checked_mod1(x::T, y::T) where T<:Integer
     result = checked_mod(x, y)
-    result = ifelse(result === zero(T), y, result))
+    result = ifelse(result === zero(T), y, result)
     return result
 end
 
