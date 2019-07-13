@@ -104,8 +104,10 @@ should a calculation encouter an overflow or underflow,
 > Use the package:  `using SaferIntegers`     
 
 - These functions check for overflow/underflow automatically:    
-    - abs, (neg), (-), (+), (*), div, fld, cld, rem, mod, (^)
-    - so does (/), before converting to Float64
+    - `abs`, `neg`, `div`, `fld`, `fld1`, `cld`, `rem`, `mod`, `mod1`
+    - `divrem`, `fldmod`, `fldmod1`
+    - `-`, `+`, `*`, `^`
+    - so does `/`, before converting to Float64
 
 ## Exported Types and Constructors / Converters
 
@@ -136,6 +138,7 @@ Otherwise, they should be unsurprising.
 - `isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`
 - `>>>`, `>>`, `<<`, `+`, `-`, `*`, `\`, `^`
 - `div`, `fld`, `fld1`, `cld`, `rem`, `mod`, `mod1`
+- `divrem`, `fldmod`, `fldmod1`
 - `zero`, `one`
 - `typemin`, `typemax`, `widen` 
 
