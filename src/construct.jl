@@ -21,6 +21,8 @@ for (S,I) in (
     @inline $S(x::$I) = reinterpret($S, x)
     @inline $I(x::$S) = reinterpret($I, x)
 
+    @inline $S(x::Bool) = ifelse(x, one($S), zero($S))
+
     @inline SafeInteger(::Type{$I}) = $S
     @inline SafeInteger(x::$I) = reinterpret($S, x)
   end
