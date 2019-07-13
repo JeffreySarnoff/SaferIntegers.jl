@@ -86,7 +86,7 @@ Where you had used`Int` or `UInt` now use `SafeInt` or `SafeUInt` and similarly
 with the bitsize-named versions.    
 
 SafeInt and SafeUInt give you these arithmetic operators:    
-`+`, `-`, `*`, `div`, `rem`, `fld`, `mod`, `^`    
+`+`, `-`, `*`, `div`, `rem`, `fld`, `mod`, `fld1`, `mod1`, `^`   
 which have become overflow and underflow aware.
 
 The Int and UInt types can fail at simple arithmetic        
@@ -135,7 +135,7 @@ Otherwise, they should be unsurprising.
 - `ndigits0z`
 - `isless`, `isequal`, `<=`, `<`, `==`, `!=`, `>=`, `>`
 - `>>>`, `>>`, `<<`, `+`, `-`, `*`, `\`, `^`
-- `div`, `fld`, `cld`, `rem`, `mod`
+- `div`, `fld`, `fld1`, `cld`, `rem`, `mod`, `mod1`
 - `zero`, `one`
 - `typemin`, `typemax`, `widen` 
 
