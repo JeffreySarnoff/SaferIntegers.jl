@@ -70,6 +70,16 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
+
+        @inline function $OP(x::T, y::Bool) where {T<:SafeInteger}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+
+        @inline function $OP(x::Bool, y::T) where {T<:SafeInteger}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
     end
 end
 
@@ -101,6 +111,14 @@ function (/)(x::I, y::S) where {I<:Integer, S<:SafeInteger}
    xx, yy = promote(x, y)
    return (/)(xx, yy)
 end
+function (/)(x::S, y::Bool) where {S<:SafeInteger}
+   xx, yy = promote(x, y)
+   return (/)(xx, yy)
+end
+function (/)(x::Bool, y::S) where {S<:SafeInteger}
+   xx, yy = promote(x, y)
+   return (/)(xx, yy)
+end
 
 function (\)(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
@@ -126,13 +144,19 @@ function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-
 function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-
 function divrem(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+function divrem(x::S, y::Bool) where {S1<:SafeInteger}
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+function divrem(x::Bool, y::S) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
@@ -147,15 +171,21 @@ function fldmod(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
-
 function fldmod(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
-
 function fldmod(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
+end
+function fldmod(x::S, y::Bool) where {S1<:SafeInteger}
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
+end
+function fldmod(x::Bool, y::S) where {S<:SafeInteger}
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
 end
 
 function fldmod1(x::S, y::S) where S<:SafeInteger
@@ -168,13 +198,19 @@ function fldmod1(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
-
 function fldmod1(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
-
 function fldmod1(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
+end
+function fldmod1(x::S, y::Bool) where {S1<:SafeInteger}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
+end
+function fldmod1(x::Bool, y::S) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
@@ -201,6 +237,16 @@ for F in (:gcd, :lcm)
        xx, yy = promote(x, y)
        return $F(xx, yy)
     end
+
+    function $F(x::S, y::Bool) where {S<:SafeInteger}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+
+    function $F(x::Bool, y::S) where {S<:SafeInteger}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
   end
 end
 
@@ -212,3 +258,5 @@ end
 divgcd(x::I, y::S) where {I<:Integer, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S, y::I) where {I<:Integer, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::S, y::Bool) where {S<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::Bool, y::S) where {S<:SafeInteger} = divgcd(promote(x,y)...)
