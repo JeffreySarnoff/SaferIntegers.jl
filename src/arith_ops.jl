@@ -152,7 +152,7 @@ function divrem(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-function divrem(x::S, y::Bool) where {S1<:SafeInteger}
+function divrem(x::S, y::Bool) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
@@ -179,7 +179,7 @@ function fldmod(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
-function fldmod(x::S, y::Bool) where {S1<:SafeInteger}
+function fldmod(x::S, y::Bool) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
