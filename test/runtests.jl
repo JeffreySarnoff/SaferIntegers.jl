@@ -102,8 +102,10 @@ end
     @test_throws OverflowError (*)(SafeInt8(100), SafeInt8(100))
     @test div(SafeInt16(100), SafeInt16(20)) === SafeInt16(div(100, 20))
     @test fld(SafeInt16(100), SafeInt16(15)) === SafeInt16(fld(100, 15))
+    @test fld1(SafeInt16(100), SafeInt16(15)) === SafeInt16(fld1(100, 15))
     @test cld(SafeInt16(100), SafeInt16(15)) === SafeInt16(cld(100, 15))
     @test mod(SafeInt16(100), SafeInt16(15)) === SafeInt16(mod(100, 15))
+    @test mod1(SafeInt16(100), SafeInt16(15)) === SafeInt16(mod1(100, 15))
     @test rem(SafeInt16(100), SafeInt16(15)) === SafeInt16(rem(100, 15))
     
     @test_throws OverflowError (+)(typemax(SafeInt16), SafeInt8(20))
@@ -111,8 +113,10 @@ end
     @test_throws OverflowError (*)(typemax(SafeInt16), SafeInt8(100))
     @test div(SafeInt16(100), SafeInt64(20)) === SafeInt64(div(100, 20))
     @test fld(SafeInt16(100), SafeInt32(15)) === SafeInt32(fld(100, 15))
+    @test fld1(SafeInt16(100), SafeInt32(15)) === SafeInt32(fld1(100, 15))
     @test cld(SafeInt16(100), SafeInt32(15)) === SafeInt32(cld(100, 15))
     @test mod(SafeInt16(100), SafeInt32(15)) === SafeInt32(mod(100, 15))
+    @test mod1(SafeInt16(100), SafeInt32(15)) === SafeInt32(mod1(100, 15))
     @test rem(SafeInt16(100), SafeInt32(15)) === SafeInt32(rem(100, 15))
 end
 
@@ -122,8 +126,10 @@ end
     @test_throws OverflowError (*)(SafeUInt8(100), SafeUInt8(100))
     @test div(SafeUInt16(100), SafeUInt16(20)) === SafeUInt16(div(UInt16(100), UInt16(20)))
     @test fld(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(fld(UInt16(100), UInt16(15)))
+    @test fld1(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(fld1(UInt16(100), UInt16(15)))
     @test cld(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(cld(UInt16(100), UInt16(15)))
     @test mod(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(mod(UInt16(100), UInt16(15)))
+    @test mod1(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(mod1(UInt16(100), UInt16(15)))
     @test rem(SafeUInt16(100), SafeUInt16(15)) === SafeUInt16(rem(UInt16(100), UInt16(15)))
 
     @test_throws OverflowError (+)(SafeUInt8(10), typemax(SafeUInt16))
@@ -131,8 +137,10 @@ end
     @test_throws OverflowError (*)(SafeUInt8(100), typemax(SafeUInt16))
     @test div(SafeUInt32(100), SafeUInt16(20)) === SafeUInt32(div(UInt16(100), UInt16(20)))
     @test fld(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(fld(UInt16(100), UInt16(15)))
+    @test fld1(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(fld1(UInt16(100), UInt16(15)))
     @test cld(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(cld(UInt16(100), UInt16(15)))
     @test mod(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(mod(UInt16(100), UInt16(15)))
+    @test mod1(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(mod1(UInt16(100), UInt16(15)))
     @test rem(SafeUInt32(100), SafeUInt16(15)) === SafeUInt32(rem(UInt16(100), UInt16(15)))
 end
 
@@ -248,6 +256,8 @@ end
     @test rem(SafeInt32(7), SafeInt16(-2)) === SafeInt32(rem(7,-2))
     @test mod(SafeInt32(7), SafeInt16(-2)) === SafeInt32(mod(7,-2))
     @test fld(SafeInt32(7), SafeInt16(2)) === SafeInt32(fld(7,2))
+    @test mod1(SafeInt32(7), SafeInt16(-2)) === SafeInt32(mod1(7,-2))
+    @test fld1(SafeInt32(7), SafeInt16(2)) === SafeInt32(fld1(7,2))
     @test cld(SafeInt32(7), SafeInt16(2)) === SafeInt32(cld(7,2))
 
     @test SafeInt16(7) + Int32(2) === SafeInt16(7+2)
@@ -257,6 +267,8 @@ end
     @test rem(SafeInt32(7), Int16(-2)) === SafeInt32(rem(7,-2))
     @test mod(SafeInt32(7), Int16(-2)) === SafeInt32(mod(7,-2))
     @test fld(SafeInt32(7), Int16(2)) === SafeInt32(fld(7,2))
+    @test mod1(SafeInt32(7), Int16(-2)) === SafeInt32(mod1(7,-2))
+    @test fld1(SafeInt32(7), Int16(2)) === SafeInt32(fld1(7,2))
     @test cld(SafeInt32(7), Int16(2)) === SafeInt32(cld(7,2))
 
     @test Int16(7) + SafeInt32(2) === SafeInt32(7+2)
@@ -266,6 +278,8 @@ end
     @test rem(Int32(7), SafeInt16(-2)) === SafeInt16(rem(7,-2))
     @test mod(Int32(7), SafeInt16(-2)) === SafeInt16(mod(7,-2))
     @test fld(Int32(7), SafeInt16(2)) === SafeInt16(fld(7,2))
+    @test mod1(Int32(7), SafeInt16(-2)) === SafeInt16(mod1(7,-2))
+    @test fld1(Int32(7), SafeInt16(2)) === SafeInt16(fld1(7,2))
     @test cld(Int32(7), SafeInt16(2)) === SafeInt16(cld(7,2))
 
     @test Int32(521) + Int32(125) == Int32(SafeInt32(521) + SafeInt32(125))
@@ -415,6 +429,7 @@ end
     @test gcd(SafeInt32(7), SafeInt16(-2)) === SafeInt32(gcd(7,-2))
     @test divrem(SafeInt32(7), SafeInt16(2)) === SafeInt32.(divrem(7,2))
     @test fldmod(SafeInt32(7), SafeInt16(-2)) === SafeInt32.(fldmod(7,-2))
+    @test fldmod1(SafeInt32(7), SafeInt16(-2)) === SafeInt32.(fldmod1(7,-2))
     @test SaferIntegers.divgcd(SafeInt32(7), SafeInt32(-2)) === SafeInt32.(Base.divgcd(7,-2))
     @test SaferIntegers.divgcd(SafeInt32(7), SafeInt16(-2)) === SafeInt32.(Base.divgcd(7,-2))
 
@@ -422,12 +437,14 @@ end
     @test gcd(SafeInt32(7), Int16(-2)) === SafeInt32(gcd(7,-2))
     @test divrem(SafeInt32(7), Int16(2)) === SafeInt32.(divrem(7,2))
     @test fldmod(SafeInt32(7), Int16(-2)) === SafeInt32.(fldmod(7,-2))
+    @test fldmod1(SafeInt32(7), Int16(-2)) === SafeInt32.(fldmod1(7,-2))
     @test SaferIntegers.divgcd(SafeInt32(7), Int16(-2)) === SafeInt32.(Base.divgcd(7,-2))
 
     @test lcm(Int32(7), SafeInt16(2)) === SafeInt16(lcm(7,2))
     @test gcd(Int32(7), SafeInt16(-2)) === SafeInt16(gcd(7,-2))
     @test divrem(Int32(7), SafeInt16(2)) === SafeInt16.(divrem(7,2))
     @test fldmod(Int32(7), SafeInt16(-2)) === SafeInt16.(fldmod(7,-2))
+    @test fldmod1(Int32(7), SafeInt16(-2)) === SafeInt16.(fldmod1(7,-2))
     @test SaferIntegers.divgcd(Int32(7), SafeInt16(-2)) === SafeInt16.(Base.divgcd(7,-2))
 end
 
