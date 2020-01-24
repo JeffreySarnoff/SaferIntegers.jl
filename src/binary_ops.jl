@@ -42,19 +42,36 @@ for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
            return $OP(xx, yy)
        end
 
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Signed}
+       @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Signed}
            xx, yy = promote(x, y)
            return $OP(xx, yy)
        end
-       @inline function $OP(x::T1, y::T2) where {T1<:Signed, T2<:SafeInteger}
+       @inline function $OP(x::T1, y::T2) where {T1<:Signed, T2<:SafeSigned}
            xx, yy = promote(x, y)
            return $OP(xx, yy)
        end
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Unsigned}
+       @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Unsigned}
            xx, yy = promote(x, y)
            return $OP(xx, yy)
        end
-       @inline function $OP(x::T1, y::T2) where {T1<:Unsigned, T2<:SafeInteger}
+       @inline function $OP(x::T1, y::T2) where {T1<:Unsigned, T2<:SafeSigned}
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
+
+       @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Signed}
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
+       @inline function $OP(x::T1, y::T2) where {T1<:Signed, T2<:SafeUnsigned}
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
+       @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Unsigned}
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
+       @inline function $OP(x::T1, y::T2) where {T1<:Unsigned, T2<:SafeUnsigned}
            xx, yy = promote(x, y)
            return $OP(xx, yy)
        end
@@ -107,7 +124,6 @@ for OP in (:(>>>), :(>>), :(<<))
             bitsof(T1) < abs(yy) && throw(OverflowError("cannot shift $T1 by $yy"))
             return reinterpret(T1, $OP(x, yy))
         end
-
 
    end
 end
