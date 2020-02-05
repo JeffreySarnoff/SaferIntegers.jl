@@ -530,6 +530,12 @@ end
     @test_throws OverflowError SaferIntegers.ipower(typemax(SafeInt64), typemax(SafeInt64))
 end
 
+@testset "factorial" begin
+    @test factorial(SafeInt32(10)) == factorial(10)
+    @test factorial(SafeUInt128(33)) == factorial(UInt128(33))
+end
+
+
 @testset "rational" begin
     a = SafeInt32(32); b = SafeInt32(25); c = a//b - 1;
 
@@ -542,5 +548,3 @@ end
     @test string(SafeInt16(5)) == string(Int16(5))
     @test string(SafeUInt16(5)) == string(UInt16(5))
 end
-
-    
