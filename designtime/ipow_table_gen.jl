@@ -14,6 +14,12 @@
       the results obtained using a different algorithmic approach
       and computed using BigInts exclusively.
 =#
+#=
+    (maxint^10 that does not overflow, maxint == 78)
+    (maxint^10 that does not overflow, maxint == 78)
+
+=#
+
 
 using Base.Checked
 #=
