@@ -1,11 +1,11 @@
 #=
     This code is used to generate the integer power lookup tables.
     
-    result of `ipow(ipow_base::T, ipow_power::T) where {T}`
+    result of `ipow(ipow\_base::T, ipow\_power::T) where {T}`
       - either an overflow exception is generated
       - orelse the result is a positive integer of type `T`
-          - `result = ipow_base^ipow_power`
-          - `result == BigInt(ipow_base)^BigInt(ipow_power)`
+          - `result = ipow\_base^ipow\_power`
+          - `result == BigInt(ipow\_base)^BigInt(ipow\_power)`
       
     Each result is determined through exaustive search for overflow
     using `Int128s` and `DecFP.Dec128s`.
