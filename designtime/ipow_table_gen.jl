@@ -22,15 +22,23 @@ const F128 = Quadmath.Float128
 #=
    maxintfloat(Float128) [1.0e34] has 113 significant bits
       bit113 is set, bits112..1 are cleared
-   maxintfloat(Float128) ~= 1.0e34 
+   maxintfloat(Float128) ~= 1.0e34 D1
       10384,593717,069655,257060,992658,440192
-
+ 
+   We choose BigFloat precision to be large enough to resolve any outlier roundings,
+     setprecision(BigFloat, 5*128)
 =#
 
-setprecision(BigFloat, ceil(Int, 3.125*log2(maxintfloat(D128))))
-
+setprecision(BigFloat, 5*128)
+Base.BigFloat(x::F128) = BigFloat(string(x))
 Base.BigFloat(x::D128) = BigFloat(string(x))
-D128(x::BigFloat) = parse(D128,string(x))
+F128(x::BigFloat) = parse(F128, string(x))
+D128(x::BigFloat) = parse(D128, string(x))
+Base.BigInt(x::F128) = BigInt(BigFloat(x))
+Base.BigInt(x::D128) = BigInt(BigFloat(x))
+F128(x::BigInt) = F128(BigFloat(x))
+D128(x::BigInt) = D128(BigFloat(x))
+
 # Parametric Constraints' Typwa
 const ParamT = Int128
 const PartsT = DecFP.Dec128
