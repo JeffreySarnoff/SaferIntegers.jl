@@ -15,8 +15,13 @@
       and computed using BigInts exclusively.
 =#
 
-impoer DecFP
+import DecFP
+const D128 = DecFP.Dec128
 
+setprecision(BigFloat, 3.125*ceil(Int, log2(maxintfloat(D128))))
+
+Base.BigFloat(x::D128) = BigFloat(string(x))
+D128(x::BigFloat) = parse(D128,string(x))
 # Parametric Constraints' Typwa
 const ParamT = Int128
 const PartsT = DecFP.Dec128
