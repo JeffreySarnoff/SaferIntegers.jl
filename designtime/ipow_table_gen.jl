@@ -27,14 +27,15 @@ const PartsT = DecFP.Dec128
 
 # Parametric Intervals
 basemin = ParamT(2)
-basemax  = ParamT(128)
-basetop   = ParamT(1024)
-powmin   = ParamT(2)
-powmax   = ParamT(128)
-powtop    = ParamT(1024)
+basemax = ParamT(128)
+basetop = ParamT(1024)
+powmin  = ParamT(2)
+powmax  = ParamT(128)
+powtop  = ParamT(1024)
 
 # parametric domains
 const allowed_bases   = collect(basemin:basemax)
 const allowed_powers  = collect(powmin:powmax)
 const possible_bases  = collect(basemin:basetop)
 const possible_powers = collect(powmin:powtop)
+
