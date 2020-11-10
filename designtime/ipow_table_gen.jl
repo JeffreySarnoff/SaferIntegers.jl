@@ -43,6 +43,7 @@ function pospow_is_safe(base::T, power::T) where {T<:Signed}
     try
         converted_result = T(biresult)
     catch
+        converted_result = biresult
         issafe = false
     end    
     issafe = issafe  & iszero(cmp(biresult,tresult)) & iszero(cmp(converted_result, biresult))
