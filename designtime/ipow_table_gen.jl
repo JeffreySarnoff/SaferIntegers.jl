@@ -15,6 +15,26 @@
       and computed using BigInts exclusively.
 =#
 
+using Base.Checked
+#=
+julia> names(Base.Checked)
+14-element Vector{Symbol}:
+ :Checked
+ :add_with_overflow
+ :checked_abs
+ :checked_add
+ :checked_cld
+ :checked_div
+ :checked_fld
+ :checked_mod
+ :checked_mul
+ :checked_neg
+ :checked_rem
+ :checked_sub
+ :mul_with_overflow
+ :sub_with_overflow
+=#
+
 import DecFP, Quadmath
 const D128 = DecFP.Dec128
 const F128 = Quadmath.Float128
