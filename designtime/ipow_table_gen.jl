@@ -8,7 +8,7 @@
           - result == BigInt(ipow_base)^BigInt(ipow_power)
       
     Each result is determined through exaustive search for overflow
-    using `Int128s` and `DecFP.Dec128s`.
+    using Base.Int128s and DecFP.Dec128s.
     
     The results are independently validated by comparison with 
       the results obtained using a different algorithmic approach
