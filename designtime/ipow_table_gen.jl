@@ -15,8 +15,17 @@
       and computed using BigInts exclusively.
 =#
 
-import DecFP
+import DecFP, Quadmath
 const D128 = DecFP.Dec128
+const F128 = Quadmath.Float128
+
+#=
+   maxintfloat(Float128) [1.0e34] has 113 significant bits
+      bit113 is set, bits112..1 are cleared
+   maxintfloat(Float128) ~= 1.0e34 
+      10384,593717,069655,257060,992658,440192
+
+=#
 
 setprecision(BigFloat, ceil(Int, 3.125*log2(maxintfloat(D128))))
 
