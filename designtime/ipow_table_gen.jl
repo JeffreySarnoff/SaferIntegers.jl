@@ -18,7 +18,7 @@
 import DecFP
 const D128 = DecFP.Dec128
 
-setprecision(BigFloat, 3.125*ceil(Int, log2(maxintfloat(D128))))
+setprecision(BigFloat, ceil(Int, 3.125*log2(maxintfloat(D128))))
 
 Base.BigFloat(x::D128) = BigFloat(string(x))
 D128(x::BigFloat) = parse(D128,string(x))
@@ -39,8 +39,8 @@ powmax  = ParamT(128)
 powtop  = ParamT(1024)
 
 # parametric domains
-const allowed_bases   = collect(basemin:basemax)
-const allowed_powers  = collect(powmin:powmax)
-const possible_bases  = collect(basemin:basetop)
-const possible_powers = collect(powmin:powtop)
+const allowed_bases   = collect(basemin:basemax);
+const allowed_powers  = collect(powmin:powmax);
+const possible_bases  = collect(basemin:basetop);
+const possible_powers = collect(powmin:powtop);
 
