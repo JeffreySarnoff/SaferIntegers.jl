@@ -5,7 +5,7 @@
       - either an overflow exception is generated
       - orelse the result is a positive integer of type `T`
           - result = ipow_base^ipow_power
-          - result == BigInt(ipow\_base)^BigInt(ipow\_power)
+          - result == BigInt(ipow_base)^BigInt(ipow_power)
       
     Each result is determined through exaustive search for overflow
     using `Int128s` and `DecFP.Dec128s`.
