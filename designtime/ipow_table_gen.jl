@@ -40,6 +40,7 @@ function pospow_is_safe(base::T, power::T) where {T<:Signed}
     tresult = base^power
     bibase, bipower = BigInt(base), BigInt(power)
     biresult = bibase^bipower
+    converted_result = zero(T)
     try
         converted_result = T(biresult)
     catch
