@@ -11,9 +11,9 @@ for S in (:SafeSigned, :SafeUnsigned)
     @inline one(x::T)  where T<:$S = one(T)
     @inline sizeof(x::T) where T<:$S = sizeof(T)
     @inline bitsof(x::T) where T<:$S = bitsof(T)
-    ndigits0z(n::T) where T<:$S = ndigits0z(baseint(x)) # do not reconvert
-    ndigits0z(n::T1, b::T2) where T1<:$S where T2<:SafeInteger = ndigits0z(baseint(x), baseint(b)) # do not reconvert
-    ndigits0z(n::T1, b::T2) where T1<:$S where T2<:Integer = ndigits0z(baseint(x), b) # do not reconvert
+    ndigits0z(x::T) where T<:$S = ndigits0z(baseint(x)) # do not reconvert
+    ndigits0z(x::T1, b::T2) where T1<:$S where T2<:SafeInteger = ndigits0z(baseint(x), baseint(b)) # do not reconvert
+    ndigits0z(x::T1, b::T2) where T1<:$S where T2<:Integer = ndigits0z(baseint(x), b) # do not reconvert
     @inline count_zeros(x::T) where T<:$S = safeint(count_zeros(baseint(x)))
     @inline count_ones(x::T) where T<:$S = safeint(count_ones(baseint(x)))
     @inline leading_zeros(x::T) where T<:$S = safeint(leading_zeros(baseint(x)))
