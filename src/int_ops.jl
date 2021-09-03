@@ -55,6 +55,10 @@ end
   return safeint(baseint( signbit(y) ? -abs(x) : abs(x) ))
 end  
 @inline copysign(x::T, y::T) where T<:SafeUnsigned = x
+@inline copysign(x::SafeSigned, y::Float16) = safeint( copysign(baseint(x), y) )
+@inline copysign(x::SafeSigned, y::Float32) = safeint( copysign(baseint(x), y) )
+@inline copysign(x::SafeSigned, y::Float64) = safeint( copysign(baseint(x), y) )
+@inline copysign(x::SafeSigned, y::Signed) = safeint( copysign(baseint(x), y) )
 
 @inline function flipsign(x::T, y::T) where T<:SafeSigned
   return safeint(baseint( signbit(y) ? -(x) : x ))
