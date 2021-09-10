@@ -77,6 +77,10 @@ for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
            xx, yy = promote(x, y)
            return $OP(xx, yy)
        end
+       @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Integer}
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
     end
 end
 
