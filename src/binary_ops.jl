@@ -28,20 +28,22 @@ end
 
 
 for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
+    for SI in (SafeSigned, SafeUnsigned, SafeInteger)
+        @eval begin
+            @inline function $OP(x::T, y::T) where T<: $SI
+                ix = baseint(x)
+                iy = baseint(y)
+                result = $OP(ix, iy)
+                return safeint(result)
+            end
+
+            @inline function $OP(x::T1, y::T2) where {T1<:$SI, T2<: $SI}
+                xx, yy = promote(x, y)
+                return $OP(xx, yy)
+            end
+        end
+    end
     @eval begin
-
-       @inline function $OP(x::T, y::T) where T<:SafeInteger
-           ix = baseint(x)
-           iy = baseint(y)
-           result = $OP(ix, iy)
-           return safeint(result)
-       end
-
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:SafeInteger}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-
        @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Signed}
            xx, yy = promote(x, y)
            return $OP(xx, yy)
@@ -75,7 +77,11 @@ for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
            xx, yy = promote(x, y)
            return $OP(xx, yy)
        end
-   end
+       @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Integer}
+           xx, yy = promote(x, y)
+           return $OP(xx, yy)
+       end
+    end
 end
 
 

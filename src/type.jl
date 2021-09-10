@@ -1,6 +1,6 @@
-abstract type SafeInteger  <: Integer     end
-abstract type SafeUnsigned <: SafeInteger end
-abstract type SafeSigned   <: SafeInteger end
+abstract type SafeUnsigned <: Unsigned end
+abstract type SafeSigned <: Signed end
+const SafeInteger = Union{SafeUnsigned, SafeSigned}
 
 primitive type SafeInt8    <: SafeSigned     8 end
 primitive type SafeInt16   <: SafeSigned    16 end
