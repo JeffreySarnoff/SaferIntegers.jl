@@ -15,7 +15,8 @@ SafeInt  <: SafeSigned   <: Signed   <: Integer <: Real
 
 A good deal of benchmarking was done to evaluate the appropriateness of using SaferIntegers with Ratios.jl.to protect calculations within Interpolations.jl from Integer overflow in innocent looking linear interpolation without warning. The results are compelling, encouraging their wider application.
 
-Using SafeInt64s with Ratios requires 1.025 the time used with Int64 Ratios. That is a laudable return on time invested (an extra 1.5 seconds minute).
+Using SafeInt64s with Ratios requires 1.025 the time used with Int64 Ratios.
+That is a laudable return on time invested (an extra 1.5 seconds minute).
 
 see Ratios/pull/23 1 for details.
 
