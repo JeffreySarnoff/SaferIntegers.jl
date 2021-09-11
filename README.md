@@ -119,7 +119,7 @@ should a calculation encouter an overflow or underflow,
 They check for overflow, even when multiplied by the usual Int and UInt types.    
 Otherwise, they should be unsurprising.
 
-## Type definitions and relationships
+### Type definitions
 
 ```
 abstract type SafeUnsigned <: Unsigned end
@@ -127,7 +127,7 @@ abstract type SafeSigned <: Signed end
 const SafeInteger = Union{SafeUnsigned, SafeSigned}
 ```
 
-(thanks to @mkitti and @TimHoly)
+(thanks to Mark Kittisopikul's PR and TimHoly's design of Ratios.jl)
 
 ## Other Conversions 
 
