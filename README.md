@@ -119,6 +119,16 @@ should a calculation encouter an overflow or underflow,
 They check for overflow, even when multiplied by the usual Int and UInt types.    
 Otherwise, they should be unsurprising.
 
+## Type definitions and relationships
+
+```
+abstract type SafeUnsigned <: Unsigned end
+abstract type SafeSigned <: Signed end
+const SafeInteger = Union{SafeUnsigned, SafeSigned}
+```
+
+(thanks to @mkitti and @TimHoly)
+
 ## Other Conversions 
 
 `Signed(x::SafeSigned)` returns an signed integer of the same bitwidth as x    
@@ -127,7 +137,7 @@ Otherwise, they should be unsurprising.
 
 `SafeSigned(x::Signed)` returns a safe signed integer of the same bitwidth as x    
 `SafeUnsigned(x::Unsigned)` returns a safe unsigned integer of the same bitwidth as x    
-`SafeInteger(x::Integer)` returns a safe Integer of the same bitwidth and either Signed or Unsigned as is x
+`SafeInteger(x::Integer)` returns a safe Integer of the same bitwidth and is either Signed or Unsigned as matches x
 
 ## Supports
 
