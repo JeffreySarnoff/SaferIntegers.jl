@@ -18,7 +18,7 @@ A good deal of benchmarking was done to evaluate the appropriateness of using Sa
 Using SafeInt64s with Ratios requires 1.025 the time used with Int64 Ratios.
 This is merely an extra 1.5 seconds per minute.
 
-see Ratios/pull/23 1 for details.
+see (https://github.com/timholy/Ratios.jl/pull/23)[Ratios/pull/23] for details.
 
 ----
 
