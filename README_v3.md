@@ -20,9 +20,6 @@ This is merely an extra 1.5 seconds per minute.
 
 see [Ratios/pull/23](https://github.com/timholy/Ratios.jl/pull/23) for details.
 
-
-see (Ratios/pull/23)[https://github.com/timholy/Ratios.jl/pull/23] for details.
-
 ----
 
 The formal distinction is in the creation of the abstract types, and so the inheritance hierarchy that pervades the concrete types.
