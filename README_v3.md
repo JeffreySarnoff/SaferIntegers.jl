@@ -30,11 +30,11 @@ The old way was a result of earlier internal limitations that Julia’s type pat
 
 ```
 abstract type SafeInteger  <: Integer     end
-abstract type SafeUnsigned <: SafeInteger end
 abstract type SafeSigned   <: SafeInteger end
 ```
 
-So it precluded the natural type abstraction pattern and Type logic we have now. For example, it had been the case that `!(SafeUnsigned <: Unsigned)`.
+So it precluded the natural pattern of type abstraction and well-formed instantiation logic we have now.
+- it had been the case that `!(SafeUnsigned <: Unsigned)`.
 
 There are some additional changes.
 - Several rarely encountered bugs (limited to small yet substantive subdomains)
