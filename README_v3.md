@@ -37,8 +37,8 @@ So it precluded the natural pattern of type abstraction and well-formed instanti
 - it had been the case that `!(SafeUnsigned <: Unsigned)`.
 
 There are some additional changes.
-- Several rarely encountered bugs (limited to small yet substantive subdomains)
-were found by careful users and now are fixed. 
+- Several bugs (limited to small yet substantive subdomains)
+were found by careful users and are fixed. 
 - `float(x::SafeInteger)` now works to mirror `float(x::Integer)`, for cross-package support.
 - There are other implementation improvements that just work.
 
