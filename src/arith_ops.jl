@@ -61,12 +61,33 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Integer}
+
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Signed}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+        
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Unsigned}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+        
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Base.BitSigned}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:Integer, T2<:SafeInteger}
+        @inline function $OP(x::T1, y::T2) where {T1<:Signed, T2<:SafeInteger}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+
+        @inline function $OP(x::T1, y::T2) where {T1<:Base.BitSigned, T2<:SafeInteger}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+        
+        @inline function $OP(x::T1, y::T2) where {T1<:Unsigned, T2<:SafeInteger}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
@@ -141,14 +162,6 @@ function divrem(x::S, y::S) where S<:SafeInteger
 end
 
 function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
-   xx, yy = promote(x, y)
-   return divrem(xx, yy)
-end
-function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
-   xx, yy = promote(x, y)
-   return divrem(xx, yy)
-end
-function divrem(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
@@ -228,12 +241,12 @@ for F in (:gcd, :lcm)
        return $F(xx, yy)
     end
 
-    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Integer}
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Signed}
        xx, yy = promote(x, y)
        return $F(xx, yy)
     end
-
-    function $F(x::S1, y::S2) where {S2<:SafeInteger, S1<:Integer}
+    
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Unsigned}
        xx, yy = promote(x, y)
        return $F(xx, yy)
     end
