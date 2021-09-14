@@ -22,7 +22,3 @@ else
     const SafeInt  = SafeInt64
     const SafeUInt = SafeUInt64
 end
-
-const UnsafeSigned   = Union{Int128, Int64, Int32, Int16, Int8}
-const UnsafeUnsigned = Union{UInt128, UInt64, UInt32, UInt16, UInt8}
-const UnsafeInteger  = Union{UnsafeSigned, UnsafeUnsigned}
