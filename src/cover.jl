@@ -42,12 +42,12 @@ for OP in (:checked_add, :checked_sub,
             return safeint(result)
         end
         
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:UnsafeInteger}
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Base.BitInteger}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:UnsafeInteger, T2<:SafeInteger}
+        @inline function $OP(x::T1, y::T2) where {T1<:Base.BitInteger, T2<:SafeInteger}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
