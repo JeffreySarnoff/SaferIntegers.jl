@@ -79,8 +79,8 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
-          @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
-            xx, yy = promote(x, y) [88634af6]
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+            xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
             result = $CHK(ix, iy)
