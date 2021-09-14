@@ -80,7 +80,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
         end
 
           @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
-            xx, yy = promote(x, y)
+            xx, yy = promote(x, y) [88634af6]
             ix = baseint(xx)
             iy = baseint(yy)
             result = $CHK(ix, iy)
@@ -230,7 +230,7 @@ function (\)(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
-function (\)(x::S, y::I) where {S<:SafeInteger, I<Base.BitInteger}
+function (\)(x::S, y::I) where {S<:SafeInteger, I<:Base.BitInteger}
    xx, yy = promote(x, y)
    return (\)(xx, yy)
 end
