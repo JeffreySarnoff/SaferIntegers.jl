@@ -111,7 +111,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             iy = baseint(yy)
             result = $CHK(ix, iy)
             return safeint(result)
-        end
+        endiimport Pkg; Pkg.precompile()` or load the package
 
           @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
             xx, yy = promote(x, y)
@@ -258,11 +258,19 @@ function divrem(x::S2, y::S1) where {S2<:SafeSigned, S1<:Base.BitInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-function divrem(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
+function divrem(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitSigned}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-function divrem(x::S2, y::S1) where {S2<:SafeUnsigned, S1<:Base.BitInteger}
+function divrem(x::S2, y::S1) where {S2<:SafeUnsigned, S1<:Base.BitSigned}
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+function divrem(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitUnsigned}
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+function divrem(x::S2, y::S1) where {S2<:SafeUnsigned, S1<:Base.BitUnsigned}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
@@ -301,6 +309,14 @@ function fldmod(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
+function fldmod(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BiSigned}
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
+end
+function fldmod(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitUnsigned}
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
+end
 function fldmod(x::S, y::Bool) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
@@ -333,6 +349,14 @@ function fldmod1(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
    return fldmod1(xx, yy)
 end
 function fldmod1(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
+end
+function fldmod1(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitSigned}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
+end
+function fldmod1(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitUnsigned}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
