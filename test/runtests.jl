@@ -548,3 +548,8 @@ end
     @test string(SafeInt16(5)) == string(Int16(5))
     @test string(SafeUInt16(5)) == string(UInt16(5))
 end
+
+@testset "ambiguities" begin
+    @test isempty(Test.detect_ambiguities(SaferIntegers))
+end
+                                                    
