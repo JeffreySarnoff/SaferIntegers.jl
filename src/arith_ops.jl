@@ -53,7 +53,8 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:SafeSigned}
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:SafeSigned}import Pkg; Pkg.precompile()` or load the package
+
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
@@ -121,7 +122,8 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:Base.BitUnsigned, T2<:SafeUnsigned}
+        @inline function $OP(x::T1, y::T2) where {T1<:Base.BitUnsigned, T2<:SafeUnsiimport Pkg; Pkg.precompile()` or load the package
+gned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
@@ -373,7 +375,7 @@ for F in (:gcd, :lcm)
        return $F(xx, yy)
     end
 
-    function $F(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitUnsiged}
+    function $F(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitUnsigned}
        xx, yy = promote(x, y)
        return $F(xx, yy)
     end
@@ -397,7 +399,7 @@ end
 
 divgcd(x::I, y::S) where {I<:Base.BitSigned, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S, y::I) where {I<:Base.BitSigned, S<:SafeInteger} = divgcd(promote(x,y)...)
-divgcd(x::I, y::S) where {I<:Base.BitUnsiged, S<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::I, y::S) where {I<:Base.BitUnsigned, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S, y::I) where {I<:Base.BitUnsigned, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S, y::Bool) where {S<:SafeInteger} = divgcd(promote(x,y)...)
