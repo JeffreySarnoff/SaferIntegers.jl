@@ -391,7 +391,6 @@ for F in (:gcd, :lcm)
         return $F(xx, yy)
     end
 
-    end
   end
 end
 
