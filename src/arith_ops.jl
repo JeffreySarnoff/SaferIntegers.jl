@@ -1,3 +1,16 @@
+for OP in (:div, :rem, :fld, :cld)
+    for S in (:SafeSigned, :SafeUnsigned)
+        @eval begin
+            function $OP(x::T, y::T, ::typeof(RoundToZero)) where {T <: $S}
+                xx = baseint(x)
+                yy = baseint(y)
+                result = $OP(xx, yy)
+                return $S(result)
+            end
+        end
+    end
+end
+
 function checked_mod1(x::T, y::T) where T<:Base.BitInteger
     result = checked_mod(x, y)
     result = ifelse(result === zero(T), y, result)
