@@ -112,8 +112,8 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             result = $CHK(ix, iy)
             return safeint(result)
         end
-        
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+
+          @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
@@ -258,19 +258,11 @@ function divrem(x::S2, y::S1) where {S2<:SafeSigned, S1<:Base.BitInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-function divrem(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitSigned}
+function divrem(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-function divrem(x::S2, y::S1) where {S2<:SafeUnsigned, S1<:Base.BitSigned}
-   xx, yy = promote(x, y)
-   return divrem(xx, yy)
-end
-function divrem(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitUnsigned}
-   xx, yy = promote(x, y)
-   return divrem(xx, yy)
-end
-function divrem(x::S2, y::S1) where {S2<:SafeUnsigned, S1<:Base.BitUnsigned}
+function divrem(x::S2, y::S1) where {S2<:SafeUnsigned, S1<:Base.BitInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
@@ -309,14 +301,6 @@ function fldmod(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
-function fldmod(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BiSigned}
-   xx, yy = promote(x, y)
-   return fldmod(xx, yy)
-end
-function fldmod(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitUnsigned}
-   xx, yy = promote(x, y)
-   return fldmod(xx, yy)
-end
 function fldmod(x::S, y::Bool) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
@@ -349,14 +333,6 @@ function fldmod1(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
    return fldmod1(xx, yy)
 end
 function fldmod1(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
-   xx, yy = promote(x, y)
-   return fldmod1(xx, yy)
-end
-function fldmod1(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitSigned}
-   xx, yy = promote(x, y)
-   return fldmod1(xx, yy)
-end
-function fldmod1(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitUnsigned}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
@@ -397,7 +373,7 @@ for F in (:gcd, :lcm)
        return $F(xx, yy)
     end
 
-    function $F(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitUnsigned}
+    function $F(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitUnsiged}
        xx, yy = promote(x, y)
        return $F(xx, yy)
     end
@@ -421,7 +397,7 @@ end
 
 divgcd(x::I, y::S) where {I<:Base.BitSigned, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S, y::I) where {I<:Base.BitSigned, S<:SafeInteger} = divgcd(promote(x,y)...)
-divgcd(x::I, y::S) where {I<:Base.BitUnsigned, S<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::I, y::S) where {I<:Base.BitUnsiged, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S, y::I) where {I<:Base.BitUnsigned, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S, y::Bool) where {S<:SafeInteger} = divgcd(promote(x,y)...)
