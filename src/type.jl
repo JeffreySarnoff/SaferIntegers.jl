@@ -1,5 +1,6 @@
 abstract type SafeUnsigned <: Unsigned end
 abstract type SafeSigned <: Signed end
+
 const SafeInteger = Union{SafeUnsigned, SafeSigned}
 
 primitive type SafeInt8    <: SafeSigned     8 end
@@ -21,7 +22,6 @@ else
     const SafeInt  = SafeInt64
     const SafeUInt = SafeUInt64
 end
-
 
 const UnsafeSigned = Union{Int128, Int64, Int32, Int16, Int8}
 const UnsafeUnsigned = Union{UInt128, UInt64, UInt32, UInt16, UInt8}
