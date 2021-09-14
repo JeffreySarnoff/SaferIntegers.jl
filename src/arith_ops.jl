@@ -250,11 +250,19 @@ function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitInteger}
+function divrem(x::S1, y::S2) where {S1<:SafeSigned, S2<:Base.BitInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-function divrem(x::S2, y::S1) where {S2<:SafeInteger, S1<:Base.BitInteger}
+function divrem(x::S2, y::S1) where {S2<:SafeSigned, S1<:Base.BitInteger}
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+function divrem(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
+   xx, yy = promote(x, y)
+   return divrem(xx, yy)
+end
+function divrem(x::S2, y::S1) where {S2<:SafeUnsigned, S1<:Base.BitInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
@@ -277,11 +285,19 @@ function fldmod(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
-function fldmod(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitInteger}
+function fldmod(x::S1, y::S2) where {S1<:SafeSigned, S2<:Base.BitInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
-function fldmod(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitInteger}
+function fldmod(x::S2, y::S1) where {S1<:SafeSigned, S2<:Base.BitInteger}
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
+end
+function fldmod(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
+   xx, yy = promote(x, y)
+   return fldmod(xx, yy)
+end
+function fldmod(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
@@ -304,11 +320,19 @@ function fldmod1(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
-function fldmod1(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitInteger}
+function fldmod1(x::S1, y::S2) where {S1<:SafeSigned, S2<:Base.BitInteger}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
-function fldmod1(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitInteger}
+function fldmod1(x::S2, y::S1) where {S1<:SafeSigned, S2<:Base.BitInteger}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
+end
+function fldmod1(x::S1, y::S2) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
+   xx, yy = promote(x, y)
+   return fldmod1(xx, yy)
+end
+function fldmod1(x::S2, y::S1) where {S1<:SafeUnsigned, S2<:Base.BitInteger}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
@@ -334,16 +358,26 @@ for F in (:gcd, :lcm)
        return $F(xx, yy)
     end
 
-    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitInteger}
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitSigned}
        xx, yy = promote(x, y)
        return $F(xx, yy)
     end
 
-    function $F(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitInteger}
+    function $F(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitSigned}
        xx, yy = promote(x, y)
        return $F(xx, yy)
     end
 
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitUnsigned}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+
+    function $F(x::S2, y::S1) where {S1<:SafeInteger, S2<:Base.BitUnsiged}
+       xx, yy = promote(x, y)
+       return $F(xx, yy)
+    end
+            
     function $F(x::S, y::Bool) where {S<:SafeInteger}
        xx, yy = promote(x, y)
        return $F(xx, yy)
@@ -361,8 +395,10 @@ function divgcd(x::S, y::S) where {S<:SafeInteger}
     return div(x,g), div(y,g)
 end
 
-divgcd(x::I, y::S) where {I<:Base.BitInteger, S<:SafeInteger} = divgcd(promote(x,y)...)
-divgcd(x::S, y::I) where {I<:Base.BitInteger, S<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::I, y::S) where {I<:Base.BitSigned, S<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::S, y::I) where {I<:Base.BitSigned, S<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::I, y::S) where {I<:Base.BitUnsiged, S<:SafeInteger} = divgcd(promote(x,y)...)
+divgcd(x::S, y::I) where {I<:Base.BitUnsigned, S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::S, y::Bool) where {S<:SafeInteger} = divgcd(promote(x,y)...)
 divgcd(x::Bool, y::S) where {S<:SafeInteger} = divgcd(promote(x,y)...)
