@@ -53,8 +53,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:SafeSigned}import Pkg; Pkg.precompile()` or load the package
-
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:SafeSigned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
