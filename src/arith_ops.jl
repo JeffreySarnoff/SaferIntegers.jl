@@ -111,9 +111,9 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             iy = baseint(yy)
             result = $CHK(ix, iy)
             return safeint(result)
-        endiimport Pkg; Pkg.precompile()` or load the package
-
-          @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+        end
+        
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
             xx, yy = promote(x, y)
             ix = baseint(xx)
             iy = baseint(yy)
