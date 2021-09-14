@@ -21,7 +21,7 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             result = $CHK(ix, iy)
             return safeint(result)
        end
-        
+
        @inline function $OP(x::T, y::T) where T<:SafeUnsigned
             ix = baseint(x)
             iy = baseint(y)
@@ -61,12 +61,38 @@ for (OP, CHK) in ((:(+), :checked_add), (:(-), :checked_sub),
             return safeint(result)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Base.BitInteger}
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitSigned}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+        @inline function $OP(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitSigned}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
 
-        @inline function $OP(x::T1, y::T2) where {T1<:Base.BitInteger, T2<:SafeInteger}
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+        @inline function $OP(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+        @inline function $OP(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+
+        @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+            xx, yy = promote(x, y)
+            return $OP(xx, yy)
+        end
+        @inline function $OP(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
             xx, yy = promote(x, y)
             return $OP(xx, yy)
         end
@@ -144,14 +170,43 @@ function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
 end
-function divrem(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitInteger}
-   xx, yy = promote(x, y)
-   return divrem(xx, yy)
+
+@inline function divrem(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return divrem(xx, yy)
 end
-function divrem(x::S1, y::S2) where {S2<:SafeInteger, S1<:Base.BitInteger}
-   xx, yy = promote(x, y)
-   return divrem(xx, yy)
+@inline function divrem(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return divrem(xx, yy)
 end
+
+@inline function divrem(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return divrem(xx, yy)
+end
+@inline function divrem(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return divrem(xx, yy)
+end
+
+@inline function divrem(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return divrem(xx, yy)
+end
+@inline function divrem(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return divrem(xx, yy)
+end
+
+@inline function divrem(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return divrem(xx, yy)
+end
+@inline function divrem(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return divrem(xx, yy)
+end
+
 function divrem(x::S, y::Bool) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return divrem(xx, yy)
@@ -171,14 +226,43 @@ function fldmod(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
 end
-function fldmod(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitInteger}
-   xx, yy = promote(x, y)
-   return fldmod(xx, yy)
+
+@inline function fldmod(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return fldmod(xx, yy)
 end
-function fldmod(x::S1, y::S2) where {S2<:SafeInteger, S1<:Base.BitInteger}
-   xx, yy = promote(x, y)
-   return fldmod(xx, yy)
+@inline function fldmod(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return fldmod(xx, yy)
 end
+
+@inline function fldmod(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return fldmod(xx, yy)
+end
+@inline function fldmod(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return fldmod(xx, yy)
+end
+
+@inline function fldmod(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return fldmod(xx, yy)
+end
+@inline function fldmod(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return fldmod(xx, yy)
+end
+
+@inline function fldmod(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return fldmod(xx, yy)
+end
+@inline function fldmod(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return fldmod(xx, yy)
+end
+
 function fldmod(x::S, y::Bool) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod(xx, yy)
@@ -198,14 +282,43 @@ function fldmod1(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
 end
-function fldmod1(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitInteger}
-   xx, yy = promote(x, y)
-   return fldmod1(xx, yy)
+
+@inline function fldmod1(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return fldmod1(xx, yy)
 end
-function fldmod1(x::S1, y::S2) where {S2<:SafeInteger, S1<:Base.BitInteger}
-   xx, yy = promote(x, y)
-   return fldmod1(xx, yy)
+@inline function fldmod1(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return fldmod1(xx, yy)
 end
+
+@inline function fldmod1(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return fldmod1(xx, yy)
+end
+@inline function fldmod1(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return fldmod1(xx, yy)
+end
+
+@inline function fldmod1(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return fldmod1(xx, yy)
+end
+@inline function fldmod1(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return fldmod1(xx, yy)
+end
+
+@inline function fldmod1(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return fldmod1(xx, yy)
+end
+@inline function fldmod1(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return fldmod1(xx, yy)
+end
+
 function fldmod1(x::S, y::Bool) where {S<:SafeInteger}
    xx, yy = promote(x, y)
    return fldmod1(xx, yy)
@@ -228,24 +341,56 @@ for F in (:gcd, :lcm)
        return $F(xx, yy)
     end
 
-    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:Base.BitInteger}
-       xx, yy = promote(x, y)
-       return $F(xx, yy)
+    function $F(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
+    xx, yy = promote(x, y)
+    return $F(xx, yy)
     end
 
-    function $F(x::S1, y::S2) where {S2<:SafeInteger, S1<:Base.BitInteger}
-       xx, yy = promote(x, y)
-       return $F(xx, yy)
+    function $F(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitSigned}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
+    end
+    function $F(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitSigned}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
+    end
+
+    function $F(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
+    end
+    function $F(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
+    end
+
+    function $F(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
+    end
+    function $F(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
+    end
+
+    function $F(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
+    end
+    function $F(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
     end
 
     function $F(x::S, y::Bool) where {S<:SafeInteger}
-       xx, yy = promote(x, y)
-       return $F(xx, yy)
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
+    end
+    function $F(x::Bool, y::S) where {S<:SafeInteger}
+        xx, yy = promote(x, y)
+        return $F(xx, yy)
     end
 
-    function $F(x::Bool, y::S) where {S<:SafeInteger}
-       xx, yy = promote(x, y)
-       return $F(xx, yy)
     end
   end
 end
@@ -255,8 +400,53 @@ function divgcd(x::S, y::S) where {S<:SafeInteger}
     return div(x,g), div(y,g)
 end
 
-divgcd(x::I, y::S) where {I<:Base.BitInteger, S<:SafeInteger} = divgcd(promote(x,y)...)
-divgcd(x::S, y::I) where {I<:Base.BitInteger, S<:SafeInteger} = divgcd(promote(x,y)...)
-divgcd(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger} = divgcd(promote(x,y)...)
-divgcd(x::S, y::Bool) where {S<:SafeInteger} = divgcd(promote(x,y)...)
-divgcd(x::Bool, y::S) where {S<:SafeInteger} = divgcd(promote(x,y)...)
+function divgcd(x::S1, y::S2) where {S1<:SafeInteger, S2<:SafeInteger}
+   xx, yy = promote(x, y)
+   return divgcd(xx, yy)
+end
+
+@inline function divgcd(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return divgcd(xx, yy)
+end
+@inline function divgcd(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return divgcd(xx, yy)
+end
+
+@inline function divgcd(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return divgcd(xx, yy)
+end
+@inline function divgcd(x::T2, y::T1) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return divgcd(xx, yy)
+end
+
+@inline function divgcd(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return divgcd(xx, yy)
+end
+@inline function divgcd(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
+    xx, yy = promote(x, y)
+    return divgcd(xx, yy)
+end
+
+@inline function divgcd(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return divgcd(xx, yy)
+end
+@inline function divgcd(x::T2, y::T1) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
+    xx, yy = promote(x, y)
+    return divgcd(xx, yy)
+end
+
+function divgcd(x::S, y::Bool) where {S<:SafeInteger}
+   xx, yy = promote(x, y)
+   return divgcd(xx, yy)
+end
+function divgcd(x::Bool, y::S) where {S<:SafeInteger}
+   xx, yy = promote(x, y)
+   return divgcd(xx, yy)
+end
+
