@@ -25,6 +25,8 @@ end
 
 # use with @eval loops
 
+const UnpairedSafes = (:SafeUnsigned, :SafeSigned)
+
 const MixedSafes = ((SafeUnsigned, SafeSigned),)
 
 const PairedSafes = ((SafeUnsigned, SafeUnsigned),

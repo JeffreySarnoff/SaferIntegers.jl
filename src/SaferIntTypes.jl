@@ -27,8 +27,6 @@ const binaryfuncs = (:*, :+, :-, :^) # binary functions on irrationals that make
 
 const changefuncs = Set([randfuncs..., matfuncs...,
                          binaryfuncs..., :include])
-
-
 changetype(x) = x
 
 changetype(x::SafeInt128) = x
@@ -145,18 +143,15 @@ function changetype_of_assigned_cast_int(ex::Expr)
    return ex
 end
 
-
-# calls to include(f) are changed to include(T, mod, f) so that
+# calls to include(f) are changed to include(T, modul, f) so that
 # @changetype can apply recursively to included files.
-function include(mod, filename::AbstractString)
+function include(modul, filename::AbstractString)
     # use the undocumented parse_input_line function so that we preserve
     # the filename and line-number information.
     s = string("begin; ", read(filename, String), "\nend\n")
     expr = Base.parse_input_line(s, filename=filename)
-    Core.eval(mod, changetype(expr))
+    Core.eval(modul, changetype(expr))
 end
-
-
 
 for F in binaryfuncs
 #    @eval $F(T, args...) = Base.$F(changetype.(T, args...)...,)
