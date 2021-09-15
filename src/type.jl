@@ -22,3 +22,34 @@ else
     const SafeInt  = SafeInt64
     const SafeUInt = SafeUInt64
 end
+
+# use with @eval loops
+
+const UnpairedSafes = (:SafeUnsigned, :SafeSigned)
+
+const MixedSafes = ((SafeUnsigned, SafeSigned),)
+
+const PairedSafes = ((SafeUnsigned, SafeUnsigned),
+                     (SafeSigned, SafeSigned),
+                     (SafeUnsigned, SafeSigned),
+                     (SafeSigned, SafeUnsigned))
+
+const MixedInts  = ((SafeUnsigned, Base.BitUnsigned),
+                    (SafeUnsigned, Base.BitSigned),
+                    (SafeSigned, Base.BitUnsigned),
+                    (SafeSigned, Base.BitSigned))
+
+const MixedTypes = ((SafeUnsigned, SafeSigned),
+                    (SafeUnsigned, Base.BitUnsigned),
+                    (SafeUnsigned, Base.BitSigned),
+                    (SafeSigned, Base.BitUnsigned),
+                    (SafeSigned, Base.BitSigned))
+
+const MixedPairs = ((SafeUnsigned, SafeUnsigned),
+                    (SafeSigned, SafeSigned),
+                    (SafeUnsigned, SafeSigned),
+                    (SafeSigned, SafeUnsigned),
+                    (SafeUnsigned, Base.BitUnsigned),
+                    (SafeUnsigned, Base.BitSigned),
+                    (SafeSigned, Base.BitUnsigned),
+                    (SafeSigned, Base.BitSigned))

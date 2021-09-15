@@ -1,91 +1,57 @@
 for OP in (:(&), :(|), :(⊻))
     @eval begin
+        @inline function $OP(x::T, y::T) where T<:SafeInteger
+            ix = baseint(x)
+            iy = baseint(y)
+            result = $OP(ix, iy)
+            return safeint(result)
+        end
+    end
+end
 
-       @inline function $OP(x::T, y::T) where T<:SafeInteger
-           ix = baseint(x)
-           iy = baseint(y)
-           result = $OP(ix, iy)
-           return safeint(result)
-       end
-
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:SafeInteger}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Base.BitInteger}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-
-       @inline function $OP(x::T2, y::T1) where {T1<:SafeInteger, T2<:Base.BitInteger}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-
+for OP in (:(&), :(|), :(⊻))
+    for (T1, T2) in MixedTypes
+        @eval begin
+            @inline function $OP(x::$T1, y::$T2)
+                xx, yy = promote(x, y)
+                return $OP(xx, yy)
+            end
+            @inline function $OP(x::$T2, y::$T1)
+                xx, yy = promote(x, y)
+                return $OP(xx, yy)
+            end
+        end
    end
 end
 
 for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
-    for SI in (SafeSigned, SafeUnsigned, SafeInteger)
-        @eval begin
-            @inline function $OP(x::T, y::T) where T<: $SI
-                ix = baseint(x)
-                iy = baseint(y)
-                result = $OP(ix, iy)
-                return safeint(result)
-            end
+    @eval begin
+        @inline function $OP(x::T, y::T) where T<:SafeInteger
+            ix = baseint(x)
+            iy = baseint(y)
+            result = $OP(ix, iy)
+            return safeint(result)
+        end
+    end
+end
 
-            @inline function $OP(x::T1, y::T2) where {T1<:$SI, T2<: $SI}
+for OP in (:(<), :(<=), :(>=), :(>), :(!=), :(==), :isless, :isequal)
+    for (T1, T2) in MixedTypes
+        @eval begin
+            @inline function $OP(x::$T1, y::$T2)
+                xx, yy = promote(x, y)
+                return $OP(xx, yy)
+            end
+            @inline function $OP(x::$T2, y::$T1)
                 xx, yy = promote(x, y)
                 return $OP(xx, yy)
             end
         end
     end
-    @eval begin
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitSigned}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-       @inline function $OP(x::T1, y::T2) where {T1<:Base.BitSigned, T2<:SafeSigned}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeSigned, T2<:Base.BitUnsigned}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-       @inline function $OP(x::T1, y::T2) where {T1<:Base.BitUnsigned, T2<:SafeSigned}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitSigned}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-       @inline function $OP(x::T1, y::T2) where {T1<:Base.BitSigned, T2<:SafeUnsigned}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeUnsigned, T2<:Base.BitUnsigned}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-       @inline function $OP(x::T1, y::T2) where {T1<:Base.BitUnsigned, T2<:SafeUnsigned}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-       @inline function $OP(x::T1, y::T2) where {T1<:SafeInteger, T2<:Base.BitInteger}
-           xx, yy = promote(x, y)
-           return $OP(xx, yy)
-       end
-    end
 end
 
 for OP in (:(>>>), :(>>), :(<<))
     @eval begin
-
        @inline function $OP(x::T, y::T) where T<:SafeInteger
             r1 = baseint(x)
             r2 = baseint(y)
@@ -127,6 +93,6 @@ for OP in (:(>>>), :(>>), :(<<))
             bitsof(T1) < abs(yy) && throw(OverflowError("cannot shift $T1 by $yy"))
             return reinterpret(T1, $OP(x, yy))
         end
-
    end
 end
+
