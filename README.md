@@ -12,6 +12,8 @@
 &nbsp;&nbsp;&nbsp;[![Test Coverage](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl/coverage.svg?branch=master)](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl?branch=master)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
+[![Package Downloads](https://shields.io/endpoint?url=https://pkgs.genieframework.com/api/v1/badge/SaferIntegers)](https://pkgs.genieframework.com?packages=SaferIntegers&startdate=2010-01-01&enddate=2040-12-31)
+
 
 -----
 
