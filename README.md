@@ -69,7 +69,7 @@ There are security implications for integer overflow in certain situations.
 
 ### Test code for integer safety
 
-- `@saferintegers include(join("PackageTestDirectory", "PackageTests.jl"))`
+- `@saferintegers include(joinpath("PackageTestDirectory", "PackageTests.jl"))`
     - includes a type modified `PackageTests.jl` in the current environment
     - all `Integer` types in `PackageTests.jl` are become `SafeInteger` types
     - run it and see if there are any problems!
