@@ -9,10 +9,7 @@
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/dev/) [![Docs](https://img.shields.io/badge/docs-dev-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/dev/) [![Test Coverage](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl/coverage.svg?branch=main)](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl?branch=main) [![Package Downloads](https://shields.io/endpoint?url=https://pkgs.genieframework.com/api/v1/badge/SaferIntegers)](https://pkgs.genieframework.com?packages=SaferIntegers&startdate=2010-01-01&enddate=2040-12-31) [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT) 
 
-
 [![Test Coverage](https://coveralls.io/repos/github/JeffreySarnoff/SaferIntegers.jl/badge.svg?branch=main)](https://coveralls.io/github/JeffreySarnoff/SaferIntegers.jl?branch=main) [![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl.svg?branch=main)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl) 
-
-
 
 -----
 
@@ -214,11 +211,55 @@ hundredths( (@belapsed test(n, div, $sa, $sb, $sc, $sd)) /
 1.14
 ```
 
+### technical notes about code updated a while ago
+
+The exported abstract types SafeInteger, SafeSigned, SafeUnsigned are now defined as originally intended.
+Julia’s advancement, the active pursuit of consistant type abstractions, made it easy.
+
+```
+SafeUnsigned  <:  Unsigned
+SafeSigned    <:  Signed
+SafeInteger   <:  Integer
+```
+
+This clean approach holds through the exported concrete types.
+
+```
+SafeUInt <: SafeUnsigned <: Unsigned <: Integer <: Real
+SafeInt  <: SafeSigned   <: Signed   <: Integer <: Real
+```
+
+A good deal of benchmarking was done to evaluate the appropriateness of using SaferIntegers with Ratios.jl.to protect calculations within Interpolations.jl from Integer overflow in innocent looking linear interpolation without warning. The results are compelling, encouraging their wider application.
+
+Using SafeInt64s with Ratios requires 1.025 the time used with Int64 Ratios.
+This is merely an extra 1.5 seconds per minute.
+
+see [Ratios/pull/23](https://github.com/timholy/Ratios.jl/pull/23) for details.
+
+----
+
+The formal distinction is in the creation of the abstract types, and so the inheritance hierarchy that pervades the concrete types.
+
+The new way is much cleaner and makes reasoning about the shallow extension to the abstract inheritance paths much simpler. This is given in the announcement above. The old way was a result of earlier internal limitations that Julia’s type patterning had embedded in the way Unsigned and Signed integer types had been developed (well, implemented). This forced defining these abstract types:
+
+```
+abstract type SafeInteger  <: Integer     end
+abstract type SafeSigned   <: SafeInteger end
+```
+
+So it precluded the natural pattern of type abstraction and well-formed instantiation logic we have now.
+- it had been the case that `!(SafeUnsigned <: Unsigned)`.
+
+There are some additional changes.
+- Several bugs (limited to small yet substantive subdomains) were found by careful users and are fixed. 
+- `float(x::SafeInteger)` now works to mirror `float(x::Integer)`, for cross-package support.
+- There are other implementation improvements that just work.
+
+
 ### credits
 
 This work derives from [RoundingIntegers.jl](https://github.com/JuliaMath/RoundingIntegers.jl).
 
 The @saferintegers macro machinery is heavily informed by [ChangePrecision.jl](https://github.com/stevengj/ChangePrecision.jl).
-
 
 
