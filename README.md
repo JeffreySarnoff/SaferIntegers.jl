@@ -218,7 +218,7 @@ hundredths( (@belapsed test(n, div, $sa, $sb, $sc, $sd)) /
 
 This work derives from [RoundingIntegers.jl](https://github.com/JuliaMath/RoundingIntegers.jl).
 
-The @saferintegers machinery is heavily informed by [ChangePrecision.jl](https://github.com/stevengj/ChangePrecision.jl).
+The @saferintegers macro machinery is heavily informed by [ChangePrecision.jl](https://github.com/stevengj/ChangePrecision.jl).
 
 
 
