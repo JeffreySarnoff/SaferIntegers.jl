@@ -9,8 +9,6 @@
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/dev/) [![Docs](https://img.shields.io/badge/docs-dev-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/dev/) [![Test Coverage](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl/coverage.svg?branch=main)](https://codecov.io/github/JeffreySarnoff/SaferIntegers.jl?branch=main) [![Package Downloads](https://shields.io/endpoint?url=https://pkgs.genieframework.com/api/v1/badge/SaferIntegers)](https://pkgs.genieframework.com?packages=SaferIntegers&startdate=2010-01-01&enddate=2040-12-31) [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT) 
 
-[![Test Coverage](https://coveralls.io/repos/github/JeffreySarnoff/SaferIntegers.jl/badge.svg?branch=main)](https://coveralls.io/github/JeffreySarnoff/SaferIntegers.jl?branch=main) [![Build Status](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl.svg?branch=main)](https://travis-ci.org/JeffreySarnoff/SaferIntegers.jl) 
-
 -----
 
 #### A Safer Way 
