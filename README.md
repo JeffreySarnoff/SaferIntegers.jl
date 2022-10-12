@@ -7,7 +7,7 @@
 
 -----
 
-[![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/stable/)
+[![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/dev /)
 [![Docs](https://img.shields.io/badge/docs-dev-blue.svg)](http://jeffreysarnoff.github.io/SaferIntegers.jl/dev/)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
