@@ -55,11 +55,9 @@ There are security implications for integer overflow in certain situations.
 
 - This package is designed for easy use and written to be performant in many sorts of use.
 
-- All exported types are stable (e.g. `typeof(SafeInt32 + 1) == SafeInt32`)
+- All exported types are stable (e.g. `typeof(SafeInt32(1) + 1) == SafeInt32`)
 
 - Using _SaferIntegers_ can preclude some known ways that insecure systems are breached.
-
-- Safer Rationals just work: `SafeRational(161803398875,100000000000)`
 
 ### Test code for integer safety
 
@@ -103,7 +101,6 @@ should a calculation encouter an overflow or underflow,
     - `abs`, `neg`, `div`, `fld`, `fld1`, `cld`, `rem`, `mod`, `mod1`
     - `divrem`, `fldmod`, `fldmod1`
     - `-`, `+`, `*`, `^`
-    - so does `/`, before converting to Float64
 
 ## Exported Types and Constructors / Converters
 
@@ -127,9 +124,9 @@ const SafeInteger = Union{SafeUnsigned, SafeSigned}
 
 ## Other Conversions 
 
-`Signed(x::SafeSigned)` returns an signed integer of the same bitwidth as x    
-`Unsigned(x::SafeUnsigned)` returns an unsigned integer of the same bitwidth as x    
-`Integer(x::SafeInteger)` returns an Integer of the same bitwidth and either Signed or Unsigned as is x
+`Signed(x::SafeSigned)` returns an signed built-in integer of the same bitwidth as x    
+`Unsigned(x::SafeUnsigned)` returns an unsigned built-in integer of the same bitwidth as x    
+`Integer(x::SafeInteger)` returns a built-in integer of the same bitwidth and either Signed or Unsigned as is x
 
 `SafeSigned(x::Signed)` returns a safe signed integer of the same bitwidth as x    
 `SafeUnsigned(x::Unsigned)` returns a safe unsigned integer of the same bitwidth as x    
