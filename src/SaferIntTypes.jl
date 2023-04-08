@@ -78,10 +78,7 @@ end
 
 
 function changetypes(ex::Expr)
-    if Meta.isexpr(ex, :call, 3) && ex.args[1] == :^ && ex.args[3] isa Int
-        # mimic Julia 0.6/0.7's lowering to literal_pow
-        return Expr(:call, ChangeType.literal_pow, :^, changetype(ex.args[2]), Val{ex.args[3]}())
-    elseif Meta.isexpr(ex, :call, 2) && ex.args[1] == :include
+    if Meta.isexpr(ex, :call, 2) && ex.args[1] == :include
         return :($include(@__MODULE__, $(ex.args[2])))
     elseif Meta.isexpr(ex, :call) && ex.args[1] in changefuncs
         return Expr(:call, Core.eval(SaferIntTypes, ex.args[1]), changetype.(ex.args[2:end])...)
