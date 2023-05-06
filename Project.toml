@@ -1,5 +1,5 @@
 desc = "These integer types check for overflow and underflow, otherwise they work like system integers." 
-keywords = ["integer", "overflow", "underflow", "checked-arithmetic"]
+keywords = ["checked-arithmetic", "integer", "overflow", "underflow"]
 name = "SaferIntegers"
 uuid = "88634af6-177f-5301-88b8-7819386cfa38"
 repo = "https://github.com/JeffreySarnoff/SaferIntegers.jl.git"
