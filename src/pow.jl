@@ -19,7 +19,7 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
   @eval begin
 
     function Base.:(^)(x::$T, y::$T)
-        if 1 < x < 129
+        if 1 < x < 127
             if y <= $A[x] 
                 $T($I(x)^$I(y))
             else
