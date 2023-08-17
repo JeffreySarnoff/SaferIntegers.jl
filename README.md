@@ -1,5 +1,5 @@
 # SaferIntegers
-### These integer types do not ignore arithmetic overflows and underflows.
+### These integer types do not ignore arithmetic overflows.
 
 ----
 
@@ -13,13 +13,13 @@
 
 #### A Safer Way 
 
-Using the default Int or UInt types allows overflow and underflow errors to occur silently, without notice. These incorrect values propagate and such errors are difficult to recognize after the fact.
+Using the default Int or UInt types allows overflow errors to occur silently, without notice. These incorrect values propagate and such errors are difficult to recognize after the fact.
 
-This package exports safer versions. These types check for _overflow and underflow_ in each of the basic arithmetic functions. The processing will stop with a message in the event of _overflow or underflow_.  On one machine, the overhead relative to the built-in integer types is <= 1.2x.
+This package exports safer versions. These types check for overflow in each of the basic arithmetic functions. The processing will stop with a message in the event of overflow.  On one machine, the overhead relative to the built-in integer types is <= 1.2x.
 
 #### Background
 
-Integer overflow occurs when an integer type is increased beyond its maximum value. Integer underflow occurs when an integer type is decreased below its minimum value.  Signed and Unsigned values are subject to overflow and underflow.  With Julia, you can see the rollover using Int or UInt types:
+Integer overflow occurs when an integer type is increased beyond its maximum value or below its minimum value. Signed and Unsigned values are subject to overflow.  With Julia, you can see the rollover using Int or UInt types:
    ```julia
    typemax(Int) + one(Int) < 0
    typemin(Int) - one(Int) > 0
@@ -81,7 +81,7 @@ with the bitsize-named versions.
 
 SafeInt and SafeUInt give you these arithmetic operators:    
 `+`, `-`, `*`, `div`, `rem`, `fld`, `mod`, `fld1`, `mod1`, `^`   
-which have become overflow and underflow aware.
+which have become overflow aware.
 
 The Int and UInt types can fail at simple arithmetic        
 and will continue carrying the incorrectness forward.    
@@ -89,7 +89,7 @@ The validity of values obtained is difficult to ascertain.
 
 Most calculations proceed without incident, 
 and when used SafeInts operate as Ints
-should a calculation encouter an overflow or underflow, 
+should a calculation encouter an overflow, 
     we are alerted and the calculation does not proceed.
 
 #### Give them a whirl.
@@ -97,7 +97,7 @@ should a calculation encouter an overflow or underflow,
 > Get the package: `Pkg.add("SaferIntegers")`     
 > Use the package:  `using SaferIntegers`     
 
-- These functions check for overflow/underflow automatically:    
+- These functions check for overflow automatically:    
     - `abs`, `neg`, `div`, `fld`, `fld1`, `cld`, `rem`, `mod`, `mod1`
     - `divrem`, `fldmod`, `fldmod1`
     - `-`, `+`, `*`, `^`
