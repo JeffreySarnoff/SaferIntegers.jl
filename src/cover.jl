@@ -1,4 +1,4 @@
-for OP in (:checked_abs, :checked_neg)
+for OP in (:checked_abs, :checked_neg, :uabs)
     @eval begin
        @inline function $OP(x::T) where T<:SafeInteger
             ix = baseint(x)
