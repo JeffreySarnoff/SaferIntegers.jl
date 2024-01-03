@@ -314,6 +314,9 @@ end
 @testset "checked signed arithmetic" begin
     @test SaferIntegers.checked_neg(SafeInt16(7)) === SafeInt16(-7)
     @test SaferIntegers.checked_abs(SafeInt16(-7)) === SafeInt16(7)
+    @test SaferIntegers.uabs(SafeInt16(-7)) === SafeUInt16(7)
+    @test SaferIntegers.uabs(SafeUInt16(7)) === SafeUInt16(7)
+    @test SaferIntegers.uabs(SafeInt8(-128)) === SafeUInt8(128)
 
     @test SaferIntegers.checked_add(SafeInt32(7), SafeInt32(2)) === SafeInt32(7+2)
     @test SaferIntegers.checked_sub(SafeInt64(7), SafeInt64(2)) === SafeInt64(7-2)
