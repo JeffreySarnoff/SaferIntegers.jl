@@ -442,7 +442,9 @@ end
     @test fldmod(SafeInt32(7), Int16(-2)) === SafeInt32.(fldmod(7,-2))
     @test fldmod1(SafeInt32(7), Int16(-2)) === SafeInt32.(fldmod1(7,-2))
     @test SaferIntegers.divgcd(SafeInt32(7), Int16(-2)) === SafeInt32.(Base.divgcd(7,-2))
+end
 
+@testset "number theory 2" begin
     @test lcm(Int32(7), SafeInt16(2)) === SafeInt16(lcm(7,2))
     @test gcd(Int32(7), SafeInt16(-2)) === SafeInt16(gcd(7,-2))
     @test divrem(Int32(7), SafeInt16(2)) === SafeInt16.(divrem(7,2))
