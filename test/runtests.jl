@@ -556,3 +556,7 @@ end
     @test isempty(Test.detect_ambiguities(SaferIntegers))
 end
                                                     
+@testset "issue44" begin
+    @test  SafeUInt32(SafeUInt64(typemax(UInt32))) == SafeUInt32(typemax(UInt32))
+    @test  SafeUInt64(SafeUInt128(typemax(UInt64))) == SafeUInt64(typemax(UInt64))
+end

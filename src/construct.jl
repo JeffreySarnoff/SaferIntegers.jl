@@ -77,7 +77,7 @@ for (SS,SU, IS, IU) in (
      $SS(x::T) where T<:SafeSigned   = safeint(baseint($SS)(x))
      $SS(x::T) where T<:SafeUnsigned = safeint(baseint($SS)(baseint($SU)(x)))
      $SU(x::T) where T<:SafeSigned   = safeint(baseint($SU)(x))
-     $SU(x::T) where T<:SafeUnsigned = safeint(baseint($SU)(baseint($SS)(x)))
+     $SU(x::T) where T<:SafeUnsigned = safeint(baseint($SU)(x))
 
      $IS(x::T) where T<:SafeSigned   = $IS(baseint(x))
      $IS(x::T) where T<:SafeUnsigned = $IS(baseint(x))
