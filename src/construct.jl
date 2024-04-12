@@ -140,7 +140,7 @@ SafeUInt32(x::SafeUInt64)=baseint(SafeUInt32)(x)
 afeUInt64(x::SafeUInt128)=baseint(SafeUInt64)(x) 
 
 SafeUInt8(x::SafeUInt32)=baseint(SafeUInt8)(x)  
-SafeUInt16(x::SafeUIn64)=baseint(SafeUInt16)(x)  
+SafeUInt16(x::SafeUInt64)=baseint(SafeUInt16)(x)  
 SafeUInt32(x::SafeUInt128)=baseint(SafeUInt32)(x)  
 
 SafeUInt8(x::SafeUInt64)=baseint(SafeUInt8)(x)  
