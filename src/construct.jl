@@ -134,3 +134,14 @@ for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128,
     @eval $T(x::$T) = x
 end
         
+SafeUInt8(x::SafeUInt16)=baseint(SafeUInt8)(x)  
+SafeUInt16(x::SafeUInt32)=baseint(SafeUInt16)(x)  
+SafeUInt32(x::SafeUInt64)=baseint(SafeUInt32)(x)  
+afeUInt64(x::SafeUInt128)=baseint(SafeUInt64)(x) 
+
+SafeUInt8(x::SafeUInt32)=baseint(SafeUInt8)(x)  
+SafeUInt16(x::SafeUIn64)=baseint(SafeUInt16)(x)  
+SafeUInt32(x::SafeUInt128)=baseint(SafeUInt32)(x)  
+
+SafeUInt8(x::SafeUInt64)=baseint(SafeUInt8)(x)  
+SafeUInt16(x::SafeUIn128)=baseint(SafeUInt16)(x)  
