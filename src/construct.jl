@@ -75,7 +75,7 @@ end
 Base.Signed(::Type{SafeUInt128}) = SafeInt128
 Base.Unsigned(::Type{SafeInt128}) = SafeUInt128
 Base.Signed(x::SafeUInt128) = reinterpret(SafeInt128, x)
-Base.Unsigned(x::SafeInt128) = reinterpret(SafeUInt128, x)
+# Base.Unsigned(x::SafeInt128) = reinterpret(SafeUInt128, x)
 
 
 for (SS,SU, IS, IU) in (
