@@ -144,4 +144,4 @@ SafeUInt16(x::SafeUInt64)=baseint(SafeUInt16)(x)
 SafeUInt32(x::SafeUInt128)=baseint(SafeUInt32)(x)  
 
 SafeUInt8(x::SafeUInt64)=baseint(SafeUInt8)(x)  
-SafeUInt16(x::SafeUIn128)=baseint(SafeUInt16)(x)  
+SafeUInt16(x::SafeUInt128)=baseint(SafeUInt16)(x)  
