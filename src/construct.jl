@@ -69,7 +69,7 @@ for (S,I) in (
     @inline Base.Signed(x::$S) = reinterpret($I, x)
     @inline SafeSigned(x::$S) = reinterpret($I, x)
     @inline Base.Unsigned(::Type{$S}) = $I
-    @inline Base.Unsigned(x::S) = reinterpret($I, x)
+    @inline Base.Unsigned(x::$S) = reinterpret($I, x)
     @inline SafeUnsigned(x::$I) = reinterpret($S, x)
   end
 end
