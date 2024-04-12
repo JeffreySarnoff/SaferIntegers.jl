@@ -62,6 +62,23 @@ SafeUInt32(x::T) where T<:Union{SafeUInt8,SafeUInt16} =
 SafeUInt16(x::T) where T<:SafeUInt8 =
     safeint(UInt16(baseint(x)))
 
+for (S,I) in (
+    (:SafeUInt8, :SafeInt8), (:SafeUInt16, :SafeInt16), (:SafeUInt32, :SafeInt32), (:SafeUInt64, :SafeInt64) )
+  @eval begin
+    @inline Base.Signed(::Type{$S}) = $I
+    @inline Base.Signed(x::$S) = reinterpret($I, x)
+    @inline SafeSigned(x::$S) = reinterpret($I, x)
+    @inline Base.Unsigned(::Type{$S}) = $I
+    @inline Base.Unsigned(x::$S) = reinterpret($I, x)
+    @inline SafeUnsigned(x::$I) = reinterpret($S, x)
+  end
+end
+
+Base.Signed(::Type{SafeUInt128}) = SafeInt128
+Base.Unsigned(::Type{SafeInt128}) = SafeUInt128
+Base.Signed(x::SafeUInt128) = reinterpret(SafeInt128, x)
+Base.Unsigned(x::SafeInt128) = reinterpret(Unsigned(SafeInt128), x)
+
 
 for (SS,SU, IS, IU) in (
     (:SafeInt8, :SafeUInt8, :Int8, :UInt8), 
@@ -134,3 +151,14 @@ for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128,
     @eval $T(x::$T) = x
 end
         
+SafeUInt8(x::SafeUInt16)=baseint(SafeUInt8)(x)  
+SafeUInt16(x::SafeUInt32)=baseint(SafeUInt16)(x)  
+SafeUInt32(x::SafeUInt64)=baseint(SafeUInt32)(x)  
+afeUInt64(x::SafeUInt128)=baseint(SafeUInt64)(x) 
+
+SafeUInt8(x::SafeUInt32)=baseint(SafeUInt8)(x)  
+SafeUInt16(x::SafeUInt64)=baseint(SafeUInt16)(x)  
+SafeUInt32(x::SafeUInt128)=baseint(SafeUInt32)(x)  
+
+SafeUInt8(x::SafeUInt64)=baseint(SafeUInt8)(x)  
+SafeUInt16(x::SafeUInt128)=baseint(SafeUInt16)(x)  
