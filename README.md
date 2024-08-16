@@ -47,7 +47,7 @@ There are security implications for integer overflow in certain situations.
 
 - Your software may become part of a system on which the health or assets of others depends.
 
-- Your prefer to publish research results that are free of error, and you work with integers.
+- You prefer to publish research results that are free of error, and you work with integers.
 
 ### What Does This Package Offer?
 
