@@ -61,7 +61,7 @@ function changetype(ex::Expr)
     elseif isa(ex, Integer)
         return Int === Int64 ? SafeInt64(ex) : SafeInt32(ex)
     elseif (Meta.isexpr(ex, :call, 2) && isa(ex.args[2], Integer))
-        return changetype_of_cast_int(ex)     
+        return changetype_of_cast_int(ex)
     elseif (Meta.isexpr(ex, :(=), 2) && isa(ex.args[2], Integer) && isa(ex.args[1], Symbol))
         ex.args[2] = Int === Int64 ? SafeInt64(ex.args[2]) : SafeInt32(ex.args[2])
         return ex
@@ -76,10 +76,25 @@ function changetype(ex::Expr)
     end
 end
 
+if VERSION < v"1.5"
+   # calls to include(f) are changed to include_mapexpr_compat(modul, f) so that
+   # @changetype can apply recursively to included files.
+   function include_mapexpr_compat(modul, filename::AbstractString)
+      # use the undocumented parse_input_line function so that we preserve
+      # the filename and line-number information.
+      s = string("begin; ", read(filename, String), "\nend\n")
+      expr = Base.parse_input_line(s, filename=filename)
+      Core.eval(modul, changetype(expr))
+   end
+end
 
 function changetypes(ex::Expr)
     if Meta.isexpr(ex, :call, 2) && ex.args[1] == :include
-        return :($include(@__MODULE__, $(ex.args[2])))
+        if VERSION < v"1.5"
+            return Expr(:call, include_mapexpr_compat, :(@__MODULE__), ex.args[2:end]...)
+        else
+            return Expr(ex.head, ex.args[1], changetype, ex.args[2:end]...)
+        end
     elseif Meta.isexpr(ex, :call) && ex.args[1] in changefuncs
         return Expr(:call, Core.eval(SaferIntTypes, ex.args[1]), changetype.(ex.args[2:end])...)
     elseif Meta.isexpr(ex, :., 2) && ex.args[1] in changefuncs && Meta.isexpr(ex.args[2], :tuple)
@@ -90,7 +105,7 @@ function changetypes(ex::Expr)
     end
 end
 
-function changetype_of_cast_int(ex::Expr) 
+function changetype_of_cast_int(ex::Expr)
    if @capture(ex, Int64(_))
       ex.args[1] = :SafeInt64
    elseif @capture(ex, Int32(_))
@@ -115,7 +130,7 @@ function changetype_of_cast_int(ex::Expr)
    return ex
 end
 
-function changetype_of_assigned_cast_int(ex::Expr) 
+function changetype_of_assigned_cast_int(ex::Expr)
    if @capture(ex, _=Int64(_))
       ex.args[2].args[1] = :SafeInt64
    elseif @capture(ex, _=Int32(_))
@@ -138,16 +153,6 @@ function changetype_of_assigned_cast_int(ex::Expr)
       ex.args[2].args[1] = :SafeUInt128
    end
    return ex
-end
-
-# calls to include(f) are changed to include(T, modul, f) so that
-# @changetype can apply recursively to included files.
-function include(modul, filename::AbstractString)
-    # use the undocumented parse_input_line function so that we preserve
-    # the filename and line-number information.
-    s = string("begin; ", read(filename, String), "\nend\n")
-    expr = Base.parse_input_line(s, filename=filename)
-    Core.eval(modul, changetype(expr))
 end
 
 for F in binaryfuncs
