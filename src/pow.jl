@@ -20,7 +20,7 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
 
     function Base.:(^)(x::$T, y::$T)
         if 1 < x < 127
-            if y <= $A[x] 
+            if y <= $A[x]
                 $T($I(x)^$I(y))
             else
                 throw(OverflowError(string(x,"^",y)))
@@ -43,7 +43,7 @@ for (T,A,I) in ((:SafeInt128, :maxpowInt128, :Int128), (:SafeInt64, :maxpowInt64
         end
         return $T(floor($I,z+0.49999999999999994))
     end
-    
+
   end
 end
 

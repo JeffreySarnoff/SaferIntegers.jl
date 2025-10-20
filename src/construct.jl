@@ -81,9 +81,9 @@ Base.Unsigned(x::SafeInt128) = reinterpret(Unsigned(SafeInt128), x)
 
 
 for (SS,SU, IS, IU) in (
-    (:SafeInt8, :SafeUInt8, :Int8, :UInt8), 
+    (:SafeInt8, :SafeUInt8, :Int8, :UInt8),
     (:SafeInt16, :SafeUInt16, :Int16, :UInt16),
-    (:SafeInt32, :SafeUInt32, :Int32, :UInt32), 
+    (:SafeInt32, :SafeUInt32, :Int32, :UInt32),
     (:SafeInt64, :SafeUInt64, :Int64, :UInt64),
     (:SafeInt128, :SafeUInt128, :Int128, :UInt128) )
    @eval begin
@@ -122,9 +122,9 @@ for (S,I) in (
     Base.Float32(x::$S) = Float32(reinterpret($I, x))
     Base.Float16(x::$S) = Float16(reinterpret($I, x))
     Base.BigFloat(x::$S) = BigFloat(reinterpret($I, x))
-    Base.BigInt(x::$S) = BigInt(reinterpret($I, x))        
+    Base.BigInt(x::$S) = BigInt(reinterpret($I, x))
   end
-end    
+end
 
 for (S,I) in (
     (:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), (:SafeInt64, :Int64), (:SafeInt128, :Int128) )
@@ -133,7 +133,7 @@ for (S,I) in (
             !isinteger(x) && throw(DomainError("$x"))
             typemin($I) < x <typemax($I) ? $S($I(x)) : throw(OverflowError("$x"))
         end
-    end    
+    end
 end
 
 for (S,I) in (
@@ -143,22 +143,22 @@ for (S,I) in (
             !isinteger(x) && throw(DomainError("$x"))
             typemin($I) < x <typemax($I) ? $S($I(x)) : throw(OverflowError("$x"))
         end
-    end    
+    end
 end
 
 for T in (:SafeInt8, :SafeInt16, :SafeInt32, :SafeInt64, :SafeInt128,
           :SafeUInt8, :SafeUInt16, :SafeUInt32, :SafeUInt64, :SafeUInt128)
     @eval $T(x::$T) = x
 end
-        
-SafeUInt8(x::SafeUInt16)=baseint(SafeUInt8)(x)  
-SafeUInt16(x::SafeUInt32)=baseint(SafeUInt16)(x)  
-SafeUInt32(x::SafeUInt64)=baseint(SafeUInt32)(x)  
-afeUInt64(x::SafeUInt128)=baseint(SafeUInt64)(x) 
 
-SafeUInt8(x::SafeUInt32)=baseint(SafeUInt8)(x)  
-SafeUInt16(x::SafeUInt64)=baseint(SafeUInt16)(x)  
-SafeUInt32(x::SafeUInt128)=baseint(SafeUInt32)(x)  
+SafeUInt8(x::SafeUInt16)=baseint(SafeUInt8)(x)
+SafeUInt16(x::SafeUInt32)=baseint(SafeUInt16)(x)
+SafeUInt32(x::SafeUInt64)=baseint(SafeUInt32)(x)
+afeUInt64(x::SafeUInt128)=baseint(SafeUInt64)(x)
 
-SafeUInt8(x::SafeUInt64)=baseint(SafeUInt8)(x)  
-SafeUInt16(x::SafeUInt128)=baseint(SafeUInt16)(x)  
+SafeUInt8(x::SafeUInt32)=baseint(SafeUInt8)(x)
+SafeUInt16(x::SafeUInt64)=baseint(SafeUInt16)(x)
+SafeUInt32(x::SafeUInt128)=baseint(SafeUInt32)(x)
+
+SafeUInt8(x::SafeUInt64)=baseint(SafeUInt8)(x)
+SafeUInt16(x::SafeUInt128)=baseint(SafeUInt16)(x)
