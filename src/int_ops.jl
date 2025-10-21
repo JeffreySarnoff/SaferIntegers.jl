@@ -31,7 +31,7 @@ end
 function abs(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError("cannot take `abs(typemin)`"))
   return safeint(abs(baseint(x)))
-end  
+end
 abs(x::T) where T<:SafeUnsigned = x
 
 @inline function Base.:(~)(x::T) where T<:SafeSigned
@@ -45,7 +45,7 @@ end
 @inline function Base.:(-)(x::T) where T<:SafeSigned
   x === typemin(x) && throw(OverflowError("cannot negate typemin"))
   return safeint(-(baseint(x)))
-end  
+end
 
 @inline function Base.:(-)(x::T) where T<:SafeUnsigned
     throw(OverflowError("cannot negate unsigned type"))
@@ -53,7 +53,7 @@ end
 
 @inline function copysign(x::T, y::T) where T<:SafeSigned
   return safeint(baseint( signbit(y) ? -abs(x) : abs(x) ))
-end  
+end
 @inline copysign(x::T, y::T) where T<:SafeUnsigned = x
 @inline copysign(x::SafeSigned, y::Float16) = safeint( copysign(baseint(x), y) )
 @inline copysign(x::SafeSigned, y::Float32) = safeint( copysign(baseint(x), y) )
@@ -62,7 +62,7 @@ end
 
 @inline function flipsign(x::T, y::T) where T<:SafeSigned
   return safeint(baseint( signbit(y) ? -(x) : x ))
-end  
+end
 @inline flipsign(x::T, y::T) where T<:SafeUnsigned = x
 
 typemin(::Type{T}) where {T<:SafeInteger} = safeint(typemin(baseint(T)))
@@ -97,11 +97,11 @@ end
 
 
 function abs2(x::T) where T<:SafeSigned
-  x > maxabs2(T) && throw(OverflowError("$x^2 exceeds $T"))   
+  x > maxabs2(T) && throw(OverflowError("$x^2 exceeds $T"))
   return x * x
 end
 
 function abs2(x::T) where T<:SafeUnsigned
-  x > maxabs2(T) && throw(OverflowError("$x^2 exceeds $T"))   
+  x > maxabs2(T) && throw(OverflowError("$x^2 exceeds $T"))
   return x * x
 end

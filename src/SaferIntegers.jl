@@ -11,12 +11,13 @@ import Base.Checked: checked_neg, checked_abs, checked_add, checked_sub, checked
                      add_with_overflow, sub_with_overflow, mul_with_overflow
 
 import Base: promote_rule,
+    Int8, Int16, Int32, Int64, Int128, UInt8, UInt16, UInt32, UInt64, UInt128,
     string, bitstring, show, repr, parse, tryparse,
     (~), (&), (|), (⊻), (>>>), (>>), (<<),
     (<), (<=), (==), (!=), (>=), (>),
     isequal, isless,
     abs, abs2, uabs,
-    (+), (-), (*), (/), (\), (^), 
+    (+), (-), (*), (/), (\), (^),
     div, fld, fld1, cld, rem, mod, mod1, divrem, fldmod, fldmod1,
     zero, one, sizeof, typemax, typemin, widen,
     signbit, sign, count_ones, count_zeros, ndigits0z,

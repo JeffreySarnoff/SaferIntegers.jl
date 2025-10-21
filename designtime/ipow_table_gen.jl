@@ -1,16 +1,16 @@
 #=
     This code is used to generate the integer power lookup tables.
-    
+
     result of ipow(ipow_base::T, ipow_power::T) where {T}
       - either an overflow exception is generated
       - orelse the result is a positive integer of type `T`
           - result = ipow_base^ipow_power
           - result == BigInt(ipow_base)^BigInt(ipow_power)
-      
+
     Each result is determined through exaustive search for overflow
-    using Base.Int128s and DecFP.Dec128s. 
-    
-    The results are independently validated by comparison with 
+    using Base.Int128s and DecFP.Dec128s.
+
+    The results are independently validated by comparison with
       the results obtained using a different algorithmic approach
       and computed using BigInts exclusively.
 =#
@@ -31,7 +31,7 @@ function pospow_unsafemin(base::T) where {T<:Signed}
     pows = T(4096):T(-1):T(1)
     for p in pows
         pospow_is_safe(base, p) && return p+1
-    end    
+    end
     throw(ErrorException("Should not be reached"))
 end
 
@@ -46,7 +46,7 @@ function pospow_is_safe(base::T, power::T) where {T<:Signed}
     catch
         converted_result = biresult
         issafe = false
-    end    
+    end
     issafe = issafe  & iszero(cmp(biresult,tresult)) & iszero(cmp(converted_result, biresult))
     return issafe
 end
@@ -56,7 +56,7 @@ function pospow_unsafemin(base::T) where {T<:Unsigned}
     pows = T(4096):T(-1):T(1)
     for p in pows
         pospow_is_safe(base, p) && return p+1
-    end    
+    end
     throw(ErrorException("Should not be reached"))
 end
 
@@ -71,7 +71,7 @@ function pospow_is_safe(base::T, power::T) where {T<:Unsigned}
     catch
         converted_result = biresult
         issafe = false
-    end    
+    end
     issafe = issafe  & iszero(cmp(biresult,tresult)) & iszero(cmp(converted_result, biresult))
     return issafe
 end
@@ -107,7 +107,7 @@ const F128 = Quadmath.Float128
       bit113 is set, bits112..1 are cleared
    maxintfloat(Float128) ~= 1.0e34 D1
       10384,593717,069655,257060,992658,440192
- 
+
    We choose BigFloat precision to be large enough to resolve any outlier roundings,
      setprecision(BigFloat, 5*128)
 =#
@@ -168,3 +168,4 @@ safemaxUInt32pows = Int8[0, 31, 20, 15, 13, 12, 11, 10, 10, 9, 9, 8, 8, 8, 8, 7,
 safemaxUInt16pows = Int8[0, 15, 10, 7, 6, 6, 5, 5, 5, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 
 safemaxUInt8pows = Int8[0, 7, 5, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+=#

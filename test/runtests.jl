@@ -43,7 +43,7 @@ end
     @test baseint(Bool) === Bool
     @test safeint(true) === true
     @test baseint(true) === true
-    
+
     @test Float16(SafeInt(5)) === Float16(5)
     @test BigInt(SafeInt(5)) == BigInt(5)
     @test BigFloat(SafeInt(5)) == BigFloat(5)
@@ -107,7 +107,7 @@ end
     @test mod(SafeInt16(100), SafeInt16(15)) === SafeInt16(mod(100, 15))
     @test mod1(SafeInt16(100), SafeInt16(15)) === SafeInt16(mod1(100, 15))
     @test rem(SafeInt16(100), SafeInt16(15)) === SafeInt16(rem(100, 15))
-    
+
     @test_throws OverflowError (+)(typemax(SafeInt16), SafeInt8(20))
     @test_throws OverflowError (-)(typemin(SafeInt16), SafeInt8(20))
     @test_throws OverflowError (*)(typemax(SafeInt16), SafeInt8(100))
@@ -145,7 +145,7 @@ end
 end
 
 @testset "throw" begin
-    for (S,T) in ((:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32), 
+    for (S,T) in ((:SafeInt8, :Int8), (:SafeInt16, :Int16), (:SafeInt32, :Int32),
                   (:SafeInt64, :Int64), (:SafeInt128, :Int128))
        @eval begin
             @test one($S) === $S(one($T))
@@ -155,13 +155,13 @@ end
             @is_error( $S(typemin($T)) - one($T) )
             @is_error( $S(typemax($T)) + one($S) )
             @is_error( $S(typemin($T)) - one($S) )
-       end         
+       end
     end
 
-    for (S,T) in ((:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32), 
+    for (S,T) in ((:SafeUInt8, :UInt8), (:SafeUInt16, :UInt16), (:SafeUInt32, :UInt32),
                   (:SafeUInt64, :UInt64), (:SafeUInt128, :UInt128))
        @eval begin
-            @test one($S) === $S(one($T))        
+            @test one($S) === $S(one($T))
             @test one($T) === $T(one($S))
             @no_error( $S(typemax($T)) )
             @is_error( $S(typemax($T)) + one($T) )
@@ -170,7 +170,7 @@ end
             @is_error( zero($S) - one($S) )
             @test $S(5) === $S($T(5))
             @test $T(5) === $T($S(5))
-       end         
+       end
     end
 end
 
@@ -203,27 +203,27 @@ end
     @test SafeInt64(7) ==  SafeInt32(7)
     @test SafeInt32(7) !=  SafeInt32(2)
     @test SafeInt16(7) >  SafeInt32(2)
-    @test SafeInt8(7)  >= SafeInt64(2) 
+    @test SafeInt8(7)  >= SafeInt64(2)
     @test SafeInt16(2) <  SafeInt32(7)
-    @test SafeInt8(2)  <= SafeInt64(7) 
+    @test SafeInt8(2)  <= SafeInt64(7)
     @test isless(SafeInt16(2), SafeInt16(7))
     @test isequal(SafeInt16(2), SafeInt64(2))
 
     @test SafeInt64(7) ==  Int32(7)
     @test SafeInt32(7) !=  Int32(2)
     @test SafeInt16(7) >   Int32(2)
-    @test SafeInt8(7)  >=  Int64(2) 
+    @test SafeInt8(7)  >=  Int64(2)
     @test SafeInt16(2) <   Int32(7)
-    @test SafeInt8(2)  <=  Int64(7) 
+    @test SafeInt8(2)  <=  Int64(7)
     @test isless(SafeInt16(2), Int16(7))
     @test isequal(SafeInt16(2), Int64(2))
 
     @test Int64(7) ==  SafeInt32(7)
     @test Int32(7) !=  SafeInt32(2)
     @test Int16(7) >  SafeInt32(2)
-    @test Int8(7)  >= SafeInt64(2) 
+    @test Int8(7)  >= SafeInt64(2)
     @test Int16(2) <  SafeInt32(7)
-    @test Int8(2)  <= SafeInt64(7) 
+    @test Int8(2)  <= SafeInt64(7)
     @test isless(Int16(2), SafeInt16(7))
     @test isequal(Int16(2), SafeInt64(2))
 end
@@ -335,11 +335,11 @@ end
     @test SaferIntegers.checked_mod(SafeInt32(7), SafeInt16(-2)) === SafeInt32(mod(7,-2))
     @test SaferIntegers.checked_fld(SafeInt32(7), SafeInt16(2)) === SafeInt32(fld(7,2))
     @test SaferIntegers.checked_cld(SafeInt32(7), SafeInt16(2)) === SafeInt32(cld(7,2))
-    
+
     @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
     @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
     @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeInt32(2))[2] === false
-    
+
     @test SaferIntegers.add_with_overflow(SafeInt32(7), SafeInt16(2))[2] === false
     @test SaferIntegers.sub_with_overflow(SafeInt32(7), SafeInt16(2))[2] === false
     @test SaferIntegers.mul_with_overflow(SafeInt32(7), SafeInt16(2))[2] === false
@@ -363,14 +363,14 @@ end
     @test SaferIntegers.checked_mod(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(mod(7,2))
     @test SaferIntegers.checked_fld(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(fld(7,2))
     @test SaferIntegers.checked_cld(SafeUInt32(7), SafeUInt16(2)) === SafeUInt32(cld(7,2))
-    
+
     @test SaferIntegers.add_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false
     @test SaferIntegers.sub_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false
     @test SaferIntegers.mul_with_overflow(SafeUInt32(7), SafeUInt32(2))[2] === false
-    
+
     @test SaferIntegers.add_with_overflow(SafeUInt32(7), SafeUInt16(2))[2] === false
     @test SaferIntegers.sub_with_overflow(SafeUInt32(7), SafeUInt16(2))[2] === false
-    @test SaferIntegers.mul_with_overflow(SafeUInt32(7), SafeUInt16(2))[2] === false   
+    @test SaferIntegers.mul_with_overflow(SafeUInt32(7), SafeUInt16(2))[2] === false
 end
 
 @testset "checked mixed arithmetic" begin
@@ -460,7 +460,7 @@ end
     @test copysign(SafeInt16(-1), 1) === SafeInt16(1)
     @test copysign(SafeInt16(1), SafeInt32(-1)) === SafeInt16(-1)
     @test copysign(SafeInt16(-1), SafeInt32(1)) === SafeInt16(1)
-    
+
     @test flipsign(SafeInt32(1), SafeInt32(-1)) === SafeInt32(-1)
     @test flipsign(SafeInt32(-1), SafeInt32(1)) === SafeInt32(-1)
     @test flipsign(SafeInt16(1), -1.0) === SafeInt16(-1)
@@ -471,9 +471,9 @@ end
     @test flipsign(SafeInt16(-1), 1) === SafeInt16(-1)
     @test flipsign(SafeInt16(1), SafeInt32(-1)) === SafeInt16(-1)
     @test flipsign(SafeInt32(-1), SafeInt16(1)) === SafeInt32(-1)
-    
+
     @test -SafeInt(1) === SafeInt(-1)
-    
+
     @test abs2(SafeInt(5)) === SafeInt(25)
     @test abs2(SafeUInt(5)) === SafeUInt(25)
 end
@@ -521,11 +521,11 @@ end
     @test_throws OverflowError SafeInt16(32)^SafeInt16(32)
     @test_throws DomainError SafeInt16(32)^SafeInt16(-2)
     @test_throws DomainError SafeInt64(130)^SafeInt64(-2)
-    
+
     @test SafeInt64(40)^2 === SafeInt64(Int64(40^2))
     @test Int64(40)^SafeInt32(2) === Int64(40)^2
     @test SafeInt64(40)^2 === SafeInt64(Int64(40)^2)
-    
+
     @test SaferIntegers.ipower(SafeInt32(2), SafeInt32(3)) === SafeInt32(8)
     @test_throws OverflowError SaferIntegers.ipower(SafeInt16(16), SafeInt16(16))
     @test_throws OverflowError SaferIntegers.ipower(typemax(SafeInt64), typemax(SafeInt64))
@@ -553,7 +553,7 @@ end
 @testset "ambiguities" begin
     @test isempty(Test.detect_ambiguities(SaferIntegers))
 end
-                                                    
+
 @testset "issue44" begin
     @test  SafeUInt32(SafeUInt64(typemax(UInt32))) == SafeUInt32(typemax(UInt32))
     @test  SafeUInt64(SafeUInt128(typemax(UInt64))) == SafeUInt64(typemax(UInt64))
